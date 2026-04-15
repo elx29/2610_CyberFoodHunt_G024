@@ -14,8 +14,9 @@ CREATE TABLE restaurant (
     opening_hours TEXT,
     transport_mode TEXT,
     cuisine TEXT,
-    is_halal BOOLEAN,
-    price_range TEXT
+    is_halal INTEGER,
+    min_price INTEGER CHECK(min_price >= 0),
+    max_price INTEGER CHECK(max_price >= min_price)
 );
 
 --3.Post Table
@@ -49,6 +50,7 @@ CREATE TABLE review (
     user_id INTEGER NOT NULL,
     post_id INTEGER,
     event_id INTEGER,
+    restaurant_id INTEGER,
     comment TEXT,
     image TEXT, -- Assuming image is stored as a URL or file path
     rating INTEGER CHECK(rating >= 1 AND rating <= 5),
