@@ -1,3 +1,11 @@
+-- 0. Cleanup: Delete old tables if they exist
+DROP TABLE IF EXISTS bookmark;
+DROP TABLE IF EXISTS review;
+DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS event;
+DROP TABLE IF EXISTS restaurant;
+DROP TABLE IF EXISTS user;
+
 --1.User Table
 CREATE TABLE user (
     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -38,6 +46,8 @@ CREATE TABLE event (
     user_id INTEGER NOT NULL,
     event_name TEXT NOT NULL,
     event_location TEXT NOT NULL,
+    description TEXT,
+    image TEXT, -- Assuming image is stored as a URL or file path
     start_date DATE,
     end_date DATE,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -58,4 +68,16 @@ CREATE TABLE review (
     FOREIGN KEY (user_id) REFERENCES user(user_id),
     FOREIGN KEY (post_id) REFERENCES post(post_id),
     FOREIGN KEY (event_id) REFERENCES event(event_id)
+);
+
+--6. Bookmark Table
+CREATE TABLE bookmark (
+    bookmark_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    restaurant_id INTEGER,
+    saved_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -- One bookmark per user per restaurant
+    UNIQUE (user_id, restaurant_id),
+    FOREIGN KEY (user_id)       REFERENCES user(user_id),
+    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
 );
