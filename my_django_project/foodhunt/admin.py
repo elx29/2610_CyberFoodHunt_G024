@@ -7,3 +7,4 @@ admin.site.register(Restaurant)
 admin.site.register(User)
 admin.site.register(Post)
 admin.site.register(Review)
+

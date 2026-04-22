@@ -81,3 +81,4 @@ CREATE TABLE bookmark (
     FOREIGN KEY (user_id)       REFERENCES user(user_id),
     FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
 );
+

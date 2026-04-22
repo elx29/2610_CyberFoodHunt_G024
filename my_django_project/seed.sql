@@ -50,3 +50,4 @@ UNION ALL
 SELECT 'Reviews', COUNT(*) FROM review
 UNION ALL
 SELECT 'Bookmarks', COUNT(*) FROM bookmark;
+

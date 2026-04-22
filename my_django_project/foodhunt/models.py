@@ -1,10 +1,3 @@
-# This is an auto-generated Django model module.
-# You'll have to do the following manually to clean this up:
-#   * Rearrange models' order
-#   * Make sure each model has one field with primary_key=True
-#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
-# Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
 
@@ -13,6 +6,9 @@ class Bookmark(models.Model):
     user = models.ForeignKey('User', models.CASCADE)
     restaurant = models.ForeignKey('Restaurant', models.CASCADE, blank=True, null=True)
     saved_at = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user} saved {self.restaurant}"
 
     class Meta:
         managed = True
@@ -30,6 +26,9 @@ class Event(models.Model):
     end_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True)
 
+    def __str__(self):
+        return self.event_name
+    
     class Meta:
         managed = True
         db_table = 'event'
@@ -43,6 +42,9 @@ class Post(models.Model):
     description = models.TextField(blank=True, null=True)
     image = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         managed = True
@@ -61,7 +63,7 @@ class Restaurant(models.Model):
     max_price = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return self.restaurant_name  # Or username for the User class
+        return self.restaurant_name  # username for the User class
 
     class Meta:
         managed = True
@@ -73,16 +75,20 @@ class Review(models.Model):
     user = models.ForeignKey('User', models.CASCADE)
     post = models.ForeignKey(Post, models.CASCADE, blank=True, null=True)
     event = models.ForeignKey(Event, models.CASCADE, blank=True, null=True)
-    restaurant_id = models.IntegerField(blank=True, null=True)
+    restaurant = models.ForeignKey('Restaurant', models.CASCADE, blank=True, null=True)
     comment = models.TextField(blank=True, null=True)
     image = models.TextField(blank=True, null=True)
     rating = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True)
 
+    def __str__(self):
+        return f"{self.user} — {self.rating}★"
+
     class Meta:
         managed = True
         db_table = 'review'
 
+    
 
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
@@ -90,6 +96,11 @@ class User(models.Model):
     email = models.TextField(unique=True)
     password = models.CharField()
 
+    def __str__(self):
+        return self.username  # username for the User class
+    
     class Meta:
         managed = True
         db_table = 'user'
+
+    
