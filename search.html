@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CyberBites - The Curated Collective</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#316e92",
+                        "error-container": "#ffdad6",
+                        "surface": "#effcff",
+                        "inverse-surface": "#1f3438",
+                        "on-tertiary-container": "#d4ecff",
+                        "surface-tint": "#444cd6",
+                        "primary": "#4f57e1",
+                        "on-surface": "#081e23",
+                        "inverse-on-surface": "#def5fb",
+                        "on-tertiary-fixed-variant": "#004c6d",
+                        "on-secondary-fixed": "#001e2e",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#454554",
+                        "on-primary-fixed": "#01006e",
+                        "tertiary": "#0e5678",
+                        "primary-fixed-dim": "#bfc2ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#a3cbea",
+                        "primary-container": "#4f57e1",
+                        "tertiary-fixed-dim": "#94cdf5",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#e1f8fe",
+                        "surface-bright": "#effcff",
+                        "primary-fixed": "#e0e0ff",
+                        "on-primary-container": "#e8e6ff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#d0e6ec",
+                        "surface-container": "#dbf2f8",
+                        "outline-variant": "#c6c5d7",
+                        "on-background": "#081e23",
+                        "on-secondary-container": "#3b637e",
+                        "tertiary-fixed": "#c7e7ff",
+                        "outline": "#767686",
+                        "on-primary-fixed-variant": "#292fbe",
+                        "surface-variant": "#d0e6ec",
+                        "secondary": "#3b637d",
+                        "on-tertiary-fixed": "#001e2e",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#b7dffe",
+                        "surface-container-high": "#d5ecf2",
+                        "inverse-primary": "#bfc2ff",
+                        "secondary-fixed": "#c8e6ff",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#c7dee4",
+                        "on-secondary-fixed-variant": "#214b64",
+                        "background": "#effcff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scrapbook-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .sticker-rotate-1 { transform: rotate(1.2deg); }
+        .sticker-rotate-neg-1 { transform: rotate(-0.8deg); }
+        .paper-shadow { box-shadow: 0 4px 20px -2px rgba(79, 87, 225, 0.08); }
+        .scrapbook-bg {
+            background-image: radial-gradient(#4f57e1 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            opacity: 0.05;
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background min-h-screen selection:bg-primary-container selection:text-white">
+<!-- Side Navigation Bar (Desktop) -->
+<aside class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-8 bg-white dark:bg-[#0d2a30] w-72 shadow-2xl shadow-indigo-100/50 pt-10">
+<div class="px-8 mb-10">
+<h2 class="font-['Space_Grotesk'] font-bold text-[#4f57e1] text-xl uppercase tracking-widest">Cyber Food Hunt</h2>
+<p class="font-['Hanken_Grotesk'] text-[10px] text-secondary opacity-50 uppercase tracking-[0.2em] mt-1">MMU Cyberjaya Food Journal</p>
+</div>
+<nav class="flex flex-col gap-2 px-4 mb-auto">
+<a class="flex items-center gap-4 text-slate-500 px-5 py-4 -rotate-1 hover:bg-slate-100 hover:rotate-0 transition-all duration-300 ease-out hover:translate-x-2 font-headline text-sm uppercase tracking-widest" href="main.html">
+<span class="material-symbols-outlined">home</span>
+            Home
+        </a>
+<a class="flex items-center gap-4 text-slate-500 px-5 py-4 -rotate-1 hover:bg-slate-100 hover:rotate-0 transition-all duration-300 ease-out hover:translate-x-2 font-headline text-sm uppercase tracking-widest" href="review.html">
+<span class="material-symbols-outlined">edit_note</span>
+            Reviews
+        </a>
+<a class="flex items-center gap-4 bg-primary text-white rounded-lg px-5 py-4 font-bold rotate-1 shadow-lg font-headline text-sm uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">search</span>
+            Search
+        </a>
+<a class="flex items-center gap-4 text-slate-500 px-5 py-4 -rotate-1 hover:bg-slate-100 hover:rotate-0 transition-all duration-300 ease-out hover:translate-x-2 font-headline text-sm uppercase tracking-widest" href="userprofile.html">
+<span class="material-symbols-outlined">person</span>
+            Profile
+        </a>
+</nav>
+<div class="mt-auto px-6 border-t border-slate-100 pt-6">
+<div class="flex items-center gap-3 mb-6 px-2">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">face</span>
+</div>
+<div>
+<div class="font-bold text-sm">The Curator</div>
+<div class="text-xs text-slate-400">MMU Cyberjaya</div>
+</div>
+</div>
+<button class="w-full bg-primary-container text-white py-4 rounded-xl font-bold font-headline tracking-wider hover:opacity-90 transition-opacity shadow-lg shadow-primary/25">
+            New Review
+        </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-72 pt-16 px-6 pb-20 relative min-h-screen">
+<div class="scrapbook-bg absolute inset-0 pointer-events-none"></div>
+<div class="max-w-6xl mx-auto relative z-10">
+<!-- Header -->
+<header class="mb-12 relative">
+<div class="absolute -top-8 -left-8 pointer-events-none opacity-20">
+<span class="material-symbols-outlined text-8xl text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<h1 class="font-headline text-5xl md:text-6xl font-black tracking-tighter text-primary mb-2">Cyber Food Hunting</h1>
+<p class="font-body text-on-surface-variant text-lg max-w-xl">Curated flavors around MMU Cyberjaya. Filter by transport, vibe, or budget.</p>
+</header>
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Filter Section -->
+<section class="lg:w-80 shrink-0">
+<div class="mb-6 px-1">
+<label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary mb-3 block">Search Restaurant</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/40 text-xl">search</span>
+<input class="w-full pl-12 pr-4 py-4 bg-white border-none rounded-2xl text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-secondary/40 shadow-sm font-headline" placeholder="Enter name..." type="text"/>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-2xl shadow-xl sticker-rotate-neg-1 relative overflow-hidden">
+<div class="absolute top-2 right-2 text-primary/10">
+<span class="material-symbols-outlined text-4xl">filter_alt</span>
+</div>
+<h3 class="font-headline font-bold text-xl mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">tune</span> Filters
+                    </h3>
+<!-- Price Range -->
+<div class="mb-8">
+<label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Price Range</label>
+<div class="flex gap-3">
+<button class="bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$</button>
+<button class="bg-primary text-white w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-neg-1 hover:scale-110 transition-all shadow-lg">$$</button>
+<button class="bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$$$</button>
+</div>
+</div>
+<!-- Transport Toggle -->
+<div class="mb-8">
+<label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Public Transport</label>
+<div class="space-y-3">
+<label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+<input checked="" class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
+<span class="text-sm font-bold font-headline uppercase tracking-wider">MRT</span>
+</label>
+<label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+<input checked="" class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
+<span class="text-sm font-bold font-headline uppercase tracking-wider">Bus</span>
+</label>
+</div>
+</div>
+<!-- Cuisine Type -->
+<div class="mb-8">
+<label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Cuisine Type</label>
+<div class="space-y-3">
+<label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+<input checked="" class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
+<span class="text-sm font-bold font-headline uppercase tracking-wider">Halal</span>
+</label>
+<label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+<input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
+<span class="text-sm font-bold font-headline uppercase tracking-wider">Late Night</span>
+</label>
+</div>
+</div>
+<!-- Open Now Toggle -->
+<div class="flex items-center justify-between p-4 bg-primary/5 rounded-2xl border border-primary/10">
+<div>
+<p class="font-black font-headline text-xs uppercase tracking-tight">Open Now</p>
+<p class="text-[9px] text-secondary/60 uppercase font-bold">Active spots only</p>
+</div>
+<div class="relative inline-block w-10 h-5 transition duration-200 ease-in-out">
+<input class="absolute w-5 h-5 rounded-full bg-white border-2 border-primary appearance-none cursor-pointer checked:translate-x-5 transition-transform z-10" id="toggle" type="checkbox"/>
+<label class="block h-5 overflow-hidden bg-primary/20 rounded-full cursor-pointer" for="toggle"></label>
+</div>
+</div>
+</div>
+</section>
+<!-- Results Section -->
+<section class="flex-1">
+<div class="flex items-center justify-between mb-8 px-4">
+<p class="text-sm font-medium text-on-surface-variant font-headline">Found <span class="text-primary font-black">24 SPOTS</span> in Cyberjaya</p>
+<div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full shadow-sm border border-slate-100">
+<span class="material-symbols-outlined text-primary text-lg">sort</span>
+<select class="bg-transparent border-none text-xs font-black uppercase tracking-widest text-primary focus:ring-0 cursor-pointer p-0">
+<option>Top Rated</option>
+<option>Closest</option>
+<option>Newest</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-8">
+<!-- Result Card 1 -->
+<div class="relative group">
+<div class="bg-surface-container-highest p-4 rounded-xl sticker-rotate-1 shadow-lg z-20 relative translate-x-2 translate-y-2 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-300">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-40 h-40 flex-shrink-0 bg-white rounded-lg flex items-center justify-center border border-slate-50">
+<span class="material-symbols-outlined text-6xl text-primary/20">ramen_dining</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline font-black text-2xl text-primary tracking-tight">Cyber Noodle House</h3>
+<div class="bg-primary text-white text-xs px-3 py-1 rounded font-black sticker-rotate-neg-1 shadow-md">4.8/5</div>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-slate-400 text-sm">directions_bus</span>
+<span class="text-xs text-slate-500 font-bold uppercase tracking-widest">5 mins from Bus Stop A</span>
+</div>
+<div class="flex flex-wrap gap-3">
+<span class="bg-secondary-container px-3 py-1 rounded-full text-[10px] font-black font-headline text-on-secondary-container uppercase tracking-widest shadow-sm">Student Deal</span>
+<span class="bg-white/60 px-3 py-1 rounded-full text-[10px] font-black font-headline text-on-surface-variant uppercase tracking-widest shadow-sm">Halal</span>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute inset-0 bg-primary/10 rounded-xl -rotate-1 z-10"></div>
+<div class="absolute -bottom-4 -right-4 pointer-events-none z-30">
+<span class="material-symbols-outlined text-5xl text-primary/20" style="font-variation-settings: 'FILL' 1;">star_rate</span>
+</div>
+</div>
+<!-- Result Card 2 -->
+<div class="relative group">
+<div class="bg-white p-4 rounded-xl sticker-rotate-neg-1 shadow-lg z-20 relative -translate-x-2 group-hover:translate-x-0 transition-transform duration-300 border border-slate-100">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-40 h-40 flex-shrink-0 bg-secondary-container/20 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-6xl text-secondary/30">coffee</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline font-black text-2xl text-primary tracking-tight">Glitch Coffee &amp; Co.</h3>
+<div class="bg-primary text-white text-xs px-3 py-1 rounded font-black sticker-rotate-1 shadow-md">4.5/5</div>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-slate-400 text-sm">train</span>
+<span class="text-xs text-slate-500 font-bold uppercase tracking-widest">MRT Cyberjaya City Centre</span>
+</div>
+<div class="flex flex-wrap gap-3">
+<span class="bg-secondary-container px-3 py-1 rounded-full text-[10px] font-black font-headline text-on-secondary-container uppercase tracking-widest shadow-sm">Quiet Zone</span>
+<span class="bg-white/60 px-3 py-1 rounded-full text-[10px] font-black font-headline text-on-surface-variant uppercase tracking-widest shadow-sm">WIFI</span>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute inset-0 bg-secondary-container/10 rounded-xl rotate-1 z-10"></div>
+<div class="absolute top-2 right-12 z-40 bg-primary/20 w-16 h-8 -rotate-12 backdrop-blur-[2px]"></div>
+</div>
+<!-- Result Card 3 -->
+<div class="relative group">
+<div class="bg-surface-container-low p-4 rounded-xl sticker-rotate-1 shadow-lg z-20 relative translate-x-1 translate-y-1 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-300">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-40 h-40 flex-shrink-0 bg-white rounded-lg flex items-center justify-center border border-slate-50">
+<span class="material-symbols-outlined text-6xl text-primary/20">lunch_dining</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline font-black text-2xl text-primary tracking-tight">The Lab Burgers</h3>
+<div class="bg-primary text-white text-xs px-3 py-1 rounded font-black sticker-rotate-neg-1 shadow-md">4.9/5</div>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-slate-400 text-sm">directions_bus</span>
+<span class="text-xs text-slate-500 font-bold uppercase tracking-widest">T505 Direct Link</span>
+</div>
+<div class="flex flex-wrap gap-3">
+<span class="bg-secondary-container px-3 py-1 rounded-full text-[10px] font-black font-headline text-on-secondary-container uppercase tracking-widest shadow-sm">Beef Only</span>
+<span class="bg-white/60 px-3 py-1 rounded-full text-[10px] font-black font-headline text-on-surface-variant uppercase tracking-widest shadow-sm">Fast Food</span>
+</div>
+</div>
+</div>
+<div class="absolute -top-3 -right-3 z-30 bg-error text-white font-headline text-[10px] px-4 py-1.5 rounded-full font-black rotate-12 shadow-xl tracking-widest uppercase border-2 border-white/20">Hot Item</div>
+</div>
+<div class="absolute inset-0 bg-tertiary-container/10 rounded-xl -rotate-1 z-10"></div>
+</div>
+</div>
+<div class="mt-16 flex justify-center">
+<button class="bg-white px-12 py-5 rounded-2xl font-headline font-black text-primary border border-slate-100 hover:scale-105 hover:translate-y-[-2px] transition-all flex items-center gap-3 shadow-xl uppercase tracking-[0.2em] text-xs">
+<span class="material-symbols-outlined">auto_stories</span>
+                        Load More Entries
+                    </button>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-[#081e23] w-full py-16 border-t border-slate-100 flex flex-col items-center justify-center gap-8 text-center mt-20 relative z-20">
+<div class="font-headline font-black text-xl text-primary uppercase tracking-widest">The Curated Collective</div>
+<div class="flex gap-10">
+<a class="font-headline text-[10px] uppercase font-black tracking-[0.3em] text-slate-400 hover:text-primary transition-colors" href="#">About</a>
+<a class="font-headline text-[10px] uppercase font-black tracking-[0.3em] text-slate-400 hover:text-primary transition-colors" href="#">Campus Map</a>
+<a class="font-headline text-[10px] uppercase font-black tracking-[0.3em] text-slate-400 hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="font-headline text-[10px] uppercase font-black tracking-[0.3em] text-slate-400 hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<p class="font-headline text-[10px] font-bold text-slate-300 uppercase tracking-widest">
+        © 2024 The Curated Collective - MMU Cyberjaya
+    </p>
+</footer>
+<!-- Mobile Navigation Bar -->
+<div class="md:hidden fixed bottom-0 w-full bg-white/90 backdrop-blur-xl z-50 flex justify-around items-center py-4 px-6 border-t border-slate-100">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="text-[10px] font-black uppercase tracking-tighter">Explore</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="text-[10px] font-black uppercase tracking-tighter">Saved</span>
+</button>
+<div class="relative -top-8">
+<button class="bg-primary text-white p-5 rounded-2xl shadow-2xl shadow-primary/40 rotate-45">
+<span class="material-symbols-outlined -rotate-45 block">add</span>
+</button>
+</div>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">map</span>
+<span class="text-[10px] font-black uppercase tracking-tighter">Map</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="text-[10px] font-black uppercase tracking-tighter">Me</span>
+</button>
+</div>
+</body></html>
