@@ -1,0 +1,337 @@
+<html class="light" lang="en"><head></head><body class="bg-background text-on-surface min-h-screen">```html
+
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title text="Limited Time Events | CYBER FOOD HUNT">Limited Time Events | CYBER FOOD HUNT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#effcff",
+                        "surface": "#effcff",
+                        "surface-container": "#dbf2f8",
+                        "surface-container-high": "#d5ecf2",
+                        "outline": "#767686",
+                        "inverse-surface": "#1f3438",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#316e92",
+                        "secondary": "#3b637d",
+                        "on-secondary-fixed": "#001e2e",
+                        "on-background": "#081e23",
+                        "on-primary-fixed-variant": "#292fbe",
+                        "on-surface": "#081e23",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#0e5678",
+                        "secondary-fixed": "#c8e6ff",
+                        "surface-tint": "#444cd6",
+                        "secondary-fixed-dim": "#a3cbea",
+                        "on-primary-container": "#e8e6ff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#001e2e",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#def5fb",
+                        "surface-container-low": "#e1f8fe",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#343bc8",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#b7dffe",
+                        "primary-container": "#4f57e1",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#d0e6ec",
+                        "outline-variant": "#c6c5d7",
+                        "tertiary-fixed-dim": "#94cdf5",
+                        "on-tertiary-fixed-variant": "#004c6d",
+                        "tertiary-fixed": "#c7e7ff",
+                        "on-surface-variant": "#454554",
+                        "on-primary-fixed": "#01006e",
+                        "on-secondary-container": "#3b637e",
+                        "surface-dim": "#c7dee4",
+                        "surface-variant": "#d0e6ec",
+                        "inverse-primary": "#bfc2ff",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "display": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: 
+                radial-gradient(circle at 2px 2px, rgba(52, 59, 200, 0.05) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scrapbook-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .sticker-rotate-1 { transform: rotate(-1.5deg); }
+        .sticker-rotate-2 { transform: rotate(1.2deg); }
+        .sticker-rotate-3 { transform: rotate(-0.8deg); }
+        .scrapbook-title {
+            display: inline-block;
+            background: #fff;
+            padding: 0.5rem 1rem;
+            box-shadow: 2px 2px 0px rgba(52, 59, 200, 0.2);
+            border: 1px solid rgba(52, 59, 200, 0.1);
+        }
+    </style>
+<!-- Top Nav Bar -->
+<nav class="fixed top-0 left-0 right-0 h-16 bg-white z-[60] border-b border-slate-100 flex items-center justify-center px-6 md:px-12 md:pl-[19rem]">
+<div class="flex items-center gap-8 mr-auto md:mr-0">
+<a class="text-xs font-black uppercase tracking-[0.2em] text-outline hover:text-primary transition-colors" href="main.html">Discover</a>
+<a class="text-xs font-black uppercase tracking-[0.2em] text-primary" href="#"><span class="border-b-2 border-primary pb-0.5">Pop-ups</span></a>
+<a class="text-xs font-black uppercase tracking-[0.2em] text-outline hover:text-primary transition-colors" href="#">Nearby</a>
+<a class="text-xs font-black uppercase tracking-[0.2em] text-outline hover:text-primary transition-colors" href="#">T505 Route</a>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-full w-64 fixed left-0 top-0 z-[70] bg-sky-50 py-8 gap-2 shadow-xl">
+<div class="mb-8 px-5">
+<div class="scrapbook-title sticker-rotate-1">
+<h1 class="text-xl font-black text-indigo-600 font-headline italic leading-none uppercase tracking-tight">CYBER FOOD HUNT</h1>
+</div>
+<p class="mt-4 text-sm font-bold text-slate-500 font-headline px-1">Welcome, User!</p>
+</div>
+<nav class="flex flex-col gap-2">
+<!-- Active Tab: Home -->
+<a class="flex items-center gap-3 bg-indigo-100 text-indigo-700 rounded-lg px-4 py-3 mx-2 translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-medium text-sm">Home</span>
+</a>
+<a class="flex items-center gap-3 text-slate-600 px-4 py-3 mx-2 hover:bg-sky-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined">rate_review</span>
+<span class="font-medium text-sm">Reviews</span>
+</a>
+<a class="flex items-center gap-3 text-slate-600 px-4 py-3 mx-2 hover:bg-sky-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-medium text-sm">Search</span>
+</a>
+<a class="flex items-center gap-3 text-slate-600 px-4 py-3 mx-2 hover:bg-sky-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-medium text-sm">Profile</span>
+</a>
+</nav>
+<div class="mt-auto px-4">
+<button class="w-full py-3 bg-primary-container text-on-primary-container font-bold rounded-xl shadow-lg flex items-center justify-center gap-2 hover:scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined">add_circle</span>
+                New Review
+            </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:ml-64 p-6 md:p-12 pt-28 relative">
+<!-- Top Header Area -->
+<header class="mb-12 max-w-6xl mx-auto text-center">
+<div class="flex items-center justify-center gap-4 mb-4">
+<span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h2 class="text-4xl md:text-5xl font-black font-headline tracking-tight text-primary">Limited Time Events</h2>
+<span class="material-symbols-outlined text-outline/30 text-3xl">celebration</span>
+</div>
+<p class="text-lg text-on-surface-variant mx-auto max-w-2xl font-medium">The most exclusive pop-ups and secret student deals in Cyberjaya, curated just for the collective.</p>
+</header>
+<!-- Scrapbook Grid -->
+<div class="scrapbook-grid max-w-6xl mx-auto pb-24">
+<!-- Event Card 1 -->
+<div class="relative group">
+<div class="absolute -top-3 -left-3 z-10 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-xs font-bold shadow-sm sticker-rotate-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">local_fire_department</span> HOT NOW
+                </div>
+<div class="bg-surface-container-high p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-xl sticker-rotate-1 hover:rotate-0 transition-transform duration-300 relative overflow-hidden border-b-4 border-indigo-200">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-indigo-600 bg-white p-2 rounded-lg shadow-sm">ramen_dining</span>
+<span class="text-xs font-bold text-outline uppercase tracking-widest">Food Fest</span>
+</div>
+<h3 class="text-xl font-black font-headline mb-1 text-on-surface">Midnight Ramen Pop-up</h3>
+<p class="text-base font-bold text-primary mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-base">location_on</span> HB Tower Rooftop
+                    </p>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">schedule</span>
+<span>10pm - 2am</span>
+</div>
+<div class="flex items-center gap-2 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+<span>Nov 1st - Nov 3rd</span>
+</div>
+</div>
+<div class="pt-4 border-t border-indigo-100/50 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-400">
+<span class="material-symbols-outlined text-lg">account_circle</span>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-outline">Hosted by</p>
+<p class="text-xs font-bold">Chef Kenji &amp; Friends</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Event Card 2 -->
+<div class="relative group mt-8 md:mt-0">
+<div class="bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] rounded-xl sticker-rotate-2 hover:rotate-0 transition-transform duration-300 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center opacity-50">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant">star</span>
+</div>
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-indigo-600 bg-indigo-50 p-2 rounded-lg">coffee</span>
+<span class="text-xs font-bold text-outline uppercase tracking-widest">Workshop</span>
+</div>
+<h3 class="text-xl font-black font-headline mb-1 text-on-surface">Artisan Latte Art Class</h3>
+<p class="text-base font-bold text-primary mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-base">location_on</span> The Bean Laboratory
+                    </p>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">schedule</span>
+<span>2pm - 4pm</span>
+</div>
+<div class="flex items-center gap-2 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+<span>Nov 5th - Nov 6th</span>
+</div>
+</div>
+<div class="pt-4 border-t border-slate-100 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined text-lg">account_circle</span>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-outline">Hosted by</p>
+<p class="text-xs font-bold">Barista Collective</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Event Card 3 -->
+<div class="relative group md:translate-y-12">
+<div class="bg-surface-container-low p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-xl sticker-rotate-3 hover:rotate-0 transition-transform duration-300 relative overflow-hidden border-t-4 border-primary">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary bg-white p-2 rounded-lg shadow-sm">celebration</span>
+<span class="text-xs font-bold text-outline uppercase tracking-widest">Social</span>
+</div>
+<h3 class="text-xl font-black font-headline mb-1 text-on-surface">Street Food Night Market</h3>
+<p class="text-base font-bold text-primary mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-base">location_on</span> MMU Central Plaza
+                    </p>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">schedule</span>
+<span>6pm - 11pm</span>
+</div>
+<div class="flex items-center gap-2 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+<span>Nov 10th - Nov 12th</span>
+</div>
+</div>
+<div class="pt-4 border-t border-indigo-100 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-300">
+<span class="material-symbols-outlined text-lg">account_circle</span>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-outline">Hosted by</p>
+<p class="text-xs font-bold">SRC MMU</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Event Card 4 -->
+<div class="relative group mt-16 md:mt-0">
+<div class="bg-surface-container p-6 shadow-[0_8px_30px_rgb(0,0,0,0.05)] rounded-xl sticker-rotate-1 hover:rotate-0 transition-transform duration-300 relative overflow-hidden border-l-4 border-secondary">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary bg-white p-2 rounded-lg">fastfood</span>
+<span class="text-xs font-bold text-outline uppercase tracking-widest">Secret Deal</span>
+</div>
+<h3 class="text-xl font-black font-headline mb-1 text-on-surface">Burger Battle: Final Round</h3>
+<p class="text-base font-bold text-primary mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-base">location_on</span> Cyberia Crescent
+                    </p>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">schedule</span>
+<span>12pm - 3pm</span>
+</div>
+<div class="flex items-center gap-2 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+<span>Nov 15th</span>
+</div>
+</div>
+<div class="pt-4 border-t border-indigo-100 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-300">
+<span class="material-symbols-outlined text-lg">account_circle</span>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-outline">Hosted by</p>
+<p class="text-xs font-bold">Grill Masters Club</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Host an Event Popup (Square) -->
+<div class="fixed right-8 z-40 hidden xl:block bottom-32">
+<div class="bg-surface-container-lowest aspect-square w-80 p-8 shadow-[0_20px_50px_rgba(22,66,91,0.12)] rounded-2xl border-2 border-primary/10 sticker-rotate-2 relative flex flex-col justify-between">
+<div class="absolute -top-5 -right-5">
+<span class="material-symbols-outlined text-primary text-5xl opacity-20">star_rate</span>
+</div>
+<div>
+<h4 class="text-2xl font-black font-headline mb-4 text-on-surface leading-tight">Host an Event</h4>
+<p class="text-sm text-on-surface-variant font-medium leading-relaxed">Have a food pop-up or a secret menu to share? Join the collective and get noticed in our community forum.</p>
+</div>
+<div>
+<a href="registerevent.html"
+   class="block text-center w-full py-4 bg-primary text-white font-black rounded-xl shadow-[0_4px_15px_rgba(52,59,200,0.3)] hover:scale-105 transition-all duration-200 uppercase tracking-widest text-xs">
+    Register Now
+</a>
+<div class="mt-4 pt-4 border-t border-indigo-50 text-center">
+<p class="text-[10px] font-bold text-outline">Trusted by 50+ local curators</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Scattered Stars -->
+<span class="material-symbols-outlined fixed bottom-12 right-12 text-primary opacity-20 text-6xl pointer-events-none animate-pulse">auto_awesome</span>
+<span class="material-symbols-outlined fixed top-12 left-80 text-secondary opacity-10 text-4xl pointer-events-none">star</span>
+<span class="material-symbols-outlined fixed bottom-40 left-72 text-indigo-300 opacity-20 text-2xl pointer-events-none">shutter_speed</span>
+</main>
+<!-- Bottom Nav for Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/70 backdrop-blur-xl flex justify-around items-center py-4 px-6 z-50 border-t border-slate-100">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-bold uppercase">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="text-[10px] font-bold uppercase">Events</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">add_box</span>
+<span class="text-[10px] font-bold uppercase">Post</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold uppercase">Profile</span>
+</button>
+</nav>
+```</body></html>
