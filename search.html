@@ -107,10 +107,10 @@
 <span class="material-symbols-outlined">home</span>
             Home
         </a>
-<a class="flex items-center gap-4 text-slate-500 px-5 py-4 -rotate-1 hover:bg-slate-100 hover:rotate-0 transition-all duration-300 ease-out hover:translate-x-2 font-headline text-sm uppercase tracking-widest" href="review.html">
+<!-- <a class="flex items-center gap-4 text-slate-500 px-5 py-4 -rotate-1 hover:bg-slate-100 hover:rotate-0 transition-all duration-300 ease-out hover:translate-x-2 font-headline text-sm uppercase tracking-widest" href="review.html">
 <span class="material-symbols-outlined">edit_note</span>
             Reviews
-        </a>
+        </a>  -->
 <a class="flex items-center gap-4 bg-primary text-white rounded-lg px-5 py-4 font-bold rotate-1 shadow-lg font-headline text-sm uppercase tracking-widest" href="#">
 <span class="material-symbols-outlined">search</span>
             Search
@@ -122,13 +122,7 @@
 </nav>
 <div class="mt-auto px-6 border-t border-slate-100 pt-6">
 <div class="flex items-center gap-3 mb-6 px-2">
-<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
-<span class="material-symbols-outlined text-primary">face</span>
-</div>
-<div>
-<div class="font-bold text-sm">The Curator</div>
-<div class="text-xs text-slate-400">MMU Cyberjaya</div>
-</div>
+
 </div>
 <div class="px-4 pb-6">
   <a href="foodspots.html" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
@@ -167,47 +161,126 @@
 <span class="material-symbols-outlined text-primary">tune</span> Filters
                     </h3>
 <!-- Price Range -->
+<!-- Price Range -->
 <div class="mb-8">
-<label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Price Range</label>
-<div class="flex gap-3">
-<button class="bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$</button>
-<button class="bg-primary text-white w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-neg-1 hover:scale-110 transition-all shadow-lg">$$</button>
-<button class="bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$$$</button>
+  <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">
+    Price Range
+  </label>
+
+  <div class="flex gap-3" id="price-buttons">
+    <button class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$</button>
+
+    <button class="price-btn bg-primary text-white w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-neg-1 hover:scale-110 transition-all shadow-lg">$$</button>
+
+    <button class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$$$</button>
+  </div>
 </div>
-</div>
+
+<script id="price-script">
+  const buttons = document.querySelectorAll('.price-btn');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+
+      // remove highlight from all
+      buttons.forEach(b => {
+        b.classList.remove('bg-primary', 'text-white', 'shadow-lg');
+        b.classList.add('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
+      });
+
+      // add highlight to clicked
+      btn.classList.remove('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
+      btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
+
+    });
+  });
+</script>
 <!-- Transport Toggle -->
 <div class="mb-8">
-<label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Public Transport</label>
-<div class="space-y-3">
-<label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-<input checked="" class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
-<span class="text-sm font-bold font-headline uppercase tracking-wider">MRT</span>
-</label>
-<label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-<input checked="" class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
-<span class="text-sm font-bold font-headline uppercase tracking-wider">Bus</span>
-</label>
-</div>
+  <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">
+    Public Transport
+  </label>
+
+  <div class="space-y-3">
+
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input checked class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">MRT</span>
+    </label>
+
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input checked class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Bus</span>
+    </label>
+
+    <!-- NEW: E-hailing -->
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">E-hailing</span>
+    </label>
+
+    <!-- NEW: Walking -->
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Walking</span>
+    </label>
+
+  </div>
 </div>
 <!-- Cuisine Type -->
 <div class="mb-8">
-<label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Cuisine Type</label>
-<div class="space-y-3">
-<label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-<input checked="" class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
-<span class="text-sm font-bold font-headline uppercase tracking-wider">Halal</span>
-</label>
-<label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-<input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
-<span class="text-sm font-bold font-headline uppercase tracking-wider">Late Night</span>
-</label>
-</div>
+  <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">
+    Cuisine Type
+  </label>
+
+  <div class="space-y-3">
+
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Fast Food</span>
+    </label>
+
+    <!-- NEW: Chinese -->
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Chinese</span>
+    </label>
+
+    <!-- NEW: Malay -->
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Malay</span>
+    </label>
+
+    <!-- NEW: Indian -->
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Indian</span>
+    </label>
+
+    <!-- NEW: Arab -->
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox"/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Arab</span>
+    </label>
+
+  </div>
 </div>
 <!-- Open Now Toggle -->
 <div class="flex items-center justify-between p-4 bg-primary/5 rounded-2xl border border-primary/10">
 <div>
 <p class="font-black font-headline text-xs uppercase tracking-tight">Open Now</p>
 <p class="text-[9px] text-secondary/60 uppercase font-bold">Active spots only</p>
+</div>
+<div class="relative inline-block w-10 h-5 transition duration-200 ease-in-out">
+<input class="absolute w-5 h-5 rounded-full bg-white border-2 border-primary appearance-none cursor-pointer checked:translate-x-5 transition-transform z-10" id="toggle" type="checkbox"/>
+<label class="block h-5 overflow-hidden bg-primary/20 rounded-full cursor-pointer" for="toggle"></label>
+</div>
+</div>
+
+<div class="flex items-center justify-between p-4 bg-primary/5 rounded-2xl border border-primary/10">
+<div>
+<p class="font-black font-headline text-xs uppercase tracking-tight">Halal</p>
 </div>
 <div class="relative inline-block w-10 h-5 transition duration-200 ease-in-out">
 <input class="absolute w-5 h-5 rounded-full bg-white border-2 border-primary appearance-none cursor-pointer checked:translate-x-5 transition-transform z-10" id="toggle" type="checkbox"/>
@@ -321,41 +394,4 @@
 </div>
 </div>
 </main>
-<!-- Footer -->
-<footer class="bg-white dark:bg-[#081e23] w-full py-16 border-t border-slate-100 flex flex-col items-center justify-center gap-8 text-center mt-20 relative z-20">
-<div class="font-headline font-black text-xl text-primary uppercase tracking-widest">The Curated Collective</div>
-<div class="flex gap-10">
-<a class="font-headline text-[10px] uppercase font-black tracking-[0.3em] text-slate-400 hover:text-primary transition-colors" href="#">About</a>
-<a class="font-headline text-[10px] uppercase font-black tracking-[0.3em] text-slate-400 hover:text-primary transition-colors" href="#">Campus Map</a>
-<a class="font-headline text-[10px] uppercase font-black tracking-[0.3em] text-slate-400 hover:text-primary transition-colors" href="#">Privacy</a>
-<a class="font-headline text-[10px] uppercase font-black tracking-[0.3em] text-slate-400 hover:text-primary transition-colors" href="#">Contact</a>
-</div>
-<p class="font-headline text-[10px] font-bold text-slate-300 uppercase tracking-widest">
-        © 2024 The Curated Collective - MMU Cyberjaya
-    </p>
-</footer>
-<!-- Mobile Navigation Bar -->
-<div class="md:hidden fixed bottom-0 w-full bg-white/90 backdrop-blur-xl z-50 flex justify-around items-center py-4 px-6 border-t border-slate-100">
-<button class="flex flex-col items-center gap-1 text-primary">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
-<span class="text-[10px] font-black uppercase tracking-tighter">Explore</span>
-</button>
-<button class="flex flex-col items-center gap-1 text-slate-400">
-<span class="material-symbols-outlined">bookmark</span>
-<span class="text-[10px] font-black uppercase tracking-tighter">Saved</span>
-</button>
-<div class="relative -top-8">
-<button class="bg-primary text-white p-5 rounded-2xl shadow-2xl shadow-primary/40 rotate-45">
-<span class="material-symbols-outlined -rotate-45 block">add</span>
-</button>
-</div>
-<button class="flex flex-col items-center gap-1 text-slate-400">
-<span class="material-symbols-outlined">map</span>
-<span class="text-[10px] font-black uppercase tracking-tighter">Map</span>
-</button>
-<button class="flex flex-col items-center gap-1 text-slate-400">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
-<span class="text-[10px] font-black uppercase tracking-tighter">Me</span>
-</button>
-</div>
 </body></html>
