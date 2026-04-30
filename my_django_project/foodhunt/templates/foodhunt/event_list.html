@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Limited Time Events | CYBER FOOD HUNT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Hanken+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-tertiary-fixed": "#001e2e","on-tertiary-container": "#d4ecff",
+                "surface-container-low": "#e1f8fe","inverse-on-surface": "#def5fb",
+                "inverse-surface": "#1f3438","surface": "#effcff","surface-dim": "#c7dee4",
+                "secondary-fixed": "#c8e6ff","primary-fixed": "#e0e0ff","background": "#effcff",
+                "surface-variant": "#d0e6ec","tertiary": "#0e5678","on-secondary": "#ffffff",
+                "on-error": "#ffffff","primary-container": "#4f57e1","secondary-container": "#b7dffe",
+                "secondary-fixed-dim": "#a3cbea","secondary": "#3b637d","primary-fixed-dim": "#bfc2ff",
+                "on-background": "#081e23","on-primary": "#ffffff","primary": "#343bc8",
+                "on-secondary-fixed": "#001e2e","tertiary-fixed-dim": "#94cdf5",
+                "on-secondary-container": "#3b637e","surface-container-highest": "#d0e6ec",
+                "outline": "#767686","surface-container": "#dbf2f8","surface-tint": "#444cd6",
+                "tertiary-container": "#316e92","on-secondary-fixed-variant": "#214b64",
+                "surface-container-lowest": "#ffffff","error": "#ba1a1a","tertiary-fixed": "#c7e7ff",
+                "on-surface-variant": "#454554","on-tertiary-fixed-variant": "#004c6d",
+                "outline-variant": "#c6c5d7","on-primary-container": "#e8e6ff",
+                "surface-bright": "#effcff","on-error-container": "#93000a",
+                "on-primary-fixed": "#01006e","error-container": "#ffdad6",
+                "on-primary-fixed-variant": "#292fbe","surface-container-high": "#d5ecf2",
+                "inverse-primary": "#bfc2ff","on-surface": "#081e23","on-tertiary": "#ffffff"
+            },
+            "borderRadius": {"DEFAULT": "0.125rem","lg": "0.25rem","xl": "0.5rem","full": "0.75rem"},
+            "fontFamily": {"headline": ["Space Grotesk"],"body": ["Hanken Grotesk"],"label": ["Inter"]}
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; background-color: #DAF1F7; }
+        .scrapbook-bg { background-image: radial-gradient(circle at 2px 2px, rgba(52, 59, 200, 0.05) 1px, transparent 0); background-size: 30px 30px; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .scrapbook-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+        .sticker-rotate-1 { transform: rotate(-1.5deg); }
+        .sticker-rotate-2 { transform: rotate(1.2deg); }
+        .sticker-rotate-3 { transform: rotate(-0.8deg); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #343bc833; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background scrapbook-bg text-on-surface overflow-x-hidden">
+
+<header class="fixed top-0 w-full z-50 bg-[#effcff]/90 backdrop-blur-md shadow-sm">
+<nav class="flex justify-between items-center max-w-7xl mx-auto px-6 h-14">
+<div class="text-xl font-bold bg-gradient-to-br from-[#343bc8] to-[#4f57e1] bg-clip-text text-transparent font-headline tracking-tighter">Cyber Food Hunt</div>
+<div class="hidden md:flex items-center gap-6">
+    <a class="text-[#16425B] opacity-70 text-sm hover:opacity-100 transition-opacity" href="#">Discover</a>
+    <a class="text-[#343bc8] font-bold border-b-2 border-[#343bc8] text-sm" href="{% url 'event_list' %}">Pop-Ups</a>
+</div>
+</nav>
+</header>
+
+<aside class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-6 bg-[#e1f8fe] w-52 shadow-lg border-r border-primary/5">
+<div class="px-6 mb-8 mt-14">
+<h1 class="font-headline font-bold text-[#343bc8] text-lg">Welcome, User!</h1>
+</div>
+<div class="flex flex-col gap-1 px-2 flex-grow">
+<a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="#">
+<span class="material-symbols-outlined text-xl">home</span>
+<span class="font-body text-sm font-medium">Home</span>
+</a>
+<a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="search.html">
+<span class="material-symbols-outlined text-xl">search</span>
+<span class="font-body text-sm font-medium">Search</span>
+</a>
+<a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="userprofile.html">
+<span class="material-symbols-outlined text-xl">person</span>
+<span class="font-body text-sm font-medium">Profile</span>
+</a>
+</div>
+<div class="px-4 pb-6">
+    <a href="{% url 'event_create' %}" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
+        Share Now!
+    </a>
+</div>
+</aside>
+
+<main class="lg:ml-52 pt-14 px-4 md:px-8 pb-8 max-w-7xl mx-auto">
+
+<header class="mb-12 max-w-6xl mx-auto text-center">
+<div class="flex items-center justify-center gap-4 mb-4">
+<span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h2 class="text-4xl md:text-5xl font-black font-headline tracking-tight text-primary">Limited Time Events</h2>
+<span class="material-symbols-outlined text-outline/30 text-3xl">celebration</span>
+</div>
+<p class="text-lg text-on-surface-variant mx-auto max-w-2xl font-medium">The most exclusive pop-ups and secret student deals in Cyberjaya, curated just for the collective.</p>
+</header>
+
+<div class="scrapbook-grid max-w-6xl mx-auto pb-24">
+
+    {% for event in events %}
+    <a href="{% url 'event_detail' event.event_id %}" class="block">
+        <div class="relative group">
+            <div class="bg-surface-container-high p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-xl sticker-rotate-1 hover:rotate-0 transition-transform duration-300 relative overflow-hidden border-b-4 border-indigo-200">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="material-symbols-outlined text-indigo-600 bg-white p-2 rounded-lg shadow-sm">celebration</span>
+                    <span class="text-xs font-bold text-outline uppercase tracking-widest">Ends {{ event.end_date }}</span>
+                </div>
+                <h3 class="text-xl font-black font-headline mb-1 text-on-surface">{{ event.event_name }}</h3>
+                <p class="text-base font-bold text-primary mb-4 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-base">location_on</span> {{ event.event_location }}
+                </p>
+                <div class="space-y-2 mb-6">
+                    <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+                        <span class="material-symbols-outlined text-lg">calendar_month</span>
+                        <span>{{ event.start_date }} — {{ event.end_date }}</span>
+                    </div>
+                </div>
+                <div class="pt-4 border-t border-indigo-100/50 flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-400">
+                        <span class="material-symbols-outlined text-lg">account_circle</span>
+                    </div>
+                    <div>
+                        <p class="text-[10px] uppercase font-bold text-outline">Hosted by</p>
+                        <p class="text-xs font-bold">{{ event.user }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    {% empty %}
+    <div class="col-span-full text-center py-20">
+        <span class="material-symbols-outlined text-6xl text-outline/30 mb-4 block">event_busy</span>
+        <p class="text-on-surface-variant font-medium text-lg">No active events right now.</p>
+        <a href="{% url 'event_create' %}" class="mt-4 inline-block bg-primary text-white px-6 py-3 rounded-xl font-bold text-sm uppercase tracking-widest hover:brightness-110 transition-all">
+            Be the first to share one!
+        </a>
+    </div>
+    {% endfor %}
+
+</div>
+
+<span class="material-symbols-outlined fixed bottom-12 right-12 text-primary opacity-20 text-6xl pointer-events-none animate-pulse">auto_awesome</span>
+<span class="material-symbols-outlined fixed top-12 left-80 text-secondary opacity-10 text-4xl pointer-events-none">star</span>
+<span class="material-symbols-outlined fixed bottom-40 left-72 text-indigo-300 opacity-20 text-2xl pointer-events-none">shutter_speed</span>
+
+</main>
+</body></html>
