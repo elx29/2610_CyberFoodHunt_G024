@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Give your review! | Cyber Food Hunt</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#343bc8",
+                    "primary-container": "#4f57e1",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#e1f8fe",
+                    "surface-container-high": "#d5ecf2",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#effcff",
+                    "on-surface": "#081e23",
+                    "on-surface-variant": "#454554",
+                    "outline-variant": "#c6c5d7",
+                    "secondary-container": "#b7dffe",
+                    "primary-fixed-dim": "#bfc2ff",
+                    "on-primary-container": "#e8e6ff",
+                },
+                fontFamily: {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body class="bg-background font-body text-on-surface">
+<div class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="h-screen w-72 fixed left-0 top-0 hidden lg:flex flex-col bg-white shadow-xl p-8 gap-4 z-50">
+        <div class="text-xl font-bold text-[#4F57E1] mb-8 uppercase tracking-widest font-headline">Cyber Food Hunt</div>
+        <div class="flex flex-col gap-2 mb-auto">
+            <a class="flex items-center gap-4 text-slate-500 px-5 py-4 hover:bg-slate-100 transition-all font-headline text-sm uppercase tracking-widest" href="#">
+                <span class="material-symbols-outlined">home</span>Home
+            </a>
+            <a class="flex items-center gap-4 bg-[#4F57E1] text-white rounded-lg px-5 py-4 font-bold font-headline text-sm uppercase tracking-widest" href="#">
+                <span class="material-symbols-outlined">rate_review</span>Reviews
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 lg:ml-72 pt-16 pb-32 px-4 md:px-8 max-w-5xl mx-auto">
+
+        <div class="mb-12 ml-4">
+            <h1 class="font-headline text-5xl font-black text-on-surface tracking-tighter leading-none">
+                Give your <br/>
+                <span class="text-primary-container px-4 py-1 inline-block -rotate-2 shadow-sm rounded-lg bg-white">review!</span>
+            </h1>
+        </div>
+
+        <!-- SUCCESS MESSAGE -->
+        {% if message %}
+        <div class="max-w-3xl mx-auto md:mx-8 mb-6 bg-green-100 border border-green-400 text-green-800 px-6 py-4 rounded-xl font-medium">
+            ✅ {{ message }}
+        </div>
+        {% endif %}
+
+        <!-- DJANGO FORM -->
+        <div class="relative max-w-3xl mx-auto md:mx-8">
+            <div class="absolute inset-0 bg-surface-container-high rounded-3xl translate-x-3 translate-y-3 -rotate-1"></div>
+            <form method="POST" class="relative bg-surface-container-lowest p-8 md:p-10 rounded-3xl shadow-lg flex flex-col gap-8 z-20">
+                {% csrf_token %}
+
+                <!-- Restaurant -->
+                <div class="space-y-2">
+                    <label class="font-headline font-bold text-on-surface-variant flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">restaurant</span>
+                        Where did you eat?
+                    </label>
+                    <div class="w-full bg-surface-container-low rounded-xl px-4 py-3">
+                        {{ form.restaurant_id }}
+                    </div>
+                </div>
+
+                <!-- Title -->
+                <div class="space-y-2">
+                    <label class="font-headline font-bold text-on-surface-variant">Post Title</label>
+                    <div class="w-full bg-surface-container-low rounded-xl px-4 py-3">
+                        {{ form.title }}
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="space-y-2">
+                    <label class="font-headline font-bold text-on-surface-variant">Your thoughts</label>
+                    <div class="w-full bg-surface-container-low rounded-xl px-4 py-3">
+                        {{ form.description }}
+                    </div>
+                </div>
+
+                <!-- Image -->
+                <div class="space-y-2">
+                    <label class="font-headline font-bold text-on-surface-variant">Image URL or file path</label>
+                    <div class="w-full bg-surface-container-low rounded-xl px-4 py-3">
+                        {{ form.image }}
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <div class="pt-4 flex justify-end">
+                    <button type="submit" class="bg-primary-container text-white font-headline font-black text-xl py-4 px-8 rounded-xl shadow-lg hover:opacity-90 transition-opacity flex items-center gap-3">
+                        Post Review
+                        <span class="material-symbols-outlined">send</span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </main>
+</div>
+</body>
+</html>
