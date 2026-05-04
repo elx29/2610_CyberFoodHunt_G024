@@ -173,7 +173,7 @@
                 </div>
             </div>
 
-            <!--  Delete + Review buttons -->
+            <!--  Delete buttons -->
             <div class="mt-8 pt-6 border-t border-outline-variant/20 flex gap-3">
 
                 <!-- Delete button — only shown to event owner, uses pop-up confirm -->
@@ -200,7 +200,7 @@
         <div class="w-full lg:w-5/12 flex flex-col gap-6">
             <div class="bg-white p-4 pb-12 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 rounded-sm">
                 <div class="aspect-square w-full flex items-center justify-center bg-slate-50 border border-slate-100 mb-4 overflow-hidden">
-                    <!--CHANGE 9: show uploaded image or fallback to placeholder -->
+                    <!-- show uploaded image or fallback to placeholder -->
                     {% if event.image %}
                         <img src="{{ event.image }}" class="w-full h-full object-cover" alt="{{ event.event_name }}"/>
                     {% else %}
@@ -218,7 +218,7 @@
                 <div class="aspect-video w-full rounded-lg overflow-hidden bg-slate-50 border border-slate-100 mb-4 flex items-center justify-center">
                     <span class="material-symbols-outlined text-7xl text-slate-300">map</span>
                 </div>
-                <!-- CHANGE 10: location from database -->
+                <!-- show location from database -->
                 <p class="text-[10px] font-black uppercase text-secondary mb-1">{{ event.event_location }}</p>
                 <p class="text-sm font-medium text-on-surface-variant">{{ event.event_location }}</p>
             </div>

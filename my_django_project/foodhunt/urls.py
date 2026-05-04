@@ -8,5 +8,6 @@ urlpatterns = [
     path("new/", views.event_create, name="event_create"),
     path("<int:event_id>/delete/", views.event_delete, name="event_delete"),
     path("search/", views.search, name="search"),
+
 ]
 

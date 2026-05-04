@@ -4,6 +4,7 @@ from .models import Event, User, Restaurant #The User is added just to test even
 from django.contrib.auth.decorators import login_required
 
 
+
 #-----Show all active events
 def event_list(request):
     today  = timezone.now().date()
@@ -102,7 +103,6 @@ def search(request):
         restaurants = restaurants.filter(min_price__gte=30)
 
     return render(request, "foodhunt/search.html", {"restaurants": restaurants})
-
 
 
 
