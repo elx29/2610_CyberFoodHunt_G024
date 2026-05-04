@@ -105,15 +105,15 @@
 <a class="flex items-center gap-4 text-slate-500 dark:text-slate-400 px-5 py-4 -rotate-1 hover:bg-slate-100 dark:hover:bg-slate-800 hover:rotate-0 transition-all duration-300 ease-out hover:translate-x-2 font-['Space_Grotesk'] text-sm uppercase tracking-widest" href="userprofile.html"><span class="material-symbols-outlined">person</span>Profile</a>
 </div>
 <div class="mt-auto border-t border-slate-100 pt-6">
-<div class="flex items-center gap-3 mb-6">
+<!-- <div class="flex items-center gap-3 mb-6">
 <div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
 <span class="material-symbols-outlined text-primary" style="">face</span>
 </div>
 <div>
 <div class="font-bold text-sm" style="">The Curator</div>
 <div class="text-xs text-slate-400" style="">MMU Cyberjaya</div>
-</div>
-</div>
+</div> --
+</div> -->
 <div class="px-4 pb-6">
   <a href="foodspots.html" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
     Share Now!
@@ -158,25 +158,43 @@
 </div>
 <!-- Star Rating -->
 <div class="space-y-3">
-<label class="font-headline font-bold text-on-surface-variant" style="">Rate your experience</label>
-<div class="flex gap-2">
-<button class="group transition-transform active:scale-90" style="" type="button">
-<span class="material-symbols-outlined text-4xl text-primary" style='font-variation-settings: "FILL" 1;'>star</span>
-</button>
-<button class="group transition-transform active:scale-90" style="" type="button">
-<span class="material-symbols-outlined text-4xl text-primary" style='font-variation-settings: "FILL" 1;'>star</span>
-</button>
-<button class="group transition-transform active:scale-90" style="" type="button">
-<span class="material-symbols-outlined text-4xl text-primary" style='font-variation-settings: "FILL" 1;'>star</span>
-</button>
-<button class="group transition-transform active:scale-90" style="" type="button">
-<span class="material-symbols-outlined text-4xl text-primary" style='font-variation-settings: "FILL" 1;'>star</span>
-</button>
-<button class="group transition-transform active:scale-90" style="" type="button">
-<span class="material-symbols-outlined text-4xl text-outline-variant" style="">star</span>
-</button>
+  <label class="font-headline font-bold text-on-surface-variant">Rate your experience</label>
+  
+  <div class="flex gap-2" id="starRating">
+    
+    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="1">star</span>
+    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="2">star</span>
+    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="3">star</span>
+    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="4">star</span>
+    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="5">star</span>
+    
+  </div>
+
+  <!-- Hidden input (useful later for Django form) -->
+  <input type="hidden" id="ratingValue" name="rating" value="0">
 </div>
-</div>
+
+<script>
+  const stars = document.querySelectorAll("#starRating span");
+  const ratingInput = document.getElementById("ratingValue");
+
+  stars.forEach((star, index) => {
+    star.addEventListener("click", () => {
+      let rating = index + 1;
+      ratingInput.value = rating;
+
+      stars.forEach((s, i) => {
+        if (i < rating) {
+          s.style.color = "#343bc8"; // filled color
+          s.style.fontVariationSettings = "'FILL' 1";
+        } else {
+          s.style.color = "#c6c5d7"; // empty color
+          s.style.fontVariationSettings = "'FILL' 0";
+        }
+      });
+    });
+  });
+</script>
 <!-- Photo Upload Area -->
 <div class="space-y-2">
 <label class="font-headline font-bold text-on-surface-variant" style="">Snapshot the vibe</label>
