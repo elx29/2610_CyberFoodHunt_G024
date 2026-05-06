@@ -104,5 +104,17 @@ def search(request):
 
     return render(request, "foodhunt/search.html", {"restaurants": restaurants})
 
+def home(request):
+    today = timezone.now().date()
+    #get active events for banner
+    events = Event.objects.filter(end_date__gte=today).order_by("end_date")[:3]
+    #get restaurants, order by id for ow, later swap with rating
+    restaurant = Restaurant.objects.all().order_by("-restaurant_id")[:6]
+    return render(request, 'foodhunt/main.html', {
+        "events": events,
+        "restaurants": restaurant,
+        "today": today,
+    })
+
 
 

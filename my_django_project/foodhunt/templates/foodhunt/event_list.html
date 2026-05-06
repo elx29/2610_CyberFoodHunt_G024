@@ -57,8 +57,8 @@
 <header class="fixed top-0 w-full z-50 bg-[#effcff]/90 backdrop-blur-md shadow-sm">
 <nav class="flex justify-between items-center max-w-7xl mx-auto px-6 h-14">
 <div class="text-xl font-bold bg-gradient-to-br from-[#343bc8] to-[#4f57e1] bg-clip-text text-transparent font-headline tracking-tighter">Cyber Food Hunt</div>
-<div class="hidden md:flex items-center gap-6">
-    <a class="text-[#16425B] opacity-70 text-sm hover:opacity-100 transition-opacity" href="#">Discover</a>
+<div class="flex-1 flex justify-center items-center gap-8">
+    <a class="text-[#16425B] opacity-70 text-sm hover:opacity-100 transition-opacity" href="{% url 'home' %}">Discover</a>
     <a class="text-[#343bc8] font-bold border-b-2 border-[#343bc8] text-sm" href="{% url 'event_list' %}">Pop-Ups</a>
 </div>
 </nav>
@@ -69,11 +69,11 @@
 <h1 class="font-headline font-bold text-[#343bc8] text-lg">Welcome, User!</h1>
 </div>
 <div class="flex flex-col gap-1 px-2 flex-grow">
-<a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="#">
+<a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="{% url 'home' %}">
 <span class="material-symbols-outlined text-xl">home</span>
 <span class="font-body text-sm font-medium">Home</span>
 </a>
-<a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="search.html">
+<a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'search' %}">
 <span class="material-symbols-outlined text-xl">search</span>
 <span class="font-body text-sm font-medium">Search</span>
 </a>

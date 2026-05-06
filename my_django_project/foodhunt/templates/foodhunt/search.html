@@ -55,9 +55,9 @@
 <h2 class="font-['Space_Grotesk'] font-bold text-[#4f57e1] text-xl uppercase tracking-widest">Cyber Food Hunt</h2>
 </div>
 <nav class="flex flex-col gap-2 px-4 mb-auto">
-<a class="flex items-center gap-4 text-slate-500 px-5 py-4 -rotate-1 hover:bg-slate-100 hover:rotate-0 transition-all duration-300 ease-out hover:translate-x-2 font-headline text-sm uppercase tracking-widest" href="main.html">
+<a class="flex items-center gap-4 text-slate-500 px-5 py-4 -rotate-1 hover:bg-slate-100 hover:rotate-0 transition-all duration-300 ease-out hover:translate-x-2 font-headline text-sm uppercase tracking-widest" href="{% url 'home' %}">
 <span class="material-symbols-outlined">home</span>Home</a>
-<a class="flex items-center gap-4 bg-primary text-white rounded-lg px-5 py-4 font-bold rotate-1 shadow-lg font-headline text-sm uppercase tracking-widest" href="#">
+<a class="flex items-center gap-4 bg-primary text-white rounded-lg px-5 py-4 font-bold rotate-1 shadow-lg font-headline text-sm uppercase tracking-widest" href="{% url 'search' %}">
 <span class="material-symbols-outlined">search</span>Search</a>
 <a class="flex items-center gap-4 text-slate-500 px-5 py-4 -rotate-1 hover:bg-slate-100 hover:rotate-0 transition-all duration-300 ease-out hover:translate-x-2 font-headline text-sm uppercase tracking-widest" href="userprofile.html">
 <span class="material-symbols-outlined">person</span>Profile</a>
@@ -96,7 +96,7 @@
     <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary mb-3 block">Search Restaurant</label>
     <div class="relative">
     <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/40 text-xl">search</span>
-    <!-- CHANGE 3: added name="q" -->
+    <!-- added name="q" -->
     <input class="w-full pl-12 pr-4 py-4 bg-white border-none rounded-2xl text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-secondary/40 shadow-sm font-headline"
         name="q" placeholder="Enter name..." type="text" value="{{ request.GET.q }}"/>
     </div>
@@ -158,7 +158,7 @@
     <div class="mb-8">
     <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Cuisine Type</label>
     <div class="space-y-3">
-        <!-- cuisine values match database exactly, with emojis -->
+        <!-- cuisine values match database -->
         <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
             <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Fast Food" {% if request.GET.cuisine == 'Fast Food' %}checked{% endif %}/>
             <span class="text-sm font-bold font-headline uppercase tracking-wider">Fast Food</span>
