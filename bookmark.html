@@ -3,137 +3,162 @@
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<title>Home | CYBER FOOD HUNT</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-surface": "#081e23",
-                        "surface-container-highest": "#d0e6ec",
-                        "on-tertiary-fixed-variant": "#004c6d",
-                        "tertiary-fixed": "#c7e7ff",
-                        "tertiary": "#0e5678",
-                        "outline-variant": "#c6c5d7",
-                        "surface-container": "#dbf2f8",
-                        "surface-container-high": "#d5ecf2",
-                        "primary-fixed": "#e0e0ff",
-                        "on-secondary-fixed": "#001e2e",
-                        "on-primary-fixed-variant": "#292fbe",
-                        "on-secondary-fixed-variant": "#214b64",
-                        "inverse-primary": "#bfc2ff",
-                        "on-tertiary-container": "#d4ecff",
-                        "on-surface-variant": "#454554",
-                        "on-background": "#081e23",
-                        "on-tertiary": "#ffffff",
-                        "error": "#ba1a1a",
-                        "tertiary-fixed-dim": "#94cdf5",
-                        "on-primary-fixed": "#01006e",
-                        "inverse-on-surface": "#def5fb",
-                        "secondary-fixed": "#c8e6ff",
-                        "outline": "#767686",
-                        "on-secondary-container": "#3b637e",
-                        "on-error": "#ffffff",
-                        "surface-dim": "#c7dee4",
-                        "primary-container": "#4f57e1",
-                        "error-container": "#ffdad6",
-                        "surface-container-lowest": "#ffffff",
-                        "primary-fixed-dim": "#bfc2ff",
-                        "primary": "#343bc8",
-                        "secondary-fixed-dim": "#a3cbea",
-                        "secondary": "#3b637d",
-                        "inverse-surface": "#1f3438",
-                        "surface": "#effcff",
-                        "background": "#effcff",
-                        "surface-tint": "#444cd6",
-                        "on-tertiary-fixed": "#001e2e",
-                        "tertiary-container": "#316e92",
-                        "surface-variant": "#d0e6ec",
-                        "on-secondary": "#ffffff",
-                        "surface-bright": "#effcff",
-                        "on-error-container": "#93000a",
-                        "on-primary-container": "#e8e6ff",
-                        "on-primary": "#ffffff",
-                        "secondary-container": "#b7dffe",
-                        "surface-container-low": "#e1f8fe"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "fontFamily": {
-                        "headline": ["Space Grotesk"],
-                        "body": ["Inter"],
-                        "label": ["Inter"]
-                    }
-                },
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-tertiary-fixed": "#001e2e",
+                "on-tertiary-container": "#d4ecff",
+                "surface-container-low": "#e1f8fe",
+                "inverse-on-surface": "#def5fb",
+                "inverse-surface": "#1f3438",
+                "surface": "#effcff",
+                "surface-dim": "#c7dee4",
+                "secondary-fixed": "#c8e6ff",
+                "primary-fixed": "#e0e0ff",
+                "background": "#effcff",
+                "surface-variant": "#d0e6ec",
+                "tertiary": "#0e5678",
+                "on-secondary": "#ffffff",
+                "on-error": "#ffffff",
+                "primary-container": "#4f57e1",
+                "secondary-container": "#b7dffe",
+                "secondary-fixed-dim": "#a3cbea",
+                "secondary": "#3b637d",
+                "primary-fixed-dim": "#bfc2ff",
+                "on-background": "#081e23",
+                "on-primary": "#ffffff",
+                "primary": "#343bc8",
+                "on-secondary-fixed": "#001e2e",
+                "tertiary-fixed-dim": "#94cdf5",
+                "on-secondary-container": "#3b637e",
+                "surface-container-highest": "#d0e6ec",
+                "outline": "#767686",
+                "surface-container": "#dbf2f8",
+                "surface-tint": "#444cd6",
+                "tertiary-container": "#316e92",
+                "on-secondary-fixed-variant": "#214b64",
+                "surface-container-lowest": "#ffffff",
+                "error": "#ba1a1a",
+                "tertiary-fixed": "#c7e7ff",
+                "on-surface-variant": "#454554",
+                "on-tertiary-fixed-variant": "#004c6d",
+                "outline-variant": "#c6c5d7",
+                "on-primary-container": "#e8e6ff",
+                "surface-bright": "#effcff",
+                "on-error-container": "#93000a",
+                "on-primary-fixed": "#01006e",
+                "error-container": "#ffdad6",
+                "on-primary-fixed-variant": "#292fbe",
+                "surface-container-high": "#d5ecf2",
+                "inverse-primary": "#bfc2ff",
+                "on-surface": "#081e23",
+                "on-tertiary": "#ffffff"
             },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "fontFamily": {
+                "headline": ["Space Grotesk"],
+                "body": ["Hanken Grotesk"],
+                "label": ["Inter"]
+            }
+          }
         }
+      }
     </script>
 <style>
+        body { font-family: 'Hanken Grotesk', sans-serif; background-color: #DAF1F7; }
+        .scrapbook-bg {
+            background-image: radial-gradient(circle at 2px 2px, rgba(52, 59, 200, 0.05) 1px, transparent 0);
+            background-size: 30px 30px;
+        }
+        .tape-effect {
+            position: relative;
+        }
+        .tape-effect::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 70px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(2px);
+            z-index: 10;
+        }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-        .bg-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234F57E1' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-        .scrapbook-card {
-            transition: transform 0.2s ease-out;
-        }
-        .scrapbook-card:hover {
-            transform: scale(1.02) rotate(0deg) !important;
-        }
-        .tonal-shift-no-border {
-            background: linear-gradient(to bottom, rgba(239, 252, 255, 0.9), rgba(239, 252, 255, 0.7));
+        /* Custom scrollbar for dense layout */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #343bc833; border-radius: 10px; }
+        
+        .map-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
         }
     </style>
 </head>
-<body class="bg-background font-body text-on-surface bg-pattern min-h-screen">
-<!-- SideNavBar (Desktop) -->
-<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 z-40 bg-[#DAF1F7] dark:bg-slate-950 py-8 font-['Space_Grotesk'] font-medium text-on-surface">
-<div class="px-6 mb-10">
-<h1 class="text-2xl font-black text-indigo-700" style="">Cyber Food Hunt</h1>
-<!-- <p class="text-xs uppercase tracking-widest text-secondary font-bold" style="">MMU Cyberjaya</p> -->
+<body class="bg-background scrapbook-bg text-on-surface overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-[#effcff]/90 dark:bg-[#081e23]/90 backdrop-blur-md shadow-sm">
+<nav class="flex justify-between items-center max-w-7xl mx-auto px-6 h-14"> 
+<div class="text-xl font-bold bg-gradient-to-br from-[#343bc8] to-[#4f57e1] bg-clip-text text-transparent font-headline tracking-tighter" style"">Cyber Food Hunt</div>
+<nav class="flex justify-between items-center max-w-7xl mx-auto px-6 h-14">
+<div class="hidden md:flex items-center gap-6">
+<a class="text-[#343bc8] dark:text-[#4f57e1] font-bold border-b-2 border-[#343bc8] text-sm" href="#" style"">Discover</a>
+<a class="text-[#16425B] dark:text-[#d0e6ec] opacity-70 text-sm hover:opacity-100 transition-opacity" href="pop-ups.html" style"">Pop-Ups</a>
 </div>
-<nav class="flex-1 space-y-1">
-<a class="flex items-center text-slate-600 px-4 py-3 hover:translate-x-1 transition-transform" href="main.html">
-<span class="material-symbols-outlined mr-3">home</span>
-                Home
-            </a>
-<!-- <a class="flex items-center text-slate-600 px-4 py-3 hover:translate-x-1 transition-transform" href="review.html">
-<span class="material-symbols-outlined mr-3">rate_review</span>
-                Reviews
-            </a> -->
-<a class="flex items-center text-slate-600 px-4 py-3 hover:translate-x-1 transition-transform" href="search.html">
-<span class="material-symbols-outlined mr-3">search</span> 
-                Search
-            </a>
-<a class="flex items-center bg-indigo-100 text-indigo-700 rounded-lg mx-2 px-4 py-3 hover:translate-x-1 transition-transform" href="userprofile.html">
-<span class="material-symbols-outlined mr-3">person</span>
-                Profile
-            </a>
+<div class="flex items-center gap-3">
+</div>
 </nav>
-<div class="mt-auto px-4 space-y-1 border-indigo-200/30 pt-6">
-<a href="foodspots.html"class="w-full bg-primary-container text-on-primary-container py-3 rounded-xl font-bold mb-4 shadow-lg flex items-center justify-center gap-2 hover:scale-105 transition-transform" style="">
-<span class="material-symbols-outlined" data-icon="add" style="">add</span>
-                Share Now!
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-6 bg-[#e1f8fe] dark:bg-[#0d2a30] w-52 shadow-lg border-r border-primary/5">
+<div class="px-6 mb-8 mt-14">
+<h1 class="font-headline font-bold text-[#343bc8] text-lg" style"">Welcome, User!</h1>
+</div>
+<div class="flex flex-col gap-1 px-2 flex-grow">
+<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="main.html" style"">
+<span class="material-symbols-outlined text-xl" style"">home</span>
+<span class="font-body text-sm font-medium" style"">Home</span>
+</a>
+<!--  <a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="review.html" style"">
+<span class="material-symbols-outlined text-xl" style"">edit_note</span>
+<span class="font-body text-sm font-medium" style"">Reviews</span>
+</a>  -->
+<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="search.html" style"">
+<span class="material-symbols-outlined text-xl" style"">search</span>
+<span class="font-body text-sm font-medium" style"">Search</span>
+</a>
+<a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="userprofile.html" style"">
+<span class="material-symbols-outlined text-xl" style"">person</span>
+<span class="font-body text-sm font-medium" style"">Profile</span>
 </a>
 </div>
-</aside>
-<!-- TopNavBar (Mobile) -->
-<header class="md:hidden fixed top-0 w-full z-50 bg-white/70 backdrop-blur-md px-6 py-4 flex justify-between items-center shadow-[0_24px_40px_rgba(22,66,91,0.06)]">
-<h1 class="text-xl font-bold text-indigo-600 font-['Space_Grotesk'] tracking-tight" style="">The Curated Collective</h1>
-<div class="flex items-center gap-4">
-<span class="material-symbols-outlined text-indigo-600" data-icon="notifications" style="">notifications</span>
-<span class="material-symbols-outlined text-indigo-600" data-icon="account_circle" style="">account_circle</span>
+<a>
+<div class="px-4 pb-6">
+  <a href="foodspots.html" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
+    Share Now!
+  </a>
 </div>
-</header>
+</aside>
+<!-- <main class="lg:ml-52 pt-14 px-4 md:px-8 pb-8 max-w-7xl mx-auto"> -->
+
 <!-- Main Content Area -->
 <main class="md:ml-64 pt-20 md:pt-10 px-6 md:px-12 pb-24">
 <!-- Header Section -->
@@ -289,30 +314,12 @@
 </div>
 </div>
 </main>
-<!-- BottomNavBar (Mobile) -->
-<nav class="md:hidden fixed bottom-0 w-full bg-white/70 backdrop-blur-md flex justify-around items-center py-3 z-50">
-<a class="flex flex-col items-center text-slate-500" href="#" style="">
-<span class="material-symbols-outlined" data-icon="explore" style="">explore</span>
-<span class="text-[10px] font-bold" style="">Discover</span>
-</a>
-<a class="flex flex-col items-center text-slate-500" href="#" style="">
-<span class="material-symbols-outlined" data-icon="menu_book" style="">menu_book</span>
-<span class="text-[10px] font-bold" style="">Journal</span>
-</a>
-<a class="flex flex-col items-center text-indigo-600" href="#" style="">
-<span class="material-symbols-outlined" data-icon="bookmark" style='font-variation-settings: "FILL" 1;'>bookmark</span>
-<span class="text-[10px] font-bold" style="">Saved</span>
-</a>
-<a class="flex flex-col items-center text-slate-500" href="#" style="">
-<span class="material-symbols-outlined" data-icon="settings" style="">settings</span>
-<span class="text-[10px] font-bold" style="">Settings</span>
-</a>
-</nav>
-<!-- Decorative Corner Star Stickers -->
-<div class="fixed top-20 right-10 opacity-20 pointer-events-none hidden lg:block">
-<span class="material-symbols-outlined text-4xl text-primary" data-icon="stars" style='font-variation-settings: "FILL" 1;'>stars</span>
+
+<!-- Decorative Stickers -->
+<span class="material-symbols-outlined absolute -bottom-6 -left-6 text-white/5 text-[120px] pointer-events-none" style='font-variation-settings: "FILL" 1;'>star</span>
+<span class="material-symbols-outlined absolute bottom-4 right-2 text-primary text-4xl opacity-40 rotate-12" style='font-variation-settings: "FILL" 1;'>stars</span>
+<span class="material-symbols-outlined absolute top-1/2 left-4 text-white/10 text-3xl animate-pulse" style"">auto_awesome</span>
 </div>
-<div class="fixed bottom-20 left-10 opacity-20 pointer-events-none hidden lg:block">
-<span class="material-symbols-outlined text-6xl text-primary" data-icon="auto_awesome" style="">auto_awesome</span>
-</div>
+</section>
+</main>
 </body></html>
