@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Home | CYBER FOOD HUNT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Hanken+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-tertiary-fixed": "#001e2e","on-tertiary-container": "#d4ecff",
+                "surface-container-low": "#e1f8fe","inverse-on-surface": "#def5fb",
+                "inverse-surface": "#1f3438","surface": "#effcff","surface-dim": "#c7dee4",
+                "secondary-fixed": "#c8e6ff","primary-fixed": "#e0e0ff","background": "#effcff",
+                "surface-variant": "#d0e6ec","tertiary": "#0e5678","on-secondary": "#ffffff",
+                "on-error": "#ffffff","primary-container": "#4f57e1","secondary-container": "#b7dffe",
+                "secondary-fixed-dim": "#a3cbea","secondary": "#3b637d","primary-fixed-dim": "#bfc2ff",
+                "on-background": "#081e23","on-primary": "#ffffff","primary": "#343bc8",
+                "on-secondary-fixed": "#001e2e","tertiary-fixed-dim": "#94cdf5",
+                "on-secondary-container": "#3b637e","surface-container-highest": "#d0e6ec",
+                "outline": "#767686","surface-container": "#dbf2f8","surface-tint": "#444cd6",
+                "tertiary-container": "#316e92","on-secondary-fixed-variant": "#214b64",
+                "surface-container-lowest": "#ffffff","error": "#ba1a1a","tertiary-fixed": "#c7e7ff",
+                "on-surface-variant": "#454554","on-tertiary-fixed-variant": "#004c6d",
+                "outline-variant": "#c6c5d7","on-primary-container": "#e8e6ff",
+                "surface-bright": "#effcff","on-error-container": "#93000a",
+                "on-primary-fixed": "#01006e","error-container": "#ffdad6",
+                "on-primary-fixed-variant": "#292fbe","surface-container-high": "#d5ecf2",
+                "inverse-primary": "#bfc2ff","on-surface": "#081e23","on-tertiary": "#ffffff"
+            },
+            "borderRadius": {"DEFAULT": "0.125rem","lg": "0.25rem","xl": "0.5rem","full": "0.75rem"},
+            "fontFamily": {"headline": ["Space Grotesk"],"body": ["Hanken Grotesk"],"label": ["Inter"]}
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; background-color: #DAF1F7; }
+        .scrapbook-bg { background-image: radial-gradient(circle at 2px 2px, rgba(52, 59, 200, 0.05) 1px, transparent 0); background-size: 30px 30px; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #343bc833; border-radius: 10px; }
+        .event-banner-scroll { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .event-banner-scroll::-webkit-scrollbar { display: none; }
+        .event-banner-item { scroll-snap-align: start; flex-shrink: 0; }
+        @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(1.4); opacity: 0; } }
+        .live-pulse::before { content: ''; position: absolute; inset: 0; border-radius: 9999px; background: #ef4444; animation: pulse-ring 1.5s ease-out infinite; }
+    </style>
+</head>
+<body class="bg-background scrapbook-bg text-on-surface overflow-x-hidden">
+
+<!-- Top Navigation Bar-->
+<header class="fixed top-0 w-full z-50 bg-[#effcff]/90 backdrop-blur-md shadow-sm">
+<nav class="flex items-center max-w-7xl mx-auto px-6 h-14">
+    <div class="text-xl font-bold bg-gradient-to-br from-[#343bc8] to-[#4f57e1] bg-clip-text text-transparent font-headline tracking-tighter">Cyber Food Hunt</div>
+    <div class="flex-1 flex justify-center items-center gap-8">
+        <a class="text-[#343bc8] font-bold border-b-2 border-[#343bc8] text-sm" href="{% url 'home' %}">Discover</a>
+        <a class="text-[#16425B] opacity-70 text-sm hover:opacity-100 transition-opacity" href="{% url 'event_list' %}">Pop-Ups</a>
+    </div>
+</nav>
+</header>
+
+<!-- Side Naviagtion Bar -->
+<aside class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-6 bg-[#e1f8fe] w-52 shadow-lg border-r border-primary/5">
+<div class="px-6 mb-8 mt-14">
+    <h1 class="font-headline font-bold text-[#343bc8] text-lg">Welcome, User!</h1>
+</div>
+<div class="flex flex-col gap-1 px-2 flex-grow">
+    <a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="{% url 'home' %}">
+        <span class="material-symbols-outlined text-xl">home</span>
+        <span class="font-body text-sm font-medium">Home</span>
+    </a>
+    <a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'search' %}">
+        <span class="material-symbols-outlined text-xl">search</span>
+        <span class="font-body text-sm font-medium">Search</span>
+    </a>
+    <a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="userprofile.html">
+        <span class="material-symbols-outlined text-xl">person</span>
+        <span class="font-body text-sm font-medium">Profile</span>
+    </a>
+</div>
+<div class="px-4 pb-6">
+    <a href="{% url 'event_create' %}" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
+        Share Now!
+    </a>
+</div>
+</aside>
+
+<!-- Main Canvas -->
+<main class="lg:ml-52 pt-20 pb-12 px-4 md:px-8 overflow-x-hidden relative min-h-screen">
+<div class="max-w-5xl mx-auto">
+
+    <!-- Welcome card -->
+    <section class="mb-8">
+        <div class="bg-surface-container-low rounded-xl p-8 md:p-10 relative overflow-hidden shadow-sm border border-outline-variant/10">
+            <!-- Decorative dots background -->
+            <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle, #343bc8 1px, transparent 1px); background-size: 20px 20px;"></div>
+            <div class="relative z-10">
+                <h1 class="text-4xl md:text-5xl font-black font-headline text-on-surface mb-4 leading-tight">
+                    Welcome to <br/><span class="text-primary">Cyber Food Hunt!</span>
+                </h1>
+                <!-- Search bar -->
+                <form method="GET" action="{% url 'search' %}" class="flex gap-2 max-w-xl">
+                    <div class="flex-1 relative">
+                        <input type="text" name="q" placeholder="Search for Nasi Lemak, Boba, or T505 gems..."
+                            class="w-full pl-4 pr-4 py-3 rounded-lg border-2 border-dashed border-primary/30 bg-white text-sm focus:outline-none focus:border-primary placeholder:text-outline/50"/>
+                    </div>
+                    <button type="submit" class="bg-primary text-white px-4 py-3 rounded-lg hover:brightness-110 transition-all">
+                        <span class="material-symbols-outlined">search</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event banner — only shows if there are active events -->
+    {% if events %}
+    <section class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="relative flex items-center justify-center w-5 h-5">
+                <div class="live-pulse relative w-3 h-3 rounded-full bg-red-500 z-10"></div>
+            </div>
+            <h2 class="font-headline font-bold text-sm uppercase tracking-widest text-on-surface-variant">Happening Now</h2>
+            <a href="{% url 'event_list' %}" class="ml-auto text-xs font-bold text-primary hover:underline uppercase tracking-widest">See All →</a>
+        </div>
+        <div class="event-banner-scroll">
+            {% for event in events %}
+            <a href="{% url 'event_detail' event.event_id %}" class="event-banner-item w-full md:w-[480px]">
+                <div class="relative bg-gradient-to-br from-[#343bc8] to-[#4f57e1] text-white rounded-xl p-6 shadow-xl overflow-hidden group hover:scale-[1.01] transition-transform duration-300">
+                    <div class="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-white/5"></div>
+                    <div class="absolute -right-4 -bottom-4 w-24 h-24 rounded-full bg-white/5"></div>
+                    <span class="material-symbols-outlined absolute bottom-3 right-3 text-white/10 text-6xl pointer-events-none" style="font-variation-settings: 'FILL' 1;">celebration</span>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="bg-white/20 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Limited Time Event</span>
+                        <span class="bg-red-500/80 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-widest">Ends {{ event.end_date }}</span>
+                    </div>
+                    <h3 class="font-headline font-black text-2xl md:text-3xl leading-tight mb-3 relative z-10">{{ event.event_name }}</h3>
+                    <div class="flex flex-wrap items-center gap-4 text-white/80 text-sm relative z-10">
+                        <div class="flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-base">location_on</span>
+                            <span class="font-medium">{{ event.event_location }}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-base">calendar_month</span>
+                            <span class="font-medium">{{ event.start_date }} — {{ event.end_date }}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-base">person</span>
+                            <span class="font-medium">{{ event.user }}</span>
+                        </div>
+                    </div>
+                    <div class="mt-5 flex items-center gap-2 text-white font-bold text-sm relative z-10">
+                        <span>View Event</span>
+                        <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!--Regular Food Spots section -->
+    <section>
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 class="font-headline font-black text-2xl text-on-surface">Top Food Spots</h2>
+                <p class="text-sm text-on-surface-variant mt-0.5">Discovered by the Cyberjaya community</p>
+            </div>
+            <a href="{% url 'search' %}" class="text-xs font-bold text-primary hover:underline uppercase tracking-widest">See All →</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for restaurant in restaurants %}
+            <div class="bg-surface-container-high rounded-xl p-5 shadow-md border border-outline-variant/10 hover:shadow-lg transition-shadow">
+                <div class="flex gap-4">
+                    <div class="w-20 h-20 flex-shrink-0 rounded-lg bg-white flex items-center justify-center overflow-hidden border border-outline-variant/10">
+                        {% if restaurant.image %}
+                            <img src="{{ restaurant.image }}" class="w-full h-full object-cover"/>
+                        {% else %}
+                            <span class="material-symbols-outlined text-3xl text-primary/20">restaurant</span>
+                        {% endif %}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-headline font-black text-base text-on-surface truncate">{{ restaurant.restaurant_name }}</h3>
+                        <p class="text-xs text-secondary flex items-center gap-1 mt-0.5">
+                            <span class="material-symbols-outlined text-xs">location_on</span>
+                            {{ restaurant.location }}
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            {% if restaurant.cuisine %}
+                            <span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">{{ restaurant.cuisine }}</span>
+                            {% endif %}
+                            {% if restaurant.is_halal %}
+                            <span class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">Halal ✓</span>
+                            {% endif %}
+                            {% if restaurant.transport_mode %}
+                            <span class="bg-white text-on-surface-variant text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide border border-outline-variant/20">{{ restaurant.transport_mode }}</span>
+                            {% endif %}
+                            {% if restaurant.min_price and restaurant.max_price %}
+                            <span class="bg-white text-on-surface-variant text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide border border-outline-variant/20">RM{{ restaurant.min_price }}–{{ restaurant.max_price }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-2 text-center py-16">
+                <span class="material-symbols-outlined text-5xl text-outline/30 mb-3 block">restaurant</span>
+                <p class="text-on-surface-variant font-medium">No food spots yet.</p>
+                <a href="{% url 'event_create' %}" class="mt-3 inline-block bg-primary text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:brightness-110 transition-all">
+                    Be the first to share one!
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+</div>
+</main>
+</body></html>
