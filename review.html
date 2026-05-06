@@ -156,44 +156,93 @@
                     </label>
 <div class="relative"><input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary-container text-on-surface font-medium transition-all" placeholder="Enter restaurant name..." type="text"/></div>
 </div>
-<!-- Star Rating -->
-<div class="space-y-3">
-  <label class="font-headline font-bold text-on-surface-variant">Rate your experience</label>
-  
-  <div class="flex gap-2" id="starRating">
+<!-- REVIEW FORM START -->
+<form method="POST" action="/submit-review/">
     
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="1">star</span>
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="2">star</span>
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="3">star</span>
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="4">star</span>
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="5">star</span>
-    
-  </div>
+    <!-- Django security token (REQUIRED when using Django) -->
+    {% csrf_token %}
 
-  <!-- Hidden input (useful later for Django form) -->
-  <input type="hidden" id="ratingValue" name="rating" value="0">
-</div>
+   
+    <!-- STAR RATING UI -->
+    <div class="space-y-3">
+        
+        <!-- Label for the rating section -->
+        <label class="font-headline font-bold text-on-surface-variant">
+            Rate your experience
+        </label>
 
+        <!-- Container holding all stars -->
+        <div id="starRating" class="flex gap-2">
+            
+            <!-- 
+            Each star has:
+            - data-value → tells us what rating it represents
+            - class "star" → used by JavaScript to select all stars
+            -->
+            <span data-value="1" class="star material-symbols-outlined text-4xl cursor-pointer text-outline-variant">star</span>
+            <span data-value="2" class="star material-symbols-outlined text-4xl cursor-pointer text-outline-variant">star</span>
+            <span data-value="3" class="star material-symbols-outlined text-4xl cursor-pointer text-outline-variant">star</span>
+            <span data-value="4" class="star material-symbols-outlined text-4xl cursor-pointer text-outline-variant">star</span>
+            <span data-value="5" class="star material-symbols-outlined text-4xl cursor-pointer text-outline-variant">star</span>
+        
+        </div>
+
+        <!-- 
+        Hidden input:
+        - Stores the selected rating value (1–5)
+        - This is what gets sent to Django when the form is submitted
+        -->
+        <input type="hidden" name="rating" id="ratingValue" value="0">
+
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="mt-4 bg-primary text-white px-4 py-2 rounded">
+        Submit Review
+    </button>
+
+</form>
+<!-- REVIEW FORM END -->
+<!-- JAVASCRIPT LOGIC -->
 <script>
-  const stars = document.querySelectorAll("#starRating span");
-  const ratingInput = document.getElementById("ratingValue");
 
-  stars.forEach((star, index) => {
-    star.addEventListener("click", () => {
-      let rating = index + 1;
-      ratingInput.value = rating;
+    // Get all star elements
+    const stars = document.querySelectorAll(".star");
 
-      stars.forEach((s, i) => {
-        if (i < rating) {
-          s.style.color = "#343bc8"; // filled color
-          s.style.fontVariationSettings = "'FILL' 1";
-        } else {
-          s.style.color = "#c6c5d7"; // empty color
-          s.style.fontVariationSettings = "'FILL' 0";
-        }
-      });
+    // Get hidden input where rating is stored
+    const ratingInput = document.getElementById("ratingValue");
+
+    // Loop through each star
+    stars.forEach((star, index) => {
+
+        // Add click event to each star
+        star.addEventListener("click", () => {
+
+            // Rating = position of clicked star (index starts at 0, so +1)
+            let rating = index + 1;
+
+            // Save rating into hidden input (so backend can read it)
+            ratingInput.value = rating;
+
+            // Loop again to update ALL stars visually
+            stars.forEach((s, i) => {
+
+                if (i < rating) {
+                    // Fill selected stars
+                    s.style.fontVariationSettings = "'FILL' 1";
+                    s.style.color = "#343bc8"; // active color
+                } else {
+                    // Reset unselected stars
+                    s.style.fontVariationSettings = "'FILL' 0";
+                    s.style.color = "#c6c5d7"; // inactive color
+                }
+
+            });
+
+        });
+
     });
-  });
+
 </script>
 <!-- Photo Upload Area -->
 <div class="space-y-2">
