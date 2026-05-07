@@ -1,5 +1,3 @@
-<!--fixed version with no deco-->
-
 <!DOCTYPE html>
 
 <html class="light" lang="en"><head>
@@ -7,70 +5,94 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Search | CYBER FOOD HUNT</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "tertiary-container": "#316e92","error-container": "#ffdad6","surface": "#effcff",
-                        "inverse-surface": "#1f3438","on-tertiary-container": "#d4ecff","surface-tint": "#444cd6",
-                        "primary": "#4f57e1","on-surface": "#081e23","inverse-on-surface": "#def5fb",
-                        "on-tertiary-fixed-variant": "#004c6d","on-secondary-fixed": "#001e2e","on-tertiary": "#ffffff",
-                        "on-surface-variant": "#454554","on-primary-fixed": "#01006e","tertiary": "#0e5678",
-                        "primary-fixed-dim": "#bfc2ff","surface-container-lowest": "#ffffff","on-primary": "#ffffff",
-                        "secondary-fixed-dim": "#a3cbea","primary-container": "#4f57e1","tertiary-fixed-dim": "#94cdf5",
-                        "on-error-container": "#93000a","surface-container-low": "#e1f8fe","surface-bright": "#effcff",
-                        "primary-fixed": "#e0e0ff","on-primary-container": "#e8e6ff","on-secondary": "#ffffff",
-                        "surface-container-highest": "#d0e6ec","surface-container": "#dbf2f8","outline-variant": "#c6c5d7",
-                        "on-background": "#081e23","on-secondary-container": "#3b637e","tertiary-fixed": "#c7e7ff",
-                        "outline": "#767686","on-primary-fixed-variant": "#292fbe","surface-variant": "#d0e6ec",
-                        "secondary": "#3b637d","on-tertiary-fixed": "#001e2e","error": "#ba1a1a",
-                        "secondary-container": "#b7dffe","surface-container-high": "#d5ecf2","inverse-primary": "#bfc2ff",
-                        "secondary-fixed": "#c8e6ff","on-error": "#ffffff","surface-dim": "#c7dee4",
-                        "on-secondary-fixed-variant": "#214b64","background": "#effcff"
-                    },
-                    "borderRadius": {"DEFAULT": "0.125rem","lg": "0.25rem","xl": "0.5rem","full": "0.75rem"},
-                    "fontFamily": {"headline": ["Space Grotesk"],"body": ["Inter"],"label": ["Inter"]}
-                },
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-tertiary-fixed": "#001e2e","on-tertiary-container": "#d4ecff",
+                "surface-container-low": "#e1f8fe","inverse-on-surface": "#def5fb",
+                "inverse-surface": "#1f3438","surface": "#effcff","surface-dim": "#c7dee4",
+                "secondary-fixed": "#c8e6ff","primary-fixed": "#e0e0ff","background": "#effcff",
+                "surface-variant": "#d0e6ec","tertiary": "#0e5678","on-secondary": "#ffffff",
+                "on-error": "#ffffff","primary-container": "#4f57e1","secondary-container": "#b7dffe",
+                "secondary-fixed-dim": "#a3cbea","secondary": "#3b637d","primary-fixed-dim": "#bfc2ff",
+                "on-background": "#081e23","on-primary": "#ffffff","primary": "#343bc8",
+                "on-secondary-fixed": "#001e2e","tertiary-fixed-dim": "#94cdf5",
+                "on-secondary-container": "#3b637e","surface-container-highest": "#d0e6ec",
+                "outline": "#767686","surface-container": "#dbf2f8","surface-tint": "#444cd6",
+                "tertiary-container": "#316e92","on-secondary-fixed-variant": "#214b64",
+                "surface-container-lowest": "#ffffff","error": "#ba1a1a","tertiary-fixed": "#c7e7ff",
+                "on-surface-variant": "#454554","on-tertiary-fixed-variant": "#004c6d",
+                "outline-variant": "#c6c5d7","on-primary-container": "#e8e6ff",
+                "surface-bright": "#effcff","on-error-container": "#93000a",
+                "on-primary-fixed": "#01006e","error-container": "#ffdad6",
+                "on-primary-fixed-variant": "#292fbe","surface-container-high": "#d5ecf2",
+                "inverse-primary": "#bfc2ff","on-surface": "#081e23","on-tertiary": "#ffffff"
             },
+            "borderRadius": {"DEFAULT": "0.125rem","lg": "0.25rem","xl": "0.5rem","full": "0.75rem"},
+            "fontFamily": {"headline": ["Space Grotesk"],"body": ["Hanken Grotesk"],"label": ["Inter"]}
+          }
         }
+      }
     </script>
 <style>
+        body { font-family: 'Hanken Grotesk', sans-serif; background-color: #DAF1F7; }
+        .scrapbook-bg { background-image: radial-gradient(circle at 2px 2px, rgba(52, 59, 200, 0.05) 1px, transparent 0); background-size: 30px 30px; }
+        .tape-effect { position: relative; }
+        .tape-effect::before { content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%) rotate(-2deg); width: 70px; height: 20px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(2px); z-index: 10; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .scrapbook-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #343bc833; border-radius: 10px; }
+        .map-grid { background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px); background-size: 20px 20px; }
         .sticker-rotate-1 { transform: rotate(1.2deg); }
         .sticker-rotate-neg-1 { transform: rotate(-0.8deg); }
-        .paper-shadow { box-shadow: 0 4px 20px -2px rgba(79, 87, 225, 0.08); }
-        .scrapbook-bg { background-image: radial-gradient(#4f57e1 0.5px, transparent 0.5px); background-size: 24px 24px; opacity: 0.05; }
     </style>
 </head>
-<body class="bg-background font-body text-on-background min-h-screen selection:bg-primary-container selection:text-white">
+<body class="bg-background scrapbook-bg text-on-surface overflow-x-hidden">
 
-<!-- Side Navigation Bar -->
-<aside class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-8 bg-white w-72 shadow-2xl shadow-indigo-100/50 pt-10">
-<div class="px-8 mb-10">
-<h2 class="font-['Space_Grotesk'] font-bold text-[#4f57e1] text-xl uppercase tracking-widest">Cyber Food Hunt</h2>
+<!-- Top Navigation bar -->
+<header class="fixed top-0 w-full z-50 bg-[#effcff]/90 dark:bg-[#081e23]/90 backdrop-blur-md shadow-sm">
+<nav class="flex items-center max-w-7xl mx-auto px-6 h-14">
+<div class="text-xl font-bold bg-gradient-to-br from-[#343bc8] to-[#4f57e1] bg-clip-text text-transparent font-headline tracking-tighter">Cyber Food Hunt</div>
+<div class="flex-1 flex justify-center items-center gap-6">
+    <a class="text-[#343bc8] dark:text-[#4f57e1] font-bold border-b-2 border-[#343bc8] text-sm" href="{% url 'home' %}">Discover</a>
+    <a class="text-[#16425B] dark:text-[#d0e6ec] opacity-70 text-sm hover:opacity-100 transition-opacity" href="{% url 'event_list' %}">Pop-Ups</a>
 </div>
-<nav class="flex flex-col gap-2 px-4 mb-auto">
-<a class="flex items-center gap-4 text-slate-500 px-5 py-4 -rotate-1 hover:bg-slate-100 hover:rotate-0 transition-all duration-300 ease-out hover:translate-x-2 font-headline text-sm uppercase tracking-widest" href="{% url 'home' %}">
-<span class="material-symbols-outlined">home</span>Home</a>
-<a class="flex items-center gap-4 bg-primary text-white rounded-lg px-5 py-4 font-bold rotate-1 shadow-lg font-headline text-sm uppercase tracking-widest" href="{% url 'search' %}">
-<span class="material-symbols-outlined">search</span>Search</a>
-<a class="flex items-center gap-4 text-slate-500 px-5 py-4 -rotate-1 hover:bg-slate-100 hover:rotate-0 transition-all duration-300 ease-out hover:translate-x-2 font-headline text-sm uppercase tracking-widest" href="userprofile.html">
-<span class="material-symbols-outlined">person</span>Profile</a>
 </nav>
-<div class="mt-auto px-6 border-t border-slate-100 pt-6">
-    <!-- Share Now uses Django URL -->
+</header>
+
+<!-- Side navigation bar -->
+<aside class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-6 bg-[#e1f8fe] dark:bg-[#0d2a30] w-52 shadow-lg border-r border-primary/5">
+<div class="px-6 mb-8 mt-14">
+<h1 class="font-headline font-bold text-[#343bc8] text-lg">Welcome, User!</h1>
+</div>
+<div class="flex flex-col gap-1 px-2 flex-grow">
+    <a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'home' %}">
+        <span class="material-symbols-outlined text-xl">home</span>
+        <span class="font-body text-sm font-medium">Home</span>
+    </a>
+    <a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="{% url 'search' %}">
+        <span class="material-symbols-outlined text-xl">search</span>
+        <span class="font-body text-sm font-medium">Search</span>
+    </a>
+    <a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="userprofile.html">
+        <span class="material-symbols-outlined text-xl">person</span>
+        <span class="font-body text-sm font-medium">Profile</span>
+    </a>
+</div>
+<div class="px-4 pb-6">
     <a href="{% url 'event_create' %}" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
         Share Now!
     </a>
 </div>
 </aside>
 
-<!-- Main Content Canvas -->
+<!-- Main Content -->
 <main class="lg:ml-72 pt-16 px-6 pb-20 relative min-h-screen">
 <div class="scrapbook-bg absolute inset-0 pointer-events-none"></div>
 <div class="max-w-6xl mx-auto relative z-10">
@@ -86,209 +108,192 @@
 
 <div class="flex flex-col lg:flex-row gap-8">
 
-<!-- ── FILTER SECTION ── -->
-<!-- wrapped entire filter in a <form method="GET"> so filters submit to Django search view -->
+<!-- Filter Section wrapped in Django form -->
 <section class="lg:w-80 shrink-0">
 <form method="GET" action="{% url 'search' %}">
 
-    <!-- Search by name -->
-    <div class="mb-6 px-1">
-    <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary mb-3 block">Search Restaurant</label>
-    <div class="relative">
-    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/40 text-xl">search</span>
-    <!-- added name="q" -->
-    <input class="w-full pl-12 pr-4 py-4 bg-white border-none rounded-2xl text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-secondary/40 shadow-sm font-headline"
-        name="q" placeholder="Enter name..." type="text" value="{{ request.GET.q }}"/>
-    </div>
-    </div>
+<div class="mb-6 px-1">
+<label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary mb-3 block">Search Restaurant</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/40 text-xl">search</span>
+<input class="w-full pl-12 pr-4 py-4 bg-white border-none rounded-2xl text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-secondary/40 shadow-sm font-headline" name="q" placeholder="Enter name..." type="text" value="{{ request.GET.q }}"/>
+</div>
+</div>
 
-    <div class="bg-surface-container-low p-6 rounded-2xl shadow-xl sticker-rotate-neg-1 relative overflow-hidden">
-    <div class="absolute top-2 right-2 text-primary/10">
-    <span class="material-symbols-outlined text-4xl">filter_alt</span>
-    </div>
-    <h3 class="font-headline font-bold text-xl mb-8 flex items-center gap-2">
-    <span class="material-symbols-outlined text-primary">tune</span> Filters
-    </h3>
+<div class="bg-surface-container-low p-6 rounded-2xl shadow-xl sticker-rotate-neg-1 relative overflow-hidden">
+<div class="absolute top-2 right-2 text-primary/10">
+<span class="material-symbols-outlined text-4xl">filter_alt</span>
+</div>
+<h3 class="font-headline font-bold text-xl mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">tune</span> Filters
+</h3>
 
-    <!-- Price Range -->
-    <div class="mb-8">
-    <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Price Range</label>
-    <div class="flex gap-3" id="price-buttons">
-        <!--added name="price" and value to each price button -->
-        <button type="button" onclick="selectPrice(this, '$')" name="price" value="$"
-            class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$</button>
-        <button type="button" onclick="selectPrice(this, '$$')" name="price" value="$$"
-            class="price-btn bg-primary text-white w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-neg-1 hover:scale-110 transition-all shadow-lg">$$</button>
-        <button type="button" onclick="selectPrice(this, '$$$')" name="price" value="$$$"
-            class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$$$</button>
-    </div>
-    <!-- Hidden input that actually submits the price value -->
-    <input type="hidden" id="price-input" name="price" value="{{ request.GET.price }}"/>
-    </div>
+<!-- Price Range -->
+<div class="mb-8">
+  <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Price Range</label>
+  <div class="flex gap-3" id="price-buttons">
+    <button type="button" onclick="selectPrice(this, '$')" class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$</button>
+    <button type="button" onclick="selectPrice(this, '$$')" class="price-btn bg-primary text-white w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-neg-1 hover:scale-110 transition-all shadow-lg">$$</button>
+    <button type="button" onclick="selectPrice(this, '$$$')" class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$$$</button>
+  </div>
+  <input type="hidden" id="price-input" name="price" value="{{ request.GET.price }}"/>
+</div>
 
-    <!-- Transport -->
-    <div class="mb-8">
-    <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Public Transport</label>
-    <div class="space-y-3">
-        <!-- transport values match database exactly -->
-        <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-            <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="transport" value="walking" {% if request.GET.transport == 'walking' %}checked{% endif %}/>
-            <span class="material-symbols-outlined text-primary text-lg">directions_walk</span>
-            <span class="text-sm font-bold font-headline uppercase tracking-wider">Walking</span>
-        </label>
-        <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-            <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="transport" value="bus_T505" {% if request.GET.transport == 'bus_T505' %}checked{% endif %}/>
-            <span class="material-symbols-outlined text-primary text-lg">directions_bus</span>
-            <span class="text-sm font-bold font-headline uppercase tracking-wider">Bus T505</span>
-        </label>
-        <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-            <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="transport" value="shuttle" {% if request.GET.transport == 'shuttle' %}checked{% endif %}/>
-            <span class="material-symbols-outlined text-primary text-lg">airport_shuttle</span>
-            <span class="text-sm font-bold font-headline uppercase tracking-wider">MMU Shuttle</span>
-        </label>
-        <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-            <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="transport" value="ehailing" {% if request.GET.transport == 'ehailing' %}checked{% endif %}/>
-            <span class="material-symbols-outlined text-primary text-lg">local_taxi</span>
-            <span class="text-sm font-bold font-headline uppercase tracking-wider">E-Hailing</span>
-        </label>
-    </div>
-    </div>
+<!-- Transport -->
+<div class="mb-8">
+  <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Public Transport</label>
+  <div class="space-y-3">
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="transport" value="shuttle" {% if request.GET.transport == 'shuttle' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">MMU Shuttle</span>
+    </label>
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="transport" value="bus_T505" {% if request.GET.transport == 'bus_T505' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Bus T505</span>
+    </label>
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="transport" value="ehailing" {% if request.GET.transport == 'ehailing' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">E-Hailing</span>
+    </label>
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="transport" value="walking" {% if request.GET.transport == 'walking' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Walking</span>
+    </label>
+  </div>
+</div>
 
-    <!-- Cuisine Type -->
-    <div class="mb-8">
-    <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Cuisine Type</label>
-    <div class="space-y-3">
-        <!-- cuisine values match database -->
-        <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-            <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Fast Food" {% if request.GET.cuisine == 'Fast Food' %}checked{% endif %}/>
-            <span class="text-sm font-bold font-headline uppercase tracking-wider">Fast Food</span>
-        </label>
-        <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-            <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Chinese" {% if request.GET.cuisine == 'Chinese' %}checked{% endif %}/>
-            <span class="text-sm font-bold font-headline uppercase tracking-wider">Chinese</span>
-        </label>
-        <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-            <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Malay" {% if request.GET.cuisine == 'Malay' %}checked{% endif %}/>
-            <span class="text-sm font-bold font-headline uppercase tracking-wider">Malay</span>
-        </label>
-        <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-            <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Indian" {% if request.GET.cuisine == 'Indian' %}checked{% endif %}/>
-            <span class="text-sm font-bold font-headline uppercase tracking-wider">Indian</span>
-        </label>
-        <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-            <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Western" {% if request.GET.cuisine == 'Western' %}checked{% endif %}/>
-            <span class="text-sm font-bold font-headline uppercase tracking-wider">Western</span>
-        </label>
-        <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-            <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Arab" {% if request.GET.cuisine == 'Arab' %}checked{% endif %}/>
-            <span class="text-sm font-bold font-headline uppercase tracking-wider">Arab</span>
-        </label>
-        <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-            <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Cafe" {% if request.GET.cuisine == 'Cafe' %}checked{% endif %}/>
-            <span class="text-sm font-bold font-headline uppercase tracking-wider">Cafe</span>
-        </label>
-    </div>
-    </div>
+<!-- Cuisine Type -->
+<div class="mb-8">
+  <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Cuisine Type</label>
+  <div class="space-y-3">
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Fast Food" {% if request.GET.cuisine == 'Fast Food' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Fast Food</span>
+    </label>
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Chinese" {% if request.GET.cuisine == 'Chinese' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Chinese</span>
+    </label>
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Malay" {% if request.GET.cuisine == 'Malay' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Malay</span>
+    </label>
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Indian" {% if request.GET.cuisine == 'Indian' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Indian</span>
+    </label>
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Arab" {% if request.GET.cuisine == 'Arab' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Arab</span>
+    </label>
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Western" {% if request.GET.cuisine == 'Western' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Western</span>
+    </label>
+    <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Cafe" {% if request.GET.cuisine == 'Cafe' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Cafe</span>
+    </label>
+  </div>
+</div>
 
-    <!-- Open Now Toggle -->
-    <!--fixed duplicate id="toggle" — now unique ids -->
-    <div class="space-y-3">
-    <div class="flex items-center justify-between p-4 bg-primary/5 rounded-2xl border border-primary/10">
-    <div>
-    <p class="font-black font-headline text-xs uppercase tracking-tight">Open Now</p>
-    <p class="text-[9px] text-secondary/60 uppercase font-bold">Active spots only</p>
-    </div>
-    <div class="relative inline-block w-10 h-5 transition duration-200 ease-in-out">
-    <input class="absolute w-5 h-5 rounded-full bg-white border-2 border-primary appearance-none cursor-pointer checked:translate-x-5 transition-transform z-10" id="toggle-open" name="open_now" type="checkbox" {% if request.GET.open_now %}checked{% endif %}/>
-    <label class="block h-5 overflow-hidden bg-primary/20 rounded-full cursor-pointer" for="toggle-open"></label>
-    </div>
-    </div>
+<!-- Open Now Toggle -->
+<div class="space-y-3">
+<div class="flex items-center justify-between p-4 bg-primary/5 rounded-2xl border border-primary/10">
+<div>
+<p class="font-black font-headline text-xs uppercase tracking-tight">Open Now</p>
+<p class="text-[9px] text-secondary/60 uppercase font-bold">Active spots only</p>
+</div>
+<div class="relative inline-block w-10 h-5 transition duration-200 ease-in-out">
+<input class="absolute w-5 h-5 rounded-full bg-white border-2 border-primary appearance-none cursor-pointer checked:translate-x-5 transition-transform z-10" id="toggle-open" name="open_now" type="checkbox" {% if request.GET.open_now %}checked{% endif %}/>
+<label class="block h-5 overflow-hidden bg-primary/20 rounded-full cursor-pointer" for="toggle-open"></label>
+</div>
+</div>
 
-    <!-- Halal Toggle -->
-    <div class="flex items-center justify-between p-4 bg-primary/5 rounded-2xl border border-primary/10">
-    <div>
-    <p class="font-black font-headline text-xs uppercase tracking-tight">Halal Only</p>
-    <p class="text-[9px] text-secondary/60 uppercase font-bold">Show halal spots only</p>
-    </div>
-    <div class="relative inline-block w-10 h-5 transition duration-200 ease-in-out">
-    <!--added name="is_halal" and unique id -->
-    <input class="absolute w-5 h-5 rounded-full bg-white border-2 border-primary appearance-none cursor-pointer checked:translate-x-5 transition-transform z-10" id="toggle-halal" name="is_halal" type="checkbox" {% if request.GET.is_halal %}checked{% endif %}/>
-    <label class="block h-5 overflow-hidden bg-primary/20 rounded-full cursor-pointer" for="toggle-halal"></label>
-    </div>
-    </div>
-    </div>
+<!-- Halal Toggle -->
+<div class="flex items-center justify-between p-4 bg-primary/5 rounded-2xl border border-primary/10">
+<div>
+<p class="font-black font-headline text-xs uppercase tracking-tight">Halal Only</p>
+<p class="text-[9px] text-secondary/60 uppercase font-bold">Show halal spots only</p>
+</div>
+<div class="relative inline-block w-10 h-5 transition duration-200 ease-in-out">
+<input class="absolute w-5 h-5 rounded-full bg-white border-2 border-primary appearance-none cursor-pointer checked:translate-x-5 transition-transform z-10" id="toggle-halal" name="is_halal" type="checkbox" {% if request.GET.is_halal %}checked{% endif %}/>
+<label class="block h-5 overflow-hidden bg-primary/20 rounded-full cursor-pointer" for="toggle-halal"></label>
+</div>
+</div>
+</div>
 
-    <!--Apply Filters submit button -->
-    <button type="submit" class="w-full mt-6 py-3 bg-primary text-white font-bold font-headline rounded-xl uppercase tracking-widest text-sm hover:brightness-110 transition-all shadow-lg">
-        Apply Filters
-    </button>
+<!-- Apply Filters button -->
+<button type="submit" class="w-full mt-6 py-3 bg-primary text-white font-bold font-headline rounded-xl uppercase tracking-widest text-sm hover:brightness-110 transition-all shadow-lg">
+    Apply Filters
+</button>
 
-    </div>
+</div>
 </form>
 </section>
 
-<!-- ── RESULTS SECTION ── -->
+<!-- Results Section -->
 <section class="flex-1">
 <div class="flex items-center justify-between mb-8 px-4">
-    <!-- show real count from database -->
-    <p class="text-sm font-medium text-on-surface-variant font-headline">Found <span class="text-primary font-black">{{ restaurants|length }} SPOTS</span> in Cyberjaya</p>
-    <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full shadow-sm border border-slate-100">
-    <span class="material-symbols-outlined text-primary text-lg">sort</span>
-    <select class="bg-transparent border-none text-xs font-black uppercase tracking-widest text-primary focus:ring-0 cursor-pointer p-0">
-    <option>Top Rated</option>
-    <option>Closest</option>
-    <option>Newest</option>
-    </select>
-    </div>
+<p class="text-sm font-medium text-on-surface-variant font-headline">Found <span class="text-primary font-black">{{ restaurants|length }} SPOTS</span> in Cyberjaya</p>
+<div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full shadow-sm border border-slate-100">
+<span class="material-symbols-outlined text-primary text-lg">sort</span>
+<select class="bg-transparent border-none text-xs font-black uppercase tracking-widest text-primary focus:ring-0 cursor-pointer p-0">
+<option>Top Rated</option>
+<option>Closest</option>
+<option>Newest</option>
+</select>
+</div>
 </div>
 
 <div class="grid grid-cols-1 gap-8">
-    {% for restaurant in restaurants %}
-    <div class="relative group">
-    <div class="bg-surface-container-highest p-4 rounded-xl sticker-rotate-1 shadow-lg z-20 relative translate-x-2 translate-y-2 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-300">
-    <div class="flex flex-col md:flex-row gap-6">
-    <div class="w-full md:w-40 h-40 flex-shrink-0 bg-white rounded-lg flex items-center justify-center border border-slate-50 overflow-hidden">
-        {% if restaurant.image %}
-            <img src="{{ restaurant.image }}" class="w-full h-full object-cover"/>
-        {% else %}
-            <span class="material-symbols-outlined text-6xl text-primary/20">restaurant</span>
-        {% endif %}
-    </div>
-    <div class="flex-1">
-    <div class="flex justify-between items-start mb-2">
-        <h3 class="font-headline font-black text-2xl text-primary tracking-tight">{{ restaurant.restaurant_name }}</h3>
-    </div>
-    <div class="flex items-center gap-2 mb-2">
-        <span class="material-symbols-outlined text-slate-400 text-sm">location_on</span>
-        <span class="text-xs text-slate-500 font-bold uppercase tracking-widest">{{ restaurant.location }}</span>
-    </div>
-    <div class="flex items-center gap-2 mb-4">
-        <span class="material-symbols-outlined text-slate-400 text-sm">directions_bus</span>
-        <span class="text-xs text-slate-500 font-bold uppercase tracking-widest">{{ restaurant.transport_mode }}</span>
-    </div>
-    <div class="flex flex-wrap gap-3">
-        <span class="bg-secondary-container px-3 py-1 rounded-full text-[10px] font-black font-headline text-on-secondary-container uppercase tracking-widest shadow-sm">{{ restaurant.cuisine }}</span>
-        {% if restaurant.is_halal %}
-        <span class="bg-white/60 px-3 py-1 rounded-full text-[10px] font-black font-headline text-on-surface-variant uppercase tracking-widest shadow-sm">Halal ✓</span>
-        {% endif %}
-        {% if restaurant.min_price and restaurant.max_price %}
-        <span class="bg-white/60 px-3 py-1 rounded-full text-[10px] font-black font-headline text-on-surface-variant uppercase tracking-widest shadow-sm">RM{{ restaurant.min_price }}–{{ restaurant.max_price }}</span>
-        {% endif %}
-    </div>
-    </div>
-    </div>
-    </div>
-    <div class="absolute inset-0 bg-primary/10 rounded-xl -rotate-1 z-10"></div>
-    </div>
+{% for restaurant in restaurants %}
+<div class="relative group">
+<div class="bg-surface-container-highest p-4 rounded-xl sticker-rotate-1 shadow-lg z-20 relative translate-x-2 translate-y-2 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-300">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-40 h-40 flex-shrink-0 bg-white rounded-lg flex items-center justify-center border border-slate-50 overflow-hidden">
+    {% if restaurant.image %}
+        <img src="{{ restaurant.image }}" class="w-full h-full object-cover"/>
+    {% else %}
+        <span class="material-symbols-outlined text-6xl text-primary/20">restaurant</span>
+    {% endif %}
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline font-black text-2xl text-primary tracking-tight">{{ restaurant.restaurant_name }}</h3>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-slate-400 text-sm">location_on</span>
+<span class="text-xs text-slate-500 font-bold uppercase tracking-widest">{{ restaurant.location }}</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-slate-400 text-sm">directions_bus</span>
+<span class="text-xs text-slate-500 font-bold uppercase tracking-widest">{{ restaurant.transport_mode }}</span>
+</div>
+<div class="flex flex-wrap gap-3">
+    {% if restaurant.cuisine %}
+    <span class="bg-secondary-container px-3 py-1 rounded-full text-[10px] font-black font-headline text-on-secondary-container uppercase tracking-widest shadow-sm">{{ restaurant.cuisine }}</span>
+    {% endif %}
+    {% if restaurant.is_halal %}
+    <span class="bg-white/60 px-3 py-1 rounded-full text-[10px] font-black font-headline text-on-surface-variant uppercase tracking-widest shadow-sm">Halal ✓</span>
+    {% endif %}
+    {% if restaurant.min_price and restaurant.max_price %}
+    <span class="bg-white/60 px-3 py-1 rounded-full text-[10px] font-black font-headline text-on-surface-variant uppercase tracking-widest shadow-sm">RM{{ restaurant.min_price }}–{{ restaurant.max_price }}</span>
+    {% endif %}
+</div>
+</div>
+</div>
+</div>
+<div class="absolute inset-0 bg-primary/10 rounded-xl -rotate-1 z-10"></div>
+</div>
 
-    <!-- empty state if no results -->
-    {% empty %}
-    <div class="text-center py-20">
-        <span class="material-symbols-outlined text-6xl text-outline/30 mb-4 block">search_off</span>
-        <p class="text-on-surface-variant font-medium text-lg">No restaurants found.</p>
-        <p class="text-sm text-outline mt-2">Try adjusting your filters.</p>
-    </div>
-    {% endfor %}
+{% empty %}
+<div class="text-center py-20">
+    <span class="material-symbols-outlined text-6xl text-outline/30 mb-4 block">search_off</span>
+    <p class="text-on-surface-variant font-medium text-lg">No restaurants found.</p>
+    <p class="text-sm text-outline mt-2">Try adjusting your filters.</p>
+</div>
+{% endfor %}
 </div>
 
 </section>
@@ -297,28 +302,38 @@
 </main>
 
 <script>
-function selectPrice(btn, value) {
-    const currentValue = document.getElementById('price-input').value;
-
-    // if clicking the already selected button — deselect it
-    if (currentValue === value) {
+    function selectPrice(btn, value) {
+        const currentValue = document.getElementById('price-input').value;
+        if (currentValue === value) {
+            document.querySelectorAll('.price-btn').forEach(b => {
+                b.classList.remove('bg-primary', 'text-white', 'shadow-lg');
+                b.classList.add('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
+            });
+            document.getElementById('price-input').value = '';
+            return;
+        }
         document.querySelectorAll('.price-btn').forEach(b => {
             b.classList.remove('bg-primary', 'text-white', 'shadow-lg');
             b.classList.add('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
         });
-        document.getElementById('price-input').value = '';
-        return;
+        btn.classList.remove('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
+        btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
+        document.getElementById('price-input').value = value;
     }
 
-    // otherwise select the clicked button
-    document.querySelectorAll('.price-btn').forEach(b => {
-        b.classList.remove('bg-primary', 'text-white', 'shadow-lg');
-        b.classList.add('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
+    const savedPrice = document.getElementById('price-input').value;
+    if (savedPrice) {
+        document.querySelectorAll('.price-btn').forEach(btn => {
+            if (btn.value === savedPrice) {
+                btn.classList.remove('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
+                btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
+            }
+        });
+    }
+
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', () => cb.closest('form').submit());
     });
-    btn.classList.remove('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
-    btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
-    document.getElementById('price-input').value = value;
-}
 </script>
 
 </body></html>
