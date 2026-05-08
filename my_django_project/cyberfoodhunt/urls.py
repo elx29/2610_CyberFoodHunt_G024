@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("events/", include("foodhunt.urls")),  # Include the URL patterns from foodhunt/urls.py for any URL that starts with "events/"
-]
+    path("", include("foodhunt.urls")),  
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #<-- newly added line to serve media files during development
