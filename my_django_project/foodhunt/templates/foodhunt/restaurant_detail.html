@@ -120,7 +120,7 @@
 <div class="text-xl font-bold bg-gradient-to-br from-[#343bc8] to-[#4f57e1] bg-clip-text text-transparent font-headline tracking-tighter" style"">Cyber Food Hunt</div>
 <nav class="flex justify-between items-center max-w-7xl mx-auto px-6 h-14">
 <div class="hidden md:flex items-center gap-6">
-<a class="text-[#343bc8] dark:text-[#4f57e1] font-bold border-b-2 border-[#343bc8] text-sm" href="#" style"">Discover</a>
+<a class="text-[#343bc8] dark:text-[#4f57e1] font-bold border-b-2 border-[#343bc8] text-sm" href="0" style"">Discover</a>
 <a class="text-[#16425B] dark:text-[#d0e6ec] opacity-70 text-sm hover:opacity-100 transition-opacity" href="pop-ups.html" style"">Pop-Ups</a>
 </div>
 <div class="flex items-center gap-3">
@@ -133,7 +133,7 @@
 <h1 class="font-headline font-bold text-[#343bc8] text-lg" style"">Welcome, User!</h1>
 </div>
 <div class="flex flex-col gap-1 px-2 flex-grow">
-<a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="#" style"">
+<a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="main.html" style"">
 <span class="material-symbols-outlined text-xl" style"">home</span>
 <span class="font-body text-sm font-medium" style"">Home</span>
 </a>
@@ -158,110 +158,111 @@
 </div>
 </aside>
 <!-- <main class="lg:ml-52 pt-14 px-4 md:px-8 pb-8 max-w-7xl mx-auto"> -->
+<!-- Main Canvas -->
+<main class="lg:ml-52 pt-24 pb-12 px-6 overflow-x-hidden relative min-h-screen">
+<div class="absolute inset-0 scrapbook-texture pointer-events-none"></div>
+<div class="max-w-5xl mx-auto relative z-10">
+<!-- Event Hero Section -->
+<div class="relative flex flex-col lg:flex-row gap-8 items-start">
+<!-- Main Card -->
+<div class="w-full lg:w-7/12 bg-surface-container-high rounded-xl p-8 md:p-12 shadow-xl shadow-indigo-900/10 transform -rotate-1 relative overflow-hidden group">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-10 tape-effect z-20 border-x border-white/20"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-6">
+<!--<span class="bg-primary text-on-primary text-[10px] font-bold px-3 py-1 rounded-full tracking-widest uppercase font-label">EXCLUSIVE EVENT</span> -->
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary text-xl" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<h1 class="text-5xl md:text-6xl font-black text-on-surface font-display leading-[0.9] tracking-tight mb-8">
+                            Cyber Noodle House <br/>
+                        </h1>
+<!-- Vibes Description Section -->
+<div class="mb-8 p-4 bg-primary/5 rounded-lg border-l-4 border-primary italic text-on-surface-variant font-medium">
+<p class="text-sm font-label uppercase tracking-widest mb-1 not-italic font-bold text-primary">Describe the environment of the restaurant:</p>
+                            "----"
+                        </div>
+<div class="space-y-6">
+<p class="text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-md font-medium">
+                                The most exclusive restaurant in Cyberjaya. Secret menu items and late-night vibes.
+                            </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
+<div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-400 uppercase font-label">Location</p>
+<p class="font-bold text-on-surface">Prima Avenue</p>
+</div>
+</div>
+<!-- <div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-400 uppercase font-label">Date</p>
+<p class="font-bold text-on-surface">Nov 1st - Nov 3rd</p>
+</div>
+</div> -->
+<div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-400 uppercase font-label">Time</p>
+<p class="font-bold text-on-surface">10pm - 2am</p>
+</div>
+</div>
+<!-- <div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-400 uppercase font-label">Hosted By</p>
+<p class="font-bold text-on-surface">Chef Kenji &amp; Friends</p>
+</div>
+</div> -->
+</div>
+<!-- <button onclick="this.closest('.relative').remove()"
+    class="mt-4 w-40 py-4 bg-red-500 text-white font-bold rounded-lg text-xs uppercase tracking-widest hover:bg-red-600 transition">
+    Delete 
+</button> -->
+<a href="review.html"
+   class="mt-4 w-40 py-4 bg-blue-500 text-white font-bold rounded-lg text-xs uppercase tracking-widest hover:bg-blue-600 transition inline-block text-center">
+    Write a Review!
+</a>
+</div>
+</div>
+<div class="absolute top-10 -right-4 w-20 h-20 bg-primary/5 rounded-full blur-2xl"></div>
+<span class="material-symbols-outlined absolute bottom-4 right-4 text-primary/10 text-8xl pointer-events-none" data-icon="auto_awesome">auto_awesome</span>
+</div>
 
-<!-- Main Content Area -->
-<main class="relative flex-1 lg:ml-72 pt-16 pb-32 px-4 md:px-8 max-w-5xl mx-auto overflow-x-hidden">
-<!-- Background Decoration -->
-<div class="fixed inset-0 scrapbook-grid pointer-events-none"></div>
-<div class="fixed inset-0 pointer-events-none overflow-hidden opacity-10">
-<span class="material-symbols-outlined absolute top-20 left-[300px] text-6xl" style="">lunch_dining</span>
-<span class="material-symbols-outlined absolute top-40 right-20 text-4xl" style="">menu_book</span>
-<span class="material-symbols-outlined absolute bottom-40 left-[400px] text-5xl" style="">laptop_mac</span>
-<span class="material-symbols-outlined absolute bottom-20 right-10 text-7xl" style="">local_pizza</span>
+<!-- Secondary Visual Element -->
+<div class="w-full lg:w-5/12 flex flex-col gap-6">
+<div class="bg-white p-4 pb-12 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 rounded-sm">
+<div class="aspect-square w-full flex items-center justify-center bg-slate-50 border border-slate-100 mb-4 overflow-hidden">
+<span class="material-symbols-outlined text-9xl text-slate-300" data-icon="image">image</span>
 </div>
-<!-- Header -->
-<div class="relative mb-12 ml-4 md:ml-8">
-<div class="absolute -inset-1 bg-secondary-container opacity-30 blur-xl rotate-1"></div>
-<h1 class="font-headline text-5xl md:text-6xl font-black text-on-surface tracking-tighter leading-none relative z-10" style="">
-                Give your <br/>
-<span class="text-primary-container bg-surface-container-lowest px-4 py-1 inline-block -rotate-2 shadow-sm rounded-lg" style="">review!</span>
-</h1>
-<!-- Scattered Stars Decoration -->
-<span class="material-symbols-outlined absolute -top-4 right-8 text-secondary rotate-12 scale-110" style='font-variation-settings: "FILL" 1;'>star</span>
-<span class="material-symbols-outlined absolute top-12 -right-4 text-primary scale-75" style='font-variation-settings: "FILL" 1;'>star</span>
-<span class="material-symbols-outlined absolute -bottom-6 left-1/2 text-tertiary scale-90" style='font-variation-settings: "FILL" 1;'>star</span>
-</div>
-<!-- Main Review Form Container -->
-<div class="relative max-w-3xl mx-auto md:mx-8">
-<!-- Overlapping Background Element -->
-<div class="absolute inset-0 bg-surface-container-high rounded-3xl translate-x-3 translate-y-3 -rotate-1"></div>
-<form class="relative bg-surface-container-lowest p-8 md:p-10 rounded-3xl shadow-[0_10px_40px_rgba(22,66,91,0.06)] flex flex-col gap-8 z-20">
-<!-- Restaurant Selection -->
-<div class="space-y-2">
-<label class="font-headline font-bold text-on-surface-variant flex items-center gap-2" style="">
-<span class="material-symbols-outlined text-sm" style="">restaurant</span>
-                        Where did you eat?
-                    </label>
-<div class="relative"><input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary-container text-on-surface font-medium transition-all" placeholder="Enter restaurant name..." type="text"/></div>
-</div>
-<!-- Star Rating -->
-<div class="space-y-3">
-  <label class="font-headline font-bold text-on-surface-variant">Rate your experience</label>
-  
-  <div class="flex gap-2" id="starRating">
-    
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="1">star</span>
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="2">star</span>
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="3">star</span>
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="4">star</span>
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="5">star</span>
-    
-  </div>
-
-  <!-- Hidden input (useful later for Django form) -->
-  <input type="hidden" id="ratingValue" name="rating" value="0">
+<p class="font-headline font-bold text-on-surface text-center italic text-xl tracking-tight">"Special Menu-only on Wednesdays"</p>
 </div>
 
-<script>
-  const stars = document.querySelectorAll("#starRating span");
-  const ratingInput = document.getElementById("ratingValue");
+<!-- <div class="bg-surface-container-low p-6 rounded-xl border border-primary/5 -rotate-1 self-end w-4/5 shadow-lg">
+<h3 class="font-bold text-primary mb-4 flex items-center gap-2 uppercase tracking-tighter text-sm justify-center">
+<span class="material-symbols-outlined text-lg" data-icon="map">map</span>
+                            Write a Review!
+                        </h3>
+<div class="aspect-video w-full rounded-lg overflow-hidden bg-slate-50 border border-slate-100 mb-4 flex items-center justify-center">
+<span class="material-symbols-outlined text-7xl text-slate-300" data-icon="map">map</span>
+</div>
+<p class="text-[10px] font-black uppercase text-secondary mb-1">MMU FCM Parking Lot</p>
+<p class="text-sm font-medium text-on-surface-variant">MMU Faculty Of Creative Multimedia Parking Lot, Persiaran Multimedia</p>
+</div> -->
+</div> 
 
-  stars.forEach((star, index) => {
-    star.addEventListener("click", () => {
-      let rating = index + 1;
-      ratingInput.value = rating;
-
-      stars.forEach((s, i) => {
-        if (i < rating) {
-          s.style.color = "#343bc8"; // filled color
-          s.style.fontVariationSettings = "'FILL' 1";
-        } else {
-          s.style.color = "#c6c5d7"; // empty color
-          s.style.fontVariationSettings = "'FILL' 0";
-        }
-      });
-    });
-  });
-</script>
-<!-- Photo Upload Area -->
-<div class="space-y-2">
-<label class="font-headline font-bold text-on-surface-variant" style="">Snapshot the vibe</label>
-<div class="border-2 border-dashed border-outline-variant bg-surface-container-low rounded-2xl h-48 flex flex-col items-center justify-center gap-3 transition-all hover:bg-surface-container-high group cursor-pointer">
-<div class="w-16 h-16 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-3xl text-secondary" style="">add_a_photo</span>
-</div>
-<p class="text-sm text-on-surface-variant font-medium" style="">Click to attach a food photo</p>
 </div>
 </div>
-<!-- Review Text Area -->
-<div class="space-y-2">
-<label class="font-headline font-bold text-on-surface-variant" style="">Your thoughts</label>
-<textarea class="w-full bg-surface-container-low border-none rounded-2xl p-4 focus:ring-2 focus:ring-primary-container text-on-surface placeholder:text-outline transition-all resize-none" placeholder="Was the spicy ramen actually spicy? Tell the collective..." rows="5"></textarea>
-</div>
-<!-- Submit Button and Sticker Area (Re-balanced to bottom right) -->
-<div class="pt-4 flex justify-end items-center gap-6 relative">
-<!-- Student Choice Sticker Moved Here -->
-<button class="relative group" style="">
-<div class="absolute inset-0 bg-primary-fixed-dim rounded-xl rotate-3 group-hover:rotate-0 transition-transform"></div>
-<div class="relative bg-primary-container text-on-primary-container font-headline font-black text-xl py-4 px-8 rounded-xl -rotate-2 group-hover:rotate-0 transition-transform shadow-lg flex items-center gap-3" style="">
-                            Post Review
-                            <span class="material-symbols-outlined" style="">send</span>
-</div>
-</button>
-</div>
-</form>
-
-
 <!-- Decorative Stickers -->
 <span class="material-symbols-outlined absolute -bottom-6 -left-6 text-white/5 text-[120px] pointer-events-none" style='font-variation-settings: "FILL" 1;'>star</span>
 <span class="material-symbols-outlined absolute bottom-4 right-2 text-primary text-4xl opacity-40 rotate-12" style='font-variation-settings: "FILL" 1;'>stars</span>
