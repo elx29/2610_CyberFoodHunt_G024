@@ -119,8 +119,8 @@
 <nav class="flex justify-between items-center max-w-7xl mx-auto px-6 h-14"> 
 <div class="text-xl font-bold bg-gradient-to-br from-[#343bc8] to-[#4f57e1] bg-clip-text text-transparent font-headline tracking-tighter" style"">Cyber Food Hunt</div>
 <div class="hidden md:flex items-center gap-6">
-<a class="text-[#343bc8] dark:text-[#4f57e1] font-bold border-b-2 border-[#343bc8] text-sm" href="main.html" style"">Discover</a>
-<a class="text-[#16425B] dark:text-[#d0e6ec] opacity-70 text-sm hover:opacity-100 transition-opacity" href="pop-ups.html" style"">Pop-Ups</a>
+<a class="text-[#343bc8] dark:text-[#4f57e1] font-bold border-b-2 border-[#343bc8] text-sm" href="{% url 'home' %}" style"">Discover</a>
+<a class="text-[#16425B] dark:text-[#d0e6ec] opacity-70 text-sm hover:opacity-100 transition-opacity" href="{% url 'event_list' %}" style"">Pop-Ups</a>
 </div>
 <div class="flex items-center gap-3">
 </div>
@@ -132,7 +132,7 @@
 <h1 class="font-headline font-bold text-[#343bc8] text-lg" style"">Welcome, User!</h1>
 </div>
 <div class="flex flex-col gap-1 px-2 flex-grow">
-<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="main.html" style"">
+<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'home' %}" style"">
 <span class="material-symbols-outlined text-xl" style"">home</span>
 <span class="font-body text-sm font-medium" style"">Home</span>
 </a>
@@ -140,18 +140,18 @@
 <span class="material-symbols-outlined text-xl" style"">edit_note</span>
 <span class="font-body text-sm font-medium" style"">Reviews</span>
 </a>  -->
-<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="search.html" style"">
+<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'search' %}" style"">
 <span class="material-symbols-outlined text-xl" style"">search</span>
 <span class="font-body text-sm font-medium" style"">Search</span>
 </a>
-<a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="userprofile.html" style"">
+<a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="{% url 'userprofile' %}" style"">
 <span class="material-symbols-outlined text-xl" style"">person</span>
 <span class="font-body text-sm font-medium" style"">Profile</span>
 </a>
 </div>
 <a>
 <div class="px-4 pb-6">
-  <a href="foodspots.html" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
+  <a href="{% url 'event_create' %}" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
     Share Now!
   </a>
 </div>

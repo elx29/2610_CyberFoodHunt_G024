@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Event,User, Restaurant #this User is added just for test, remove it once Ayra done with login system
@@ -116,5 +118,7 @@ def home(request):
         "today": today,
     })
 
-
+def userprofile(request):
+    return render(request, 'foodhunt/userprofile.html') 
+    #!!!AYRA ADD UR BACKEND STUFF HERE!!!
 
