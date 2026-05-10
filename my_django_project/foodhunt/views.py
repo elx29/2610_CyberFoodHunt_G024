@@ -121,4 +121,22 @@ def home(request):
 def userprofile(request):
     return render(request, 'foodhunt/userprofile.html') 
     #!!!AYRA ADD UR BACKEND STUFF HERE!!!
+def review(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES) 
+        
+        if form.is_valid():
+            comment = form.cleaned_data['comment']
+            image = form.cleaned_data['image']
+        else:
+            comment = request.POST.get('comment')
+            image = request.FILES.get('image')
 
+        Review.objects.create(
+            comment=comment,
+            image=image
+        )
+
+        return redirect('home')  # or wherever you want
+
+    return render(request, 'review.html')
