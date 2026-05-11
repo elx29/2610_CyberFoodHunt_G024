@@ -124,7 +124,7 @@ def userprofile(request):
 def review(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES) 
-        
+
         if form.is_valid():
             comment = form.cleaned_data['comment']
             image = form.cleaned_data['image']
@@ -140,3 +140,44 @@ def review(request):
         return redirect('home')  # or wherever you want
 
     return render(request, 'review.html')
+#REGISTER
+def register(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email    = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm  = request.POST.get('confirm_password')
+
+        if password != confirm:
+            return render(request, 'foodhunt/register.html', {'error': 'Passwords do not match!'})
+
+        if User.objects.filter(username=username).exists():
+            return render(request, 'foodhunt/register.html', {'error': 'Username already taken!'})
+
+        if User.objects.filter(email=email).exists():
+            return render(request, 'foodhunt/register.html', {'error': 'Email already registered!'})
+
+        User.objects.create(username=username, email=email, password=password)
+        return redirect('login')
+
+    return render(request, 'foodhunt/register.html')
+
+# LOGIN
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        try:
+            user = User.objects.get(username=username, password=password)
+            request.session['user_id']  = user.user_id
+            request.session['username'] = user.username
+            return redirect('home')
+        except User.DoesNotExist:
+            return render(request, 'foodhunt/login.html', {'error': 'Invalid username or password!'})
+
+    return render(request, 'foodhunt/login.html')
+
+# LOGOUT
+def logout_view(request):
+    request.session.flush()
+    return redirect('login')
