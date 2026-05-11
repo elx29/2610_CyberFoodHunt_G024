@@ -177,10 +177,19 @@
 <div class="flex-1 text-center md:text-left mt-4 md:mt-0">
 <h1 class="text-4xl md:text-6xl font-headline font-black text-primary tracking-tighter mb-2" style"">Akisha Khan</h1>
 <p class="text-on-surface-variant font-body text-lg max-w-xl mb-6" style"">Cyberjaya food enthusiast. Mapping every hidden gem between MMU and Tamarind Square. Level 4 Spice Warrior.</p>
+
+<!--Achievements badge will become tags-->
 <div class="flex flex-wrap justify-center md:justify-start gap-4">
-<span class="bg-secondary-container px-4 py-1.5 rounded-full text-xs font-bold font-headline text-on-secondary-container uppercase tracking-widest shadow-sm" style"">IT Student</span>
-<span class="bg-secondary-container px-4 py-1.5 rounded-full text-xs font-bold font-headline text-on-secondary-container uppercase tracking-widest shadow-sm" style"">MMU Cyberjaya</span>
-<span class="bg-secondary-container px-4 py-1.5 rounded-full text-xs font-bold font-headline text-on-secondary-container uppercase tracking-widest shadow-sm" style"">Spicy Expert</span>
+    {% for badge in badges %}
+    <span class="bg-secondary-container px-4 py-1.5 rounded-full text-xs font-bold font-headline text-on-secondary-container uppercase tracking-widest shadow-sm flex items-center gap-1">
+        <span class="material-symbols-outlined text-sm">{{ badge.icon }}</span>
+        {{ badge.name }}
+    </span>
+    {% empty %}
+    <span class="bg-secondary-container px-4 py-1.5 rounded-full text-xs font-bold font-headline text-on-secondary-container uppercase tracking-widest shadow-sm">
+        New Member
+    </span>
+    {% endfor %}
 </div>
 </div>
 </section>
@@ -188,38 +197,46 @@
 <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
 <!-- Achievements and Bookmarks Column -->
 <div class="md:col-span-4 flex flex-col gap-6">
+
 <!-- Achievements Section -->
 <div class="bg-surface-container-low p-6 rounded-2xl rotate-scrapbook-neg shadow-xl relative overflow-hidden">
 <div class="absolute top-2 right-2 text-primary/20">
 <span class="material-symbols-outlined text-4xl" style"">star_rate</span>
 </div>
+
+<!-- ADDING stat counters -->
+<div class="grid grid-cols-2 gap-3 mb-6">
+    <div class="bg-white/40 p-3 rounded-lg text-center">
+        <div class="text-xl font-black font-headline text-primary">{{ post_count }}</div>
+        <div class="text-[10px] text-slate-500 uppercase tracking-wide">Spots</div>
+    </div>
+    <div class="bg-white/40 p-3 rounded-lg text-center">
+        <div class="text-xl font-black font-headline text-primary">{{ event_count }}</div>
+        <div class="text-[10px] text-slate-500 uppercase tracking-wide">Events</div>
+    </div>
+</div>
+<!-- #end till here -->
+
 <h2 class="font-headline text-xl font-bold mb-6 flex items-center gap-2" style"">
 <span class="material-symbols-outlined text-primary" style"">military_tech</span> Achievements
                         </h2>
+                      
+ <!--The icon for achievements section, i think-->
 <div class="space-y-4">
-<div class="flex items-center gap-4 bg-white/40 p-3 rounded-lg backdrop-blur-sm">
-<span class="material-symbols-outlined text-tertiary" style"">restaurant</span>
-<div>
-<div class="text-xs font-black font-headline uppercase tracking-tight" style"">Foodie Legend</div>
-<div class="text-[10px] text-slate-500" style"">50+ Reviews Posted</div>
+    {% for badge in badges %}
+    <div class="flex items-center gap-4 bg-white/40 p-3 rounded-lg backdrop-blur-sm">
+        <span class="material-symbols-outlined text-tertiary">{{ badge.icon }}</span>
+        <div>
+            <div class="text-xs font-black font-headline uppercase tracking-tight">{{ badge.name }}</div>
+            <div class="text-[10px] text-slate-500">{{ badge.desc }}</div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-sm text-slate-400">No badges yet — start posting!</p>
+    {% endfor %}
 </div>
 </div>
-<div class="flex items-center gap-4 bg-white/40 p-3 rounded-lg backdrop-blur-sm">
-<span class="material-symbols-outlined text-tertiary" style"">local_fire_department</span>
-<div>
-<div class="text-xs font-black font-headline uppercase tracking-tight" style"">Heat Master</div>
-<div class="text-[10px] text-slate-500" style"">Completed 3 Spicy Challenges</div>
-</div>
-</div>
-<div class="flex items-center gap-4 bg-white/40 p-3 rounded-lg backdrop-blur-sm">
-<span class="material-symbols-outlined text-tertiary" style"">school</span>
-<div>
-<div class="text-xs font-black font-headline uppercase tracking-tight" style"">Campus Icon</div>
-<div class="text-[10px] text-slate-500" style"">100 Helpful Votes</div>
-</div>
-</div>
-</div>
-</div>
+
 <!-- My Bookmarks Section -->
 <div class="flex flex-col gap-4 px-2">
 <h2 class="font-headline text-xl font-bold flex items-center gap-2 px-2" style"">
@@ -269,7 +286,7 @@
 <!-- Reviewed Restaurants Feed -->
 <div class="md:col-span-8 flex flex-col gap-8 relative">
 <h2 class="font-headline text-2xl font-black text-primary tracking-tight px-4 flex items-center gap-2" style"">
-<span class="material-symbols-outlined" style"">rate_review</span> Recent Reviews
+<span class="material-symbols-outlined" style"">rate_review</span> Recent Posts
                     </h2>
 <!-- Review Card 1 -->
 <div class="relative group">

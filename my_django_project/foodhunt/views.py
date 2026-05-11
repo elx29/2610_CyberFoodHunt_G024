@@ -2,7 +2,7 @@ from urllib import request
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-from .models import Event,User, Restaurant #this User is added just for test, remove it once Ayra done with login system
+from .models import Event,User, Restaurant, Post, Review #this User is added just for test, remove it once Ayra done with login system
 from django.contrib.auth.decorators import login_required
 
 
@@ -119,6 +119,33 @@ def home(request):
     })
 
 def userprofile(request):
-    return render(request, 'foodhunt/userprofile.html') 
-    #!!!AYRA ADD UR BACKEND STUFF HERE!!!
+    current_user = User.objects.first()  #temp, change to request.user after login system done
+
+    post_count = Post.objects.filter(user=current_user).count() #get number of posts by user
+    event_count= Event.objects.filter(user=current_user).count() #get number of event posts by user
+    
+    badges = [] #empty list
+
+    #Badges
+    if post_count >= 1:
+        badges.append({"name": "Rookie Hunter", "icon": "restaurant", "desc": "Posted first food spot"})
+    if post_count >= 5:
+        badges.append({"name": "Food Scout", "icon": "explore", "desc": "Posted 5 food spots"})  
+    if post_count >= 15:
+        badges.append({"name": "Cyber Hunter", "icon": "swords", "desc": "Posted 15 food spots"}) 
+    if post_count >= 30:
+        badges.append({"name": "Legend", "icon": "crown", "desc": "Posted 30 food spots"})
+
+            # Event badges
+    if event_count >= 1:
+        badges.append({"name": "Event Starter", "icon": "celebration", "desc": "Posted first event"})
+    if event_count >= 5:
+        badges.append({"name": "Detective", "icon": "search", "desc": "Posted 5 events"})
+
+    return render(request, 'foodhunt/userprofile.html', {
+        "badges": badges,
+        "post_count": post_count,
+        "event_count": event_count
+    })
+  
 
