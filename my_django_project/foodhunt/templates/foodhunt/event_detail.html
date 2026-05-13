@@ -100,19 +100,19 @@
 <body class="bg-background scrapbook-bg text-on-surface overflow-x-hidden">
 
     <!-- TopNavBar -->
-    <header class="fixed top-0 w-full z-50 bg-[#effcff]/90 dark:bg-[#081e23]/90 backdrop-blur-md shadow-sm">
-        <nav class="flex justify-between items-center max-w-7xl mx-auto px-6 h-14">
-            <div
-                class="text-xl font-bold bg-gradient-to-br from-[#343bc8] to-[#4f57e1] bg-clip-text text-transparent font-headline tracking-tighter">
-                Cyber Food Hunt</div>
-            <nav class="flex justify-between items-center max-w-7xl mx-auto px-6 h-14">
-                <div class="hidden md:flex items-center gap-6">
-                    <a class="text-[#343bc8] font-bold border-b-2 border-[#343bc8] text-sm" href="#">Discover</a>
-                    <a class="text-[#16425B] opacity-70 text-sm hover:opacity-100 transition-opacity"
-                        href="{% url 'event_list' %}">Pop-Ups</a>
-                </div>
-            </nav>
-    </header>
+ <header class="fixed top-0 w-full z-50 bg-[#effcff]/90 backdrop-blur-md shadow-sm">
+<nav class="flex items-center max-w-7xl mx-auto px-6 h-14">
+    <div class="text-xl font-bold bg-gradient-to-br from-[#343bc8] to-[#4f57e1] bg-clip-text text-transparent font-headline tracking-tighter">Cyber Food Hunt</div>
+    <div class="flex-1 flex justify-center items-center gap-8">
+        <a class="text-[#343bc8] font-bold border-b-2 border-[#343bc8] text-sm" href="{% url 'home' %}">Discover</a>
+        <a class="text-[#16425B] opacity-70 text-sm hover:opacity-100 transition-opacity" href="{% url 'event_list' %}">Pop-Ups</a>
+    </div>
+        <a href="login.html" class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-bold text-sm tracking-wide">
+        <span class="material-symbols-outlined text-xl">logout</span>
+        Logout
+    </a>
+</nav>
+</header>
 
     <!-- SideNavBar -->
     <aside
