@@ -124,6 +124,11 @@ def userprofile(request):
     post_count = Post.objects.filter(user=current_user).count() #get number of posts by user
     event_count= Event.objects.filter(user=current_user).count() #get number of event posts by user
     
+    #Recent post and events that will appear on user profile page
+    today = timezone.now().date()
+    recent_events = Event.objects.filter(user=current_user, end_date__gte=today).order_by("-event_id")[:5]
+    recent_posts = Post.objects.filter(user=current_user).order_by("-created_at")[:5]
+
     badges = [] #empty list
 
     #Badges
@@ -145,7 +150,9 @@ def userprofile(request):
     return render(request, 'foodhunt/userprofile.html', {
         "badges": badges,
         "post_count": post_count,
-        "event_count": event_count
+        "event_count": event_count,
+        "recent_events": recent_events,
+        "recents_post": recent_posts,
     })
   
 
