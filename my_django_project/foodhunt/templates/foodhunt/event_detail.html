@@ -122,17 +122,17 @@
         </div>
         <div class="flex flex-col gap-1 px-2 flex-grow">
             <a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105"
-                href="#">
+                href="{% url 'home' %}">
                 <span class="material-symbols-outlined text-xl">home</span>
                 <span class="font-body text-sm font-medium">Home</span>
             </a>
             <a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors"
-                href="search.html">
+                href="{% url 'search' %}">
                 <span class="material-symbols-outlined text-xl">search</span>
                 <span class="font-body text-sm font-medium">Search</span>
             </a>
             <a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors"
-                href="userprofile.html">
+                href="{% url 'userprofile' %}">
                 <span class="material-symbols-outlined text-xl">person</span>
                 <span class="font-body text-sm font-medium">Profile</span>
             </a>
@@ -185,15 +185,8 @@
                             <p class="text-sm font-label uppercase tracking-widest mb-1 font-bold text-primary">About
                                 this event</p>
                             <p>{{ event.description }}</p>
-                        <!--Location will link to google maps, basically when other user press on the address, it will lead to google maps -->
-                        <div>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Location</p>
-                            <a href="https://www.google.com/maps/search/?api=1&amp;query={{event.event_location|urlencode}}"
-                                target="_blank"
-                                class="font-bold text-on-surface hover:underline">
-                                {{ event.event_location }}
-                            </a>
-                        </div>
+                            </div>
+                       
 
                         <div class="space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
@@ -202,12 +195,17 @@
                                 <div
                                     class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
                                     <div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+                                        
+                                    
                                         <span class="material-symbols-outlined">location_on</span>
                                     </div>
                                     <div>
-                                        <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Location
-                                        </p>
-                                        <p class="font-bold text-on-surface">{{ event.event_location }}</p>
+                                         <!--Location will link to google maps, basically when other user press on the address, it will lead to google maps -->
+                                        <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Location</p>
+                                         <a href="https://www.google.com/maps/search/?api=1&amp;query={{event.event_location|urlencode}}"
+                                            target="_blank"
+                                            class="font-bold text-on-surface hover:underline">
+                                            {{ event.event_location }}</a>
                                     </div>
                                 </div>
 
@@ -219,8 +217,7 @@
                                     </div>
                                     <div>
                                         <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Date</p>
-                                        <p class="font-bold text-on-surface">{{ event.start_date }} — {{ event.end_date
-                                            }}</p>
+                                        <p class="font-bold text-on-surface">{{ event.start_date }} — {{ event.end_date}}</p>
                                     </div>
                                 </div>
 
@@ -293,8 +290,7 @@
                             <span class="material-symbols-outlined text-9xl text-slate-300">image</span>
                             {% endif %}
                         </div>
-                        <p class="font-headline font-bold text-on-surface text-center italic text-xl tracking-tight">"{{
-                            event.event_name }}"</p>
+                        <p class="font-headline font-bold text-on-surface text-center italic text-xl tracking-tight">"{{event.event_name }}"</p>
                     </div>
 
                     <div
@@ -302,6 +298,9 @@
                         <h3
                             class="font-bold text-primary mb-4 flex items-center gap-2 uppercase tracking-tighter text-sm">
                             <span class="material-symbols-outlined text-lg">map</span>
+                              <a href="https://www.google.com/maps/search/?api=1&query={{event.event_location|urlencode}}"
+                                target="_blank"
+                                class="hover:underline">
                             EVENT LOCATION
                         </h3>
                         <div
