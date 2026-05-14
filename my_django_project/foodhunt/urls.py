@@ -15,5 +15,10 @@ urlpatterns = [
     path("review/event/<int:event_id>/", views.review_create, name="review_create_event"),
     path("review/", views.review_create, name="review_create_blank"),
     path("review/submit/", views.review_submit, name="review_submit"),
+    path("login/", views.login_view, name="login"),
+    path("register/", views.register_view, name="register"),
+    path("foodspots/", views.foodspots, name="foodspots"),
+    path("bookmark/", views.bookmark, name="bookmark"),
+    path("password-recovery/", views.password_recovery, name="password_recovery"),
 ]
 

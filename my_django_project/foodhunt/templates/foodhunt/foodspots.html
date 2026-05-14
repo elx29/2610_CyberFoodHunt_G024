@@ -99,7 +99,7 @@
     </style>
 </head>
 <body class="bg-background font-body text-on-surface min-h-screen scrapbook-bg overflow-x-hidden">
-    <div class="fixed top-8 left-8 z-50"><a class="flex items-center gap-2 text-slate-600 hover:opacity-80 transition-opacity font-display font-bold tracking-tight" href="pop-ups.html" style=""><span class="material-symbols-outlined text-primary" style="">arrow_back</span><span class="" style="">BACK TO POP-UPS</span></a></div>
+    <div class="fixed top-8 left-8 z-50"><a class="flex items-center gap-2 text-slate-600 hover:opacity-80 transition-opacity font-display font-bold tracking-tight" href="{% url 'event_list' %}" style=""><span class="material-symbols-outlined text-primary" style="">arrow_back</span><span class="" style="">BACK TO POP-UPS</span></a></div>
 <!-- Top Navigation Anchor -->
 <main class="pt-28 pb-32 px-4 max-w-4xl mx-auto relative">
 <!-- Decorative Background Stars -->
@@ -113,12 +113,12 @@
 <section class="mb-12 relative z-10">
   <div class="flex gap-4 mb-6 justify-center">
 
-    <a href="foodspots.html" class="flex items-center gap-3 bg-primary text-white px-10 py-5 rounded-2xl font-headline font-bold text-sm uppercase tracking-widest shadow-xl shadow-primary/30 transition-transform hover:scale-105 active:scale-95" style="">
+    <a href="{% url 'foodspots' %}" class="flex items-center gap-3 bg-primary text-white px-10 py-5 rounded-2xl font-headline font-bold text-sm uppercase tracking-widest shadow-xl shadow-primary/30 transition-transform hover:scale-105 active:scale-95" style="">
       <span class="material-symbols-outlined text-2xl" style='font-variation-settings: "FILL" 1;'>storefront</span>
       Food Spot
     </a>
 
-    <a href="foodevents.html" class="flex items-center gap-3 bg-white text-secondary border-2 border-outline-variant/30 px-10 py-5 rounded-2xl font-headline font-bold text-sm uppercase tracking-widest hover:bg-surface-container-low transition-all hover:scale-105 active:scale-95" style="">
+    <a href="{% url 'event_create' %}" class="flex items-center gap-3 bg-white text-secondary border-2 border-outline-variant/30 px-10 py-5 rounded-2xl font-headline font-bold text-sm uppercase tracking-widest hover:bg-surface-container-low transition-all hover:scale-105 active:scale-95" style="">
       <span class="material-symbols-outlined text-2xl" style="">celebration</span>
       Food Event
     </a>

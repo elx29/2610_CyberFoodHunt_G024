@@ -124,7 +124,7 @@
 </div>
 <div class="flex items-center gap-3">
 </div>
-    <a href="login.html" class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-bold text-sm tracking-wide">
+    <a href="{% url 'login' %}" class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-bold text-sm tracking-wide">
         <span class="material-symbols-outlined text-xl">logout</span>
         Logout
     </a>
@@ -246,7 +246,7 @@
 <h2 class="font-headline text-xl font-bold flex items-center gap-2 px-2" style"">
 <!-- My Bookmarks Section -->
 <div class="flex flex-col gap-4 px-2">
-  <a href="bookmark.html" class="block">
+  <a href="{% url 'bookmark' %}" class="block">
     <h2 class="font-headline text-xl font-bold flex items-center gap-2 px-2">
       <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">
         bookmark

@@ -98,7 +98,7 @@
         }
     </style>
 </head>
-<body class="bg-background font-body text-on-surface min-h-screen scrapbook-bg overflow-x-hidden"><div class="fixed top-8 left-8 z-50"><a class="flex items-center gap-2 text-slate-600 hover:opacity-80 transition-opacity font-display font-bold tracking-tight" href="pop-ups.html"><span class="material-symbols-outlined text-primary">arrow_back</span><span>BACK TO POP-UPS</span></a></div>
+<body class="bg-background font-body text-on-surface min-h-screen scrapbook-bg overflow-x-hidden"><div class="fixed top-8 left-8 z-50"><a class="flex items-center gap-2 text-slate-600 hover:opacity-80 transition-opacity font-display font-bold tracking-tight" href="{% url 'event_list' %}"><span class="material-symbols-outlined text-primary">arrow_back</span><span>BACK TO POP-UPS</span></a></div>
 <!-- Top Navigation Anchor -->
 <main class="pt-28 pb-32 px-4 max-w-4xl mx-auto relative">
 <!-- Decorative Background Stars -->
@@ -121,7 +121,8 @@
 <div class="relative">
 <!-- Overlapping Decorative Element -->
 <div class="absolute -top-6 -right-4 w-32 h-32 bg-secondary-container rounded-full opacity-50 -z-10 blur-2xl"></div>
-<form class="bg-surface-container-lowest p-8 md:p-12 rounded-xl asymmetric-shadow relative overflow-hidden border border-outline-variant/10">
+<form method="POST" action="{% url 'event_create' %}" enctype="multipart/form-data" class="bg-surface-container-lowest p-8 md:p-12 rounded-xl asymmetric-shadow relative overflow-hidden border border-outline-variant/10">
+    {% csrf_token %}
 <!-- Abstract Texture Overlay -->
 <div class="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/notebook.png')]"></div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
@@ -132,21 +133,21 @@
 <span class="material-symbols-outlined text-sm" data-icon="edit" style="">edit</span>
                                 Event Name
                             </label>
-<input class="bg-surface-container-low border-none rounded-lg p-4 font-body text-on-surface placeholder:text-outline-variant transition-all" placeholder="e.g. Midnight Ramen Run" type="text"/>
+<input name="event_name" class="bg-surface-container-low border-none rounded-lg p-4 font-body text-on-surface placeholder:text-outline-variant transition-all" placeholder="e.g. Midnight Ramen Run" type="text"/>
 </div>
 <div class="flex flex-col gap-1.5">
 <label class="text-xs font-headline font-bold uppercase tracking-wider text-secondary flex items-center gap-2" style="">
 <span class="material-symbols-outlined text-sm" data-icon="location_on" style="">location_on</span>
                                 Event Location
                             </label>
-<input class="bg-surface-container-low border-none rounded-lg p-4 font-body text-on-surface placeholder:text-outline-variant" placeholder="e.g. Cyberjaya Central Park" type="text"/>
+<input name="event_location" class="bg-surface-container-low border-none rounded-lg p-4 font-body text-on-surface placeholder:text-outline-variant" placeholder="e.g. Cyberjaya Central Park" type="text"/>
 </div>
 <div class="flex flex-col gap-1.5">
 <label class="text-xs font-headline font-bold uppercase tracking-wider text-secondary flex items-center gap-2" style="">
 <span class="material-symbols-outlined text-sm" data-icon="notes" style="">notes</span>
                                 Description
                             </label>
-<textarea class="bg-surface-container-low border-none rounded-lg p-4 font-body text-on-surface placeholder:text-outline-variant resize-none" placeholder="Tell the hunters what's on the menu..." rows="4"></textarea>
+<textarea name="description" class="bg-surface-container-low border-none rounded-lg p-4 font-body text-on-surface placeholder:text-outline-variant resize-none" placeholder="Tell the hunters what's on the menu..." rows="4"></textarea>
 </div>
 </div>
 <!-- Right Column: Media & Time -->
@@ -160,7 +161,7 @@
 <span class="material-symbols-outlined text-primary text-4xl mb-2" data-icon="upload_file" style="">upload_file</span>
 <p class="text-sm text-secondary font-medium" style="">Drag &amp; drop or click to upload</p>
 <p class="text-[10px] text-outline mt-1 uppercase tracking-tighter" style="">PNG, JPG up to 10MB</p>
-<input class="absolute inset-0 opacity-0 cursor-pointer" type="file"/>
+<input name="image" class="absolute inset-0 opacity-0 cursor-pointer" type="file"/>
 </div>
 </div>
 <div class="grid grid-cols-2 gap-4">
@@ -169,14 +170,14 @@
 <span class="material-symbols-outlined text-sm" data-icon="calendar_today" style="">calendar_today</span>
                                     Start Date
                                 </label>
-<input class="bg-surface-container-low border-none rounded-lg p-3 font-body text-sm text-on-surface" type="date"/>
+<input name="start_date" class="bg-surface-container-low border-none rounded-lg p-3 font-body text-sm text-on-surface" type="date"/>
 </div>
 <div class="flex flex-col gap-1.5">
 <label class="text-xs font-headline font-bold uppercase tracking-wider text-secondary flex items-center gap-2" style="">
 <span class="material-symbols-outlined text-sm" data-icon="event" style="">event</span>
                                     End Date
                                 </label>
-<input class="bg-surface-container-low border-none rounded-lg p-3 font-body text-sm text-on-surface" type="date"/>
+<input name="end_date" class="bg-surface-container-low border-none rounded-lg p-3 font-body text-sm text-on-surface" type="date"/>
 </div>
 </div>
 <div class="grid grid-cols-2 gap-4">

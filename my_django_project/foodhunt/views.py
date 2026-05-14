@@ -41,8 +41,10 @@ def event_create(request):
         description    = request.POST.get("description")
         end_date       = request.POST.get("end_date")
 
-        #Add this just to test, remove it once Ayra done with login system
-        current_user = User.objects.first()   #get(username=request.user.username)  will be put back afetr test
+        # Add this just to test, remove it once Ayra done with login system
+        current_user = User.objects.first()
+        if not current_user:
+            current_user = User.objects.create(username="testuser", email="test@example.com", password="password123")
 
         Event.objects.create(
             user           = current_user, #after login system done, change this to request.user
@@ -198,6 +200,8 @@ def review_submit(request):
         
         # Temp: use first user
         current_user = User.objects.first()
+        if not current_user:
+            current_user = User.objects.create(username="testuser", email="test@example.com", password="password123")
         
         restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
         
@@ -211,4 +215,19 @@ def review_submit(request):
         )
         return redirect("home")
     return redirect("review_create")
+
+def login_view(request):
+    return render(request, "foodhunt/login.html")
+
+def register_view(request):
+    return render(request, "foodhunt/register.html")
+
+def foodspots(request):
+    return render(request, "foodhunt/foodspots.html")
+
+def bookmark(request):
+    return render(request, "foodhunt/bookmark.html")
+
+def password_recovery(request):
+    return render(request, "foodhunt/passwordrecovery.html")
 

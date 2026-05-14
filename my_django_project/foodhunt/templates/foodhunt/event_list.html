@@ -61,7 +61,7 @@
     <a class="text-[#16425B] opacity-70 text-sm hover:opacity-100 transition-opacity" href="{% url 'home' %}">Discover</a>
     <a class="text-[#343bc8] font-bold border-b-2 border-[#343bc8] text-sm" href="{% url 'event_list' %}">Pop-Ups</a>
 </div>
-    <a href="login.html" class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-bold text-sm tracking-wide">
+    <a href="{% url 'login' %}" class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-bold text-sm tracking-wide">
         <span class="material-symbols-outlined text-xl">logout</span>
         Logout
     </a>
@@ -81,7 +81,7 @@
 <span class="material-symbols-outlined text-xl">search</span>
 <span class="font-body text-sm font-medium">Search</span>
 </a>
-<a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="userprofile.html">
+<a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'userprofile' %}">
 <span class="material-symbols-outlined text-xl">person</span>
 <span class="font-body text-sm font-medium">Profile</span>
 </a>
