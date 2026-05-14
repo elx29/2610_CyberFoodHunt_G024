@@ -2,8 +2,9 @@ from urllib import request
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-from .models import Event,User, Restaurant #this User is added just for test, remove it once Ayra done with login system
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password, check_password
+from .models import Event,User, Restaurant, Post, Review #this User is added just for test, remove it once Ayra done with login system
+
 
 
 
@@ -119,65 +120,97 @@ def home(request):
     })
 
 def userprofile(request):
-    return render(request, 'foodhunt/userprofile.html') 
-    #!!!AYRA ADD UR BACKEND STUFF HERE!!!
+    current_user = User.objects.first()  #temp, change to request.user after login system done
+
+    post_count = Post.objects.filter(user=current_user).count() #get number of posts by user
+    event_count= Event.objects.filter(user=current_user).count() #get number of event posts by user
+    
+    #Recent post and events that will appear on user profile page
+    today = timezone.now().date()
+    recent_events = Event.objects.filter(user=current_user, end_date__gte=today).order_by("-event_id")[:5]
+    recent_posts = Post.objects.filter(user=current_user).order_by("-created_at")[:5]
+
+    badges = [] #empty list
+
+    #Badges
+    if post_count >= 1:
+        badges.append({"name": "Rookie Hunter", "icon": "restaurant", "desc": "Posted first food spot"})
+    if post_count >= 5:
+        badges.append({"name": "Food Scout", "icon": "explore", "desc": "Posted 5 food spots"})  
+    if post_count >= 15:
+        badges.append({"name": "Cyber Hunter", "icon": "swords", "desc": "Posted 15 food spots"}) 
+    if post_count >= 30:
+        badges.append({"name": "Legend", "icon": "crown", "desc": "Posted 30 food spots"})
+
+            # Event badges
+    if event_count >= 1:
+        badges.append({"name": "Event Starter", "icon": "celebration", "desc": "Posted first event"})
+    if event_count >= 5:
+        badges.append({"name": "Detective", "icon": "search", "desc": "Posted 5 events"})
+
+    return render(request, 'foodhunt/userprofile.html', {
+        "badges": badges,
+        "post_count": post_count,
+        "event_count": event_count,
+        "recent_events": recent_events,
+        "recents_post": recent_posts,
+    })
+#!!!AYRA ADD UR BACKEND STUFF HERE!!!
+
 def review(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES) 
-
-        if form.is_valid():
-            comment = form.cleaned_data['comment']
-            image = form.cleaned_data['image']
-        else:
-            comment = request.POST.get('comment')
-            image = request.FILES.get('image')
-
+    if request.method == "POST":
+        comment = request.POST.get("comment")
+        image   = request.FILES.get("image")
         Review.objects.create(
-            comment=comment,
-            image=image
+            user    = User.objects.first(),
+            comment = comment,
+            image   = image,
         )
+        return redirect("home")
+    return render(request, "foodhunt/review.html")
 
-        return redirect('home')  # or wherever you want
 
-    return render(request, 'review.html')
-#REGISTER
 def register(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        email    = request.POST.get('email')
-        password = request.POST.get('password')
-        confirm  = request.POST.get('confirm_password')
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email    = request.POST.get("email")
+        password = request.POST.get("password")
+        confirm  = request.POST.get("confirm_password")
 
+        if not username or not email or not password or not confirm:
+            return render(request, "foodhunt/register.html", {"error": "All fields are required!"})
         if password != confirm:
-            return render(request, 'foodhunt/register.html', {'error': 'Passwords do not match!'})
-
+            return render(request, "foodhunt/register.html", {"error": "Passwords do not match!"})
         if User.objects.filter(username=username).exists():
-            return render(request, 'foodhunt/register.html', {'error': 'Username already taken!'})
-
+            return render(request, "foodhunt/register.html", {"error": "Username already taken!"})
         if User.objects.filter(email=email).exists():
-            return render(request, 'foodhunt/register.html', {'error': 'Email already registered!'})
+            return render(request, "foodhunt/register.html", {"error": "Email already registered!"})
 
-        User.objects.create(username=username, email=email, password=password)
-        return redirect('login')
+        User.objects.create(
+            username = username,
+            email    = email,
+            password = make_password(password),
+        )
+        return redirect("login")
+    return render(request, "foodhunt/register.html")
 
-    return render(request, 'foodhunt/register.html')
-
-# LOGIN
 def login_view(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        try:
-            user = User.objects.get(username=username, password=password)
-            request.session['user_id']  = user.user_id
-            request.session['username'] = user.username
-            return redirect('home')
-        except User.DoesNotExist:
-            return render(request, 'foodhunt/login.html', {'error': 'Invalid username or password!'})
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
 
-    return render(request, 'foodhunt/login.html')
+        user = User.objects.filter(email=email).first()
 
-# LOGOUT
+        if user and check_password(password, user.password):
+            request.session["user_id"] = user.user_id
+            request.session["email"] = user.email
+            return redirect("home")
+
+        return render(request, "foodhunt/login.html", {
+            "error": "Invalid email or password!"
+        })
+
+    return render(request, "foodhunt/login.html")
 def logout_view(request):
     request.session.flush()
-    return redirect('login')
+    return redirect("login")
