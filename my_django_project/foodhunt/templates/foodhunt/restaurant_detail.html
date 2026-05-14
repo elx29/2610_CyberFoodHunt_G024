@@ -267,11 +267,11 @@
                                         <span class="material-symbols-outlined text-error" id="thumbDownIcon"
                                             style="font-variation-settings: 'FILL' 0;">thumb_down</span></button>
                                 </div>
-                                <button id="editBtn"
+                                <a id="editBtn" href="{% url 'review_create' restaurant.restaurant_id %}"
                                     class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-primary border border-primary/20 hover:bg-primary hover:text-on-primary transition-all shadow-sm">
                                     <span class="material-symbols-outlined" id="editIcon"
                                         style="font-variation-settings: 'FILL' 0;">edit</span>
-                                </button>
+                                </a>
                                 <button id="deleteBtn"
                                     class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-error border border-error/20 hover:bg-error hover:text-on-error transition-all shadow-sm">
                                     <span class="material-symbols-outlined" id="deleteIcon"
@@ -390,17 +390,6 @@
                 });
             }
 
-            if (editBtn && editIcon) {
-                editBtn.addEventListener('click', () => {
-                    editBtn.classList.toggle('bg-white');
-                    editBtn.classList.toggle('text-primary');
-                    editBtn.classList.toggle('bg-primary');
-                    editBtn.classList.toggle('text-on-primary');
-
-                    const isFilled = editIcon.style.fontVariationSettings.includes("'FILL' 1");
-                    editIcon.style.fontVariationSettings = isFilled ? "'FILL' 0" : "'FILL' 1";
-                });
-            }
 
             if (deleteBtn && deleteIcon) {
                 deleteBtn.addEventListener('click', () => {

@@ -165,21 +165,28 @@ def restaurant_detail(request, restaurant_id):
     })
 
 
-def review_create(request, restaurant_id=None):
+def review_create(request, restaurant_id=None, event_id=None):
     restaurants = Restaurant.objects.all()
     selected_restaurant = None
+    selected_event = None
     
     if restaurant_id:
         selected_restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+    elif event_id:
+        selected_event = get_object_or_404(Event, event_id=event_id)
     else:
-        # Fallback to query parameter if positional ID isn't provided
+        # Fallback to query parameters
         restaurant_id_param = request.GET.get('restaurant_id')
+        event_id_param = request.GET.get('event_id')
         if restaurant_id_param:
             selected_restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id_param)
+        if event_id_param:
+            selected_event = get_object_or_404(Event, event_id=event_id_param)
     
     return render(request, 'foodhunt/review.html', {
         'restaurants': restaurants,
-        'selected_restaurant': selected_restaurant
+        'selected_restaurant': selected_restaurant,
+        'selected_event': selected_event
     })
 
 def review_submit(request):
