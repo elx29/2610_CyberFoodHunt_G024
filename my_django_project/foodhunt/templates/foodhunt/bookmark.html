@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Home | CYBER FOOD HUNT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-tertiary-fixed": "#001e2e",
+                "on-tertiary-container": "#d4ecff",
+                "surface-container-low": "#e1f8fe",
+                "inverse-on-surface": "#def5fb",
+                "inverse-surface": "#1f3438",
+                "surface": "#effcff",
+                "surface-dim": "#c7dee4",
+                "secondary-fixed": "#c8e6ff",
+                "primary-fixed": "#e0e0ff",
+                "background": "#effcff",
+                "surface-variant": "#d0e6ec",
+                "tertiary": "#0e5678",
+                "on-secondary": "#ffffff",
+                "on-error": "#ffffff",
+                "primary-container": "#4f57e1",
+                "secondary-container": "#b7dffe",
+                "secondary-fixed-dim": "#a3cbea",
+                "secondary": "#3b637d",
+                "primary-fixed-dim": "#bfc2ff",
+                "on-background": "#081e23",
+                "on-primary": "#ffffff",
+                "primary": "#343bc8",
+                "on-secondary-fixed": "#001e2e",
+                "tertiary-fixed-dim": "#94cdf5",
+                "on-secondary-container": "#3b637e",
+                "surface-container-highest": "#d0e6ec",
+                "outline": "#767686",
+                "surface-container": "#dbf2f8",
+                "surface-tint": "#444cd6",
+                "tertiary-container": "#316e92",
+                "on-secondary-fixed-variant": "#214b64",
+                "surface-container-lowest": "#ffffff",
+                "error": "#ba1a1a",
+                "tertiary-fixed": "#c7e7ff",
+                "on-surface-variant": "#454554",
+                "on-tertiary-fixed-variant": "#004c6d",
+                "outline-variant": "#c6c5d7",
+                "on-primary-container": "#e8e6ff",
+                "surface-bright": "#effcff",
+                "on-error-container": "#93000a",
+                "on-primary-fixed": "#01006e",
+                "error-container": "#ffdad6",
+                "on-primary-fixed-variant": "#292fbe",
+                "surface-container-high": "#d5ecf2",
+                "inverse-primary": "#bfc2ff",
+                "on-surface": "#081e23",
+                "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "fontFamily": {
+                "headline": ["Space Grotesk"],
+                "body": ["Hanken Grotesk"],
+                "label": ["Inter"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; background-color: #DAF1F7; }
+        .scrapbook-bg {
+            background-image: radial-gradient(circle at 2px 2px, rgba(52, 59, 200, 0.05) 1px, transparent 0);
+            background-size: 30px 30px;
+        }
+        .tape-effect {
+            position: relative;
+        }
+        .tape-effect::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 70px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(2px);
+            z-index: 10;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for dense layout */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #343bc833; border-radius: 10px; }
+        
+        .map-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-background scrapbook-bg text-on-surface overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-[#effcff]/90 backdrop-blur-md shadow-sm">
+<nav class="flex items-center max-w-7xl mx-auto px-6 h-14">
+    <div class="text-xl font-bold bg-gradient-to-br from-[#343bc8] to-[#4f57e1] bg-clip-text text-transparent font-headline tracking-tighter">Cyber Food Hunt</div>
+    <div class="flex-1 flex justify-center items-center gap-8">
+        <a class="text-[#343bc8] font-bold border-b-2 border-[#343bc8] text-sm" href="{% url 'home' %}">Discover</a>
+        <a class="text-[#16425B] opacity-70 text-sm hover:opacity-100 transition-opacity" href="{% url 'event_list' %}">Pop-Ups</a>
+    </div>
+        <a href="login.html" class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-bold text-sm tracking-wide">
+        <span class="material-symbols-outlined text-xl">logout</span>
+        Logout
+    </a>
+</nav>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-6 bg-[#e1f8fe] dark:bg-[#0d2a30] w-52 shadow-lg border-r border-primary/5">
+<div class="px-6 mb-8 mt-14">
+<h1 class="font-headline font-bold text-[#343bc8] text-lg" style"">Welcome, User!</h1>
+</div>
+<div class="flex flex-col gap-1 px-2 flex-grow">
+<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="main.html" style"">
+<span class="material-symbols-outlined text-xl" style"">home</span>
+<span class="font-body text-sm font-medium" style"">Home</span>
+</a>
+<!--  <a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="review.html" style"">
+<span class="material-symbols-outlined text-xl" style"">edit_note</span>
+<span class="font-body text-sm font-medium" style"">Reviews</span>
+</a>  -->
+<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="search.html" style"">
+<span class="material-symbols-outlined text-xl" style"">search</span>
+<span class="font-body text-sm font-medium" style"">Search</span>
+</a>
+<a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="userprofile.html" style"">
+<span class="material-symbols-outlined text-xl" style"">person</span>
+<span class="font-body text-sm font-medium" style"">Profile</span>
+</a>
+</div>
+<a>
+<div class="px-4 pb-6">
+  <a href="foodspots.html" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
+    Share Now!
+  </a>
+</div>
+</aside>
+<!-- <main class="lg:ml-52 pt-14 px-4 md:px-8 pb-8 max-w-7xl mx-auto"> -->
+
+<!-- Main Content Area -->
+<main class="md:ml-64 pt-20 md:pt-10 px-6 md:px-12 pb-24">
+<!-- Header Section -->
+<header class="relative mb-12 max-w-5xl mx-auto">
+<div class="absolute -top-4 -left-6 opacity-20">
+<span class="material-symbols-outlined text-6xl text-primary" data-icon="star" style='font-variation-settings: "FILL" 1;'>star</span>
+</div>
+<div class="relative z-10">
+<p class="font-headline font-bold text-primary tracking-wider uppercase text-sm mb-2" style="">Saved Spots</p>
+<h2 class="font-headline text-5xl md:text-7xl font-black text-on-surface tracking-tighter" style="">My Bookmarks</h2>
+</div>
+<div class="absolute top-1/2 -right-4 hidden md:block">
+<div class="bg-secondary-container p-4 rounded-full -rotate-12 shadow-sm">
+<span class="material-symbols-outlined text-on-secondary-container" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+</header>
+<!-- Search and Filter Bar (Asymmetric Layout) -->
+<div class="max-w-5xl mx-auto mb-16 flex flex-col md:flex-row gap-4 items-end">
+<div class="w-full md:w-2/3 bg-surface-container-lowest p-1 rounded-xl shadow-sm flex items-center">
+<div class="px-4 text-outline">
+<span class="material-symbols-outlined" data-icon="search" style="">search</span>
+</div>
+<input class="bg-transparent border-none focus:ring-0 w-full font-body py-3" placeholder="Search your favorites..." type="text"/>
+</div>
+<div class="flex gap-2">
+
+<!-- <div class="bg-surface-container-highest px-6 py-3 rounded-xl font-headline font-bold text-on-surface-variant flex items-center gap-2 cursor-pointer hover:bg-surface-variant transition-colors" style="">
+<span class="material-symbols-outlined text-lg" data-icon="filter_list">filter_list</span>
+                    FILTER
+                </div>
+<div class="bg-primary text-white px-6 py-3 rounded-xl font-headline font-bold flex items-center gap-2 cursor-pointer shadow-lg hover:shadow-primary/20 transition-all" style="">
+                    Map View
+                </div> -->
+</div>
+</div>
+<!-- Bento Grid / Scrapbook Layout -->
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative">
+<!-- Floating Decorative Icon -->
+<div class="absolute -left-10 top-40 text-primary-container opacity-30 select-none pointer-events-none">
+<span class="material-symbols-outlined text-8xl" data-icon="restaurant" style="">restaurant</span>
+</div>
+<!-- Card 1 -->
+<div class="scrapbook-card bg-surface-container-low p-6 rounded-2xl shadow-sm rotate-[-1.5deg] relative overflow-hidden group">
+<div class="bg-white/40 absolute inset-0 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-6">
+<div class="w-16 h-16 bg-primary-container rounded-2xl flex items-center justify-center text-white shadow-inner">
+<span class="material-symbols-outlined text-3xl" data-icon="ramen_dining" style="">ramen_dining</span>
+</div>
+<div class="bg-white px-3 py-1 rounded-full shadow-sm">
+<div class="flex items-center gap-1 text-on-surface font-bold text-sm" style="">
+                                4.8 <span class="material-symbols-outlined text-xs text-yellow-500" data-icon="star" style='font-variation-settings: "FILL" 1;'>star</span>
+</div>
+</div>
+</div>
+<h3 class="font-headline text-2xl font-black mb-2 text-indigo-900" style="">Cyber Noodle Bar</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6 font-medium" style="">Authentic hand-pulled noodles located right next to the MMU main gate. Perfect for late-night study breaks.</p>
+<div class="flex flex-wrap gap-2 gap-3">
+<span class="text-[10px] uppercase font-bold tracking-widest bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full shadow-sm" style="">Halal</span>
+<span class="text-[10px] uppercase font-bold tracking-widest bg-tertiary-fixed text-on-tertiary-fixed-variant px-4 py-1.5 rounded-full shadow-sm" style="">Budget Friendly</span>
+</div>
+</div>
+<div class="absolute -bottom-2 -right-2 opacity-10">
+<span class="material-symbols-outlined text-6xl" data-icon="star" style="">star</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="scrapbook-card bg-white p-6 rounded-2xl shadow-sm rotate-[1deg] border border-outline-variant/20 relative">
+<div class="absolute top-2 right-4">
+<span class="material-symbols-outlined text-primary/40" data-icon="push_pin" style="">push_pin</span>
+</div>
+<div class="flex justify-between items-start mb-6">
+<div class="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center text-white shadow-inner">
+<span class="material-symbols-outlined text-3xl" data-icon="local_cafe" style="">local_cafe</span>
+</div>
+<div class="bg-surface-container-high px-3 py-1 rounded-full">
+<div class="flex items-center gap-1 text-on-surface font-bold text-sm" style="">
+                            4.5 <span class="material-symbols-outlined text-xs text-yellow-500" data-icon="star" style='font-variation-settings: "FILL" 1;'>star</span>
+</div>
+</div>
+</div>
+<h3 class="font-headline text-2xl font-black mb-2 text-indigo-900" style="">The Lab Coffee</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6 font-medium" style="">Minimalist aesthetic with high-speed WiFi. The only place in Cyberjaya where science meets caffeine.</p>
+<div class="flex flex-wrap gap-2 gap-3">
+<span class="text-[10px] uppercase font-bold tracking-widest bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full shadow-sm" style="">Study Spot</span>
+<span class="text-[10px] uppercase font-bold tracking-widest bg-tertiary-fixed text-on-tertiary-fixed-variant px-4 py-1.5 rounded-full shadow-sm" style="">Artisan</span>
+</div>
+</div>
+<!-- Card 3 (Vertical Overlap) -->
+<div class="scrapbook-card bg-surface-container-high p-6 rounded-2xl shadow-sm md:translate-y-6 lg:translate-y-12 rotate-[-0.5deg] relative">
+<div class="flex justify-between items-start mb-6">
+<div class="w-16 h-16 bg-tertiary-container rounded-2xl flex items-center justify-center text-white shadow-inner">
+<span class="material-symbols-outlined text-3xl" data-icon="dinner_dining" style="">dinner_dining</span>
+</div>
+<div class="bg-white px-3 py-1 rounded-full shadow-sm">
+<div class="flex items-center gap-1 text-on-surface font-bold text-sm" style="">
+                            4.9 <span class="material-symbols-outlined text-xs text-yellow-500" data-icon="star" style='font-variation-settings: "FILL" 1;'>star</span>
+</div>
+</div>
+</div>
+<h3 class="font-headline text-2xl font-black mb-2 text-indigo-900" style="">Spice Garden</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6 font-medium" style="">Legendary Nasi Kandar. The queues are long but the curry mix is worth every minute of waiting.</p>
+<div class="flex flex-wrap gap-2 gap-3">
+<span class="text-[10px] uppercase font-bold tracking-widest bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full shadow-sm" style="">Student Promo</span>
+<span class="text-[10px] uppercase font-bold tracking-widest bg-tertiary-fixed text-on-tertiary-fixed-variant px-4 py-1.5 rounded-full shadow-sm" style="">Open 24h</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="scrapbook-card bg-surface-container-lowest p-6 rounded-2xl shadow-sm rotate-[1.5deg] relative border border-primary/5">
+<div class="flex justify-between items-start mb-6">
+<div class="w-16 h-16 bg-primary-fixed-dim rounded-2xl flex items-center justify-center text-primary shadow-inner">
+<span class="material-symbols-outlined text-3xl" data-icon="bakery_dining" style="">bakery_dining</span>
+</div>
+<div class="bg-surface-container-high px-3 py-1 rounded-full">
+<div class="flex items-center gap-1 text-on-surface font-bold text-sm" style="">
+                            4.7 <span class="material-symbols-outlined text-xs text-yellow-500" data-icon="star" style='font-variation-settings: "FILL" 1;'>star</span>
+</div>
+</div>
+</div>
+<h3 class="font-headline text-2xl font-black mb-2 text-indigo-900" style="">Pastry Port</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6 font-medium" style="">Fresh croissants every morning at 7 AM. A favorite for early-bird FCM students heading to class.</p>
+<div class="flex flex-wrap gap-2 gap-3">
+<span class="text-[10px] uppercase font-bold tracking-widest bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full shadow-sm" style="">Bakery</span>
+<span class="text-[10px] uppercase font-bold tracking-widest bg-tertiary-fixed text-on-tertiary-fixed-variant px-4 py-1.5 rounded-full shadow-sm" style="">Quick Bite</span>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="scrapbook-card bg-secondary-fixed p-6 rounded-2xl shadow-sm rotate-[-2deg] relative md:-translate-y-4">
+<div class="flex justify-between items-start mb-6">
+<div class="w-16 h-16 bg-on-secondary-container rounded-2xl flex items-center justify-center text-white shadow-inner">
+<span class="material-symbols-outlined text-3xl" data-icon="lunch_dining" style="">lunch_dining</span>
+</div>
+<div class="bg-white px-3 py-1 rounded-full shadow-sm">
+<div class="flex items-center gap-1 text-on-surface font-bold text-sm" style="">
+                            4.6 <span class="material-symbols-outlined text-xs text-yellow-500" data-icon="star" style='font-variation-settings: "FILL" 1;'>star</span>
+</div>
+</div>
+</div>
+<h3 class="font-headline text-2xl font-black mb-2 text-indigo-900" style="">Bento Box Express</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6 font-medium" style="">Fast, reliable Japanese takeaways. Great portion sizes that won't break the student bank account.</p>
+<div class="flex flex-wrap gap-2 gap-3">
+<span class="text-[10px] uppercase font-bold tracking-widest bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full shadow-sm" style="">Japanese</span>
+<span class="text-[10px] uppercase font-bold tracking-widest bg-tertiary-fixed text-on-tertiary-fixed-variant px-4 py-1.5 rounded-full shadow-sm" style="">Takeaway</span>
+</div>
+</div>
+<!-- Empty State / Add New Placeholder -->
+<div class="border-2 border-dashed border-indigo-200 p-6 rounded-2xl flex flex-col items-center justify-center text-center opacity-60 hover:opacity-100 transition-opacity cursor-pointer md:translate-y-8">
+<div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm">
+<span class="material-symbols-outlined text-indigo-400 text-3xl" data-icon="add_circle" style="">add_circle</span>
+</div>
+<h3 class="font-headline text-lg font-bold text-indigo-900" style="">Discover More</h3>
+<p class="text-xs text-on-surface-variant max-w-[150px] mt-1" style="">Keep exploring Cyberjaya to find more favorites!</p>
+</div>
+</div>
+</main>
+
+<!-- Decorative Stickers -->
+<span class="material-symbols-outlined absolute -bottom-6 -left-6 text-white/5 text-[120px] pointer-events-none" style='font-variation-settings: "FILL" 1;'>star</span>
+<span class="material-symbols-outlined absolute bottom-4 right-2 text-primary text-4xl opacity-40 rotate-12" style='font-variation-settings: "FILL" 1;'>stars</span>
+<span class="material-symbols-outlined absolute top-1/2 left-4 text-white/10 text-3xl animate-pulse" style"">auto_awesome</span>
+</div>
+</section>
+</main>
+</body></html>
