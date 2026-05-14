@@ -252,7 +252,7 @@
 
 <div class="grid grid-cols-1 gap-8">
 {% for restaurant in restaurants %}
-<div class="relative group">
+<a href="{% url 'restaurant_detail' restaurant.restaurant_id %}" class="relative group block">
 <div class="bg-surface-container-highest p-4 rounded-xl sticker-rotate-1 shadow-lg z-20 relative translate-x-2 translate-y-2 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-300">
 <div class="flex flex-col md:flex-row gap-6">
 <div class="w-full md:w-40 h-40 flex-shrink-0 bg-white rounded-lg flex items-center justify-center border border-slate-50 overflow-hidden">
@@ -289,7 +289,7 @@
 </div>
 </div>
 <div class="absolute inset-0 bg-primary/10 rounded-xl -rotate-1 z-10"></div>
-</div>
+</a>
 
 {% empty %}
 <div class="text-center py-20">

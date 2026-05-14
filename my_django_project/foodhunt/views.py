@@ -156,3 +156,52 @@ def userprofile(request):
     })
   
 
+def restaurant_detail(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+    reviews = Review.objects.filter(restaurant=restaurant).order_by("-created_at")
+    return render(request, 'foodhunt/restaurant_detail.html', {
+        'restaurant': restaurant,
+        'reviews': reviews
+    })
+
+
+def review_create(request, restaurant_id=None):
+    restaurants = Restaurant.objects.all()
+    selected_restaurant = None
+    
+    if restaurant_id:
+        selected_restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+    else:
+        # Fallback to query parameter if positional ID isn't provided
+        restaurant_id_param = request.GET.get('restaurant_id')
+        if restaurant_id_param:
+            selected_restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id_param)
+    
+    return render(request, 'foodhunt/review.html', {
+        'restaurants': restaurants,
+        'selected_restaurant': selected_restaurant
+    })
+
+def review_submit(request):
+    if request.method == "POST":
+        restaurant_id = request.POST.get("restaurant")
+        rating = request.POST.get("rating")
+        comment = request.POST.get("comment")
+        image = request.FILES.get("image")
+        
+        # Temp: use first user
+        current_user = User.objects.first()
+        
+        restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+        
+        Review.objects.create(
+            user=current_user,
+            restaurant=restaurant,
+            rating=int(rating),
+            comment=comment,
+            image=image,
+            created_at=timezone.now()
+        )
+        return redirect("home")
+    return redirect("review_create")
+

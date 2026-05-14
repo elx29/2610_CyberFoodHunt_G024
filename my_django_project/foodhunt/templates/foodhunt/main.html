@@ -181,7 +181,7 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {% for restaurant in restaurants %}
-            <div class="bg-surface-container-high rounded-xl p-5 shadow-md border border-outline-variant/10 hover:shadow-lg transition-shadow">
+            <a href="{% url 'restaurant_detail' restaurant.restaurant_id %}" class="bg-surface-container-high rounded-xl p-5 shadow-md border border-outline-variant/10 hover:shadow-lg transition-all hover:scale-[1.02] block">
                 <div class="flex gap-4">
                     <div class="w-20 h-20 flex-shrink-0 rounded-lg bg-white flex items-center justify-center overflow-hidden border border-outline-variant/10">
                         {% if restaurant.image %}
@@ -212,7 +212,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
             {% empty %}
             <div class="col-span-2 text-center py-16">
                 <span class="material-symbols-outlined text-5xl text-outline/30 mb-3 block">restaurant</span>
