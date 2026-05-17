@@ -212,6 +212,7 @@
                         </div>
                         <h1
                             class="text-5xl md:text-6xl font-black text-on-surface font-display leading-[0.9] tracking-tight mb-8">
+                            Cyber Noodle House <br />
                             {{ restaurant.restaurant_name }} <br />
                         </h1>
                         <!-- Vibes Description Section -->
@@ -219,6 +220,12 @@
                             class="mb-8 p-4 bg-primary/5 rounded-lg border-l-4 border-primary italic text-on-surface-variant font-medium">
                             <p
                                 class="text-sm font-label uppercase tracking-widest mb-1 not-italic font-bold text-primary">
+                                Describe the environment of the restaurant:</p>
+                            "----"
+                        </div>
+                        <div class="space-y-6">
+                            <p class="text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-md font-medium">
+                                The most exclusive restaurant in Cyberjaya. Secret menu items and late-night vibes.
                                 Cuisine:</p>
                             "{{ restaurant.cuisine }}"
                         </div>
@@ -236,6 +243,42 @@
                                     <div>
                                         <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Location
                                         </p>
+                                        <p class="font-bold text-on-surface">Prima Avenue</p>
+                                    </div>
+                                </div>
+                                <!-- <div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-400 uppercase font-label">Date</p>
+<p class="font-bold text-on-surface">Nov 1st - Nov 3rd</p>
+</div>
+</div> -->
+                                <div
+                                    class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+                                    <div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+                                        <span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Time</p>
+                                        <p class="font-bold text-on-surface">10pm - 2am</p>
+                                    </div>
+                                </div>
+                                <!-- <div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-400 uppercase font-label">Hosted By</p>
+<p class="font-bold text-on-surface">Chef Kenji &amp; Friends</p>
+</div>
+</div> -->
+                            </div>
+                            <!-- <button onclick="this.closest('.relative').remove()"
+    class="mt-4 w-40 py-4 bg-red-500 text-white font-bold rounded-lg text-xs uppercase tracking-widest hover:bg-red-600 transition">
+    Delete 
+</button> -->
                                         <p class="font-bold text-on-surface">{{ restaurant.location }}</p>
                                     </div>
                                 </div>
@@ -267,6 +310,11 @@
                                         <span class="material-symbols-outlined text-error" id="thumbDownIcon"
                                             style="font-variation-settings: 'FILL' 0;">thumb_down</span></button>
                                 </div>
+                                <button id="editBtn"
+                                    class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-primary border border-primary/20 hover:bg-primary hover:text-on-primary transition-all shadow-sm">
+                                    <span class="material-symbols-outlined" id="editIcon"
+                                        style="font-variation-settings: 'FILL' 0;">edit</span>
+                                </button>
                                 <a id="editBtn" href="{% url 'review_create' restaurant.restaurant_id %}"
                                     class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-primary border border-primary/20 hover:bg-primary hover:text-on-primary transition-all shadow-sm">
                                     <span class="material-symbols-outlined" id="editIcon"
@@ -278,6 +326,11 @@
                                         style="font-variation-settings: 'FILL' 0;">delete</span>
                                 </button>
                             </div>
+                            <!-- <a href="review.html"
+   class="mt-4 w-40 py-4 bg-blue-500 text-white font-bold rounded-lg text-xs uppercase tracking-widest hover:bg-blue-600 transition inline-block text-center">
+    Write a Review!
+</a> -->
+
                         </div>
                     </div>
                     <div class="absolute top-10 -right-4 w-20 h-20 bg-primary/5 rounded-full blur-2xl"></div>
@@ -292,6 +345,181 @@
                         class="bg-white p-4 pb-12 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 rounded-sm">
                         <div
                             class="aspect-square w-full flex items-center justify-center bg-slate-50 border border-slate-100 mb-4 overflow-hidden">
+                            <span class="material-symbols-outlined text-9xl text-slate-300"
+                                data-icon="image">image</span>
+                        </div>
+                        <p class="font-headline font-bold text-on-surface text-center italic text-xl tracking-tight">
+                            "Special Menu-only on Wednesdays"</p>
+                    </div>
+
+                </div>
+            </div>
+<!-- review/comment section -->
+<section class="mt-16 relative">
+    <div class="flex items-center gap-4 mb-8">
+        <div class="h-[2px] flex-1 bg-gradient-to-r from-transparent to-primary/20"></div>
+<h2 class="font-display text-3xl font-black text-on-surface uppercase tracking-tight">Community Reviews</h2>
+<div class="h-[2px] flex-1 bg-gradient-to-l from-transparent to-primary/20">    
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="bg-white p-6 rounded-sm shadow-md rotate-1 hover:rotate-0 transition-transform">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined">account_circle</span></div>
+<div><p class="font-bold text-sm">UrbanFoodie_99</p>
+    <div class="flex text-primary text-xs"><span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+        <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+        <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+        <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+        <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 0;">star</span>
+    </div>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant mb-4 leading-relaxed">The spicy miso broth was absolutely incredible. The vibe is unmatched in Cyberjaya. Definitely worth the rooftop trek!</p>
+<div class="aspect-video bg-surface-container flex items-center justify-center rounded-sm border border-dashed border-primary/20"><span class="material-symbols-outlined text-primary/30 text-4xl">image</span>
+</div>
+</div>
+<div class="bg-white p-6 rounded-sm shadow-md -rotate-1 hover:rotate-0 transition-transform">
+    <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined">account_circle</span></div><div><p class="font-bold text-sm">Cyber_Nomad</p>
+                <div class="flex text-primary text-xs"><span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                </div>
+            </div>
+    </div><p class="text-sm text-on-surface-variant mb-4 leading-relaxed">Exclusive means exclusive. The secret pork belly topping is a must-ask. This is what the city needed.</p><div class="aspect-video bg-surface-container flex items-center justify-center rounded-sm border border-dashed border-primary/20">
+        <span class="material-symbols-outlined text-primary/30 text-4xl">image
+        </span></div></div></div></section>
+
+            <!-- review/comment section -->
+            <section class="mt-16 relative w-full">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-[2px] flex-1 bg-gradient-to-r from-transparent to-primary/20"></div>
+                    <h2 class="font-display text-3xl font-black text-on-surface uppercase tracking-tight">
+                        Community Reviews</h2>
+                    <div class="h-[2px] flex-1 bg-gradient-to-l from-transparent to-primary/20">
+                    </div>
+                </div>
+                <div class="mb-8 flex justify-start">
+                    <a href="review.html"
+                        class="bg-primary text-on-primary px-6 py-3 rounded-full font-headline font-bold text-sm tracking-wide hover:scale-105 transition-transform inline-flex items-center gap-2 shadow-lg shadow-primary/20">
+                        <span class="material-symbols-outlined">edit_note</span>WRITE A REVIEW!</a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-sm shadow-md rotate-1 hover:rotate-0 transition-transform">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+                                <span class="material-symbols-outlined">account_circle</span>
+                            </div>
+                            <div>
+                                <p class="font-bold text-sm">UrbanFoodie_99</p>
+                                <div class="flex text-primary text-xs"><span
+                                        class="material-symbols-outlined text-[14px]"
+                                        style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-[14px]"
+                                        style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-[14px]"
+                                        style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-[14px]"
+                                        style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-[14px]"
+                                        style="font-variation-settings: 'FILL' 0;">star</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-on-surface-variant mb-4 leading-relaxed">The spicy miso broth was
+                            absolutely incredible. The vibe is unmatched in Cyberjaya. Definitely worth the
+                            rooftop trek!</p>
+                        <div
+                            class="aspect-video bg-surface-container flex items-center justify-center rounded-sm border border-dashed border-primary/20">
+                            <span class="material-symbols-outlined text-primary/30 text-4xl">image</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-sm shadow-md -rotate-1 hover:rotate-0 transition-transform">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+                                <span class="material-symbols-outlined">account_circle</span>
+                            </div>
+                            <div>
+                                <p class="font-bold text-sm">Cyber_Nomad</p>
+                                <div class="flex text-primary text-xs"><span
+                                        class="material-symbols-outlined text-[14px]"
+                                        style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-[14px]"
+                                        style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-[14px]"
+                                        style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-[14px]"
+                                        style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-[14px]"
+                                        style="font-variation-settings: 'FILL' 1;">star</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-on-surface-variant mb-4 leading-relaxed">Exclusive means
+                            exclusive. The secret pork belly topping is a must-ask. This is what the city
+                            needed.</p>
+                        <div
+                            class="aspect-video bg-surface-container flex items-center justify-center rounded-sm border border-dashed border-primary/20">
+                            <span class="material-symbols-outlined text-primary/30 text-4xl">image
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Decorative Stickers -->
+            <span
+                class="material-symbols-outlined absolute -bottom-6 -left-6 text-white/5 text-[120px] pointer-events-none"
+                style='font-variation-settings: "FILL" 1;'>star</span>
+            <span class="material-symbols-outlined absolute bottom-4 right-2 text-primary text-4xl opacity-40 rotate-12"
+                style='font-variation-settings: "FILL" 1;'>stars</span>
+            <span class="material-symbols-outlined absolute top-1/2 left-4 text-white/10 text-3xl animate-pulse"
+                style"">auto_awesome</span>
+        </div>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            const bookmarkIcon = document.getElementById('bookmarkIcon');
+            const thumbUpBtn = document.getElementById('thumbUpBtn');
+            const thumbUpIcon = document.getElementById('thumbUpIcon');
+            const thumbDownBtn = document.getElementById('thumbDownBtn');
+            const thumbDownIcon = document.getElementById('thumbDownIcon');
+            const editBtn = document.getElementById('editBtn');
+            const editIcon = document.getElementById('editIcon');
+            const deleteBtn = document.getElementById('deleteBtn');
+            const deleteIcon = document.getElementById('deleteIcon');
+
+            if (bookmarkBtn && bookmarkIcon) {
+                bookmarkBtn.addEventListener('click', () => {
+                    bookmarkBtn.classList.toggle('bg-white');
+                    bookmarkBtn.classList.toggle('text-primary');
+                    bookmarkBtn.classList.toggle('bg-primary');
+                    bookmarkBtn.classList.toggle('text-on-primary');
+
+                    const isFilled = bookmarkIcon.style.fontVariationSettings.includes("'FILL' 1");
+                    bookmarkIcon.style.fontVariationSettings = isFilled ? "'FILL' 0" : "'FILL' 1";
+                });
+            }
+
+            if (editBtn && editIcon) {
+                editBtn.addEventListener('click', () => {
+                    editBtn.classList.toggle('bg-white');
+                    editBtn.classList.toggle('text-primary');
+                    editBtn.classList.toggle('bg-primary');
+                    editBtn.classList.toggle('text-on-primary');
+
+                    const isFilled = editIcon.style.fontVariationSettings.includes("'FILL' 1");
+                    editIcon.style.fontVariationSettings = isFilled ? "'FILL' 0" : "'FILL' 1";
+                });
+            }
                             {% if restaurant.image %}
                                 <img src="{{ restaurant.image }}" class="w-full h-full object-cover" />
                             {% else %}
@@ -389,7 +617,6 @@
                     bookmarkIcon.style.fontVariationSettings = isFilled ? "'FILL' 0" : "'FILL' 1";
                 });
             }
-
 
             if (deleteBtn && deleteIcon) {
                 deleteBtn.addEventListener('click', () => {

@@ -154,6 +154,66 @@ def userprofile(request):
         "recent_events": recent_events,
         "recents_post": recent_posts,
     })
+#!!!AYRA ADD UR BACKEND STUFF HERE!!!
+
+def review(request):
+    if request.method == "POST":
+        comment = request.POST.get("comment")
+        image   = request.FILES.get("image")
+        Review.objects.create(
+            user    = User.objects.first(),
+            comment = comment,
+            image   = image,
+        )
+        return redirect("home")
+    return render(request, "foodhunt/review.html")
+
+
+def register(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email    = request.POST.get("email")
+        password = request.POST.get("password")
+        confirm  = request.POST.get("confirm_password")
+
+        if not username or not email or not password or not confirm:
+            return render(request, "foodhunt/register.html", {"error": "All fields are required!"})
+        if password != confirm:
+            return render(request, "foodhunt/register.html", {"error": "Passwords do not match!"})
+        if User.objects.filter(username=username).exists():
+            return render(request, "foodhunt/register.html", {"error": "Username already taken!"})
+        if User.objects.filter(email=email).exists():
+            return render(request, "foodhunt/register.html", {"error": "Email already registered!"})
+
+        User.objects.create(
+            username = username,
+            email    = email,
+            password = make_password(password),
+        )
+        return redirect("login")
+    return render(request, "foodhunt/register.html")
+
+def login_view(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        user = User.objects.filter(email=email).first()
+
+        if user and check_password(password, user.password):
+            request.session["user_id"] = user.user_id
+            request.session["email"] = user.email
+            return redirect("home")
+
+        return render(request, "foodhunt/login.html", {
+            "error": "Invalid email or password!"
+        })
+
+    return render(request, "foodhunt/login.html")
+
+def logout_view(request):
+    request.session.flush()
+    return redirect("login")
   
 
 def restaurant_detail(request, restaurant_id):
@@ -212,3 +272,5 @@ def review_submit(request):
         return redirect("home")
     return redirect("review_create")
 
+def password_recovery(request):
+    return render(request, 'passwordrecovery.html')
