@@ -211,6 +211,10 @@ def login_view(request):
         })
 
     return render(request, "foodhunt/login.html")
+
 def logout_view(request):
     request.session.flush()
     return redirect("login")
+
+def password_recovery(request):
+    return render(request, 'passwordrecovery.html')
