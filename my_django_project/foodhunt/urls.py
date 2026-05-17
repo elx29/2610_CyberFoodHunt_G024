@@ -15,5 +15,10 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('password-recovery/', views.password_recovery, name='password_recovery'),
+    path("restaurant/<int:restaurant_id>/", views.restaurant_detail, name="restaurant_detail"),
+    path("review/restaurant/<int:restaurant_id>/", views.review_create, name="review_create"),
+    path("review/event/<int:event_id>/", views.review_create, name="review_create_event"),
+    path("review/", views.review_create, name="review_create_blank"),
+    path("review/submit/", views.review_submit, name="review_submit"),
 ]
 

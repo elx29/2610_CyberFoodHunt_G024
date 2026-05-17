@@ -63,6 +63,7 @@
         <a class="text-[#343bc8] font-bold border-b-2 border-[#343bc8] text-sm" href="{% url 'home' %}">Discover</a>
         <a class="text-[#16425B] opacity-70 text-sm hover:opacity-100 transition-opacity" href="{% url 'event_list' %}">Pop-Ups</a>
     </div>
+
         <a href="{% url 'login' %}" class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-bold text-sm tracking-wide">
         <span class="material-symbols-outlined text-xl">logout</span>
         Logout
@@ -181,7 +182,7 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {% for restaurant in restaurants %}
-            <div class="bg-surface-container-high rounded-xl p-5 shadow-md border border-outline-variant/10 hover:shadow-lg transition-shadow">
+            <a href="{% url 'restaurant_detail' restaurant.restaurant_id %}" class="bg-surface-container-high rounded-xl p-5 shadow-md border border-outline-variant/10 hover:shadow-lg transition-all hover:scale-[1.02] block">
                 <div class="flex gap-4">
                     <div class="w-20 h-20 flex-shrink-0 rounded-lg bg-white flex items-center justify-center overflow-hidden border border-outline-variant/10">
                         {% if restaurant.image %}
@@ -212,7 +213,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
             {% empty %}
             <div class="col-span-2 text-center py-16">
                 <span class="material-symbols-outlined text-5xl text-outline/30 mb-3 block">restaurant</span>

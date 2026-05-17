@@ -190,6 +190,7 @@
 <!-- Overlapping Background Element -->
 <div class="absolute inset-0 bg-surface-container-high rounded-3xl translate-x-3 translate-y-3 -rotate-1"></div>
 <form method="POST" enctype="multipart/form-data" class="relative bg-surface-container-lowest p-8 md:p-10 rounded-3xl shadow-[0_10px_40px_rgba(22,66,91,0.06)] flex flex-col gap-8 z-20">
+<form action="{% url 'review_submit' %}" method="POST" enctype="multipart/form-data" class="relative bg-surface-container-lowest p-8 md:p-10 rounded-3xl shadow-[0_10px_40px_rgba(22,66,91,0.06)] flex flex-col gap-8 z-20">
     {% csrf_token %}
 <!-- Restaurant Selection -->
 <div class="space-y-2">
@@ -197,29 +198,37 @@
 <span class="material-symbols-outlined text-sm" style="">restaurant</span>
                         Where did you eat?
                     </label>
-<div class="relative"><select name="restaurant_id" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary-container text-on-surface font-medium transition-all">
-        <option value="">-- Select a restaurant --</option>
-        {% for r in restaurants %}
-        <option value="{{ r.restaurant_id }}">{{ r.restaurant_name }} — {{ r.location }}</option>
+
+<div class="relative">
+    <select name="restaurant" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary-container text-on-surface font-medium transition-all appearance-none">
+        <option value="" disabled {% if not selected_restaurant %}selected{% endif %}>Select a restaurant...</option>
+        {% for restaurant in restaurants %}
+            <option value="{{ restaurant.restaurant_id }}" {% if selected_restaurant and selected_restaurant.restaurant_id == restaurant.restaurant_id %}selected{% endif %}>
+                {{ restaurant.restaurant_name }}
+            </option>
         {% endfor %}
     </select>
+    <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">
+        <span class="material-symbols-outlined">expand_more</span>
+    </div>
+</div>
 </div>
 <!-- Star Rating -->
 <div class="space-y-3">
   <label class="font-headline font-bold text-on-surface-variant">Rate your experience</label>
   
-  <div class="flex gap-2" id="starRating">
-    
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="1">star</span>
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="2">star</span>
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="3">star</span>
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="4">star</span>
-    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant" data-value="5">star</span>
-    
+  <div class="flex gap-2 group" id="starRating">
+    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant hover:scale-110 transition-transform duration-200" data-value="1">star</span>
+    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant hover:scale-110 transition-transform duration-200" data-value="2">star</span>
+    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant hover:scale-110 transition-transform duration-200" data-value="3">star</span>
+    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant hover:scale-110 transition-transform duration-200" data-value="4">star</span>
+    <span class="material-symbols-outlined text-4xl cursor-pointer text-outline-variant hover:scale-110 transition-transform duration-200" data-value="5">star</span>
   </div>
 
+  <p id="ratingLabel" class="text-xs font-bold text-primary italic opacity-0 transition-opacity">Awesome!</p>
+
   <!-- Hidden input (useful later for Django form) -->
-  <input type="hidden" id="ratingValue" name="rating" value="0">
+  <input type="hidden" id="ratingValue" name="rating" value="0" required>
 </div>
 <!-- Photo Upload Area -->
 <div class="space-y-2">
@@ -240,16 +249,95 @@
 </label>
 <!-- This sends the photo to Django -->
 <input type="file" name="image" id="imageUpload" accept="image/*" class="hidden">
+
+<script>
+  const stars = document.querySelectorAll("#starRating span");
+  const ratingInput = document.getElementById("ratingValue");
+  const ratingLabel = document.getElementById("ratingLabel");
+  const labels = ["Poor", "Fair", "Good", "Great", "Exceptional!"];
+
+  stars.forEach((star, index) => {
+    // Hover effect
+    star.addEventListener("mouseenter", () => {
+      highlightStars(index + 1, true);
+    });
+
+    star.addEventListener("mouseleave", () => {
+      highlightStars(ratingInput.value, false);
+    });
+
+    // Click effect
+    star.addEventListener("click", () => {
+      let rating = index + 1;
+      ratingInput.value = rating;
+      highlightStars(rating, false);
+      
+      ratingLabel.textContent = labels[index];
+      ratingLabel.classList.remove('opacity-0');
+      ratingLabel.classList.add('opacity-100');
+    });
+  });
+
+  function highlightStars(count, isHover) {
+    stars.forEach((s, i) => {
+      if (i < count) {
+        s.style.color = isHover ? "#4f57e1" : "#343bc8";
+        s.style.fontVariationSettings = "'FILL' 1";
+      } else {
+        s.style.color = "#c6c5d7";
+        s.style.fontVariationSettings = "'FILL' 0";
+      }
+    });
+  }
+</script>
+
+<!-- Photo Upload Area -->
+<div class="space-y-2">
+<label class="font-headline font-bold text-on-surface-variant" style="">Snapshot the vibe</label>
+<label for="imageUpload" class="border-2 border-dashed border-outline-variant bg-surface-container-low rounded-2xl h-48 flex flex-col items-center justify-center gap-3 transition-all hover:bg-surface-container-high group cursor-pointer relative overflow-hidden">
+    <input type="file" id="imageUpload" name="image" class="hidden" accept="image/*" onchange="previewImage(this)">
+    <div id="uploadPlaceholder" class="flex flex-col items-center gap-3">
+        <div class="w-16 h-16 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-3xl text-secondary" style="">add_a_photo</span>
+        </div>
+        <p class="text-sm text-on-surface-variant font-medium" style="">Click to attach a food photo</p>
+    </div>
+    <div id="imagePreview" class="absolute inset-0 hidden">
+        <img src="" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+            <span class="text-white font-bold text-sm">Change Photo</span>
+        </div>
+    </div>
+</label>
 </div>
+
+<script>
+function previewImage(input) {
+    const placeholder = document.getElementById('uploadPlaceholder');
+    const preview = document.getElementById('imagePreview');
+    const previewImg = preview.querySelector('img');
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+            placeholder.classList.add('hidden');
+            preview.classList.remove('hidden');
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+
 <!-- Review Text Area -->
 <div class="space-y-2">
 <label class="font-headline font-bold text-on-surface-variant" style="">Your thoughts</label>
-<textarea name="comment" class="w-full bg-surface-container-low border-none rounded-2xl p-4 focus:ring-2 focus:ring-primary-container text-on-surface placeholder:text-outline transition-all resize-none" placeholder="Was the spicy ramen actually spicy? Tell the collective..." rows="5"></textarea>
+<textarea name="comment" class="w-full bg-surface-container-low border-none rounded-2xl p-4 focus:ring-2 focus:ring-primary-container text-on-surface placeholder:text-outline transition-all resize-none" placeholder="Was the spicy ramen actually spicy? Tell the collective..." rows="5" required></textarea>
 </div>
 <!-- Submit Button and Sticker Area (Re-balanced to bottom right) -->
 <div class="pt-4 flex justify-end items-center gap-6 relative">
 <!-- Student Choice Sticker Moved Here -->
-<button class="relative group" style="">
+<button type="submit" class="relative group" style="">
 <div class="absolute inset-0 bg-primary-fixed-dim rounded-xl rotate-3 group-hover:rotate-0 transition-transform"></div>
 <div class="relative bg-primary-container text-on-primary-container font-headline font-black text-xl py-4 px-8 rounded-xl -rotate-2 group-hover:rotate-0 transition-transform shadow-lg flex items-center gap-3" style="">
                             Post Review

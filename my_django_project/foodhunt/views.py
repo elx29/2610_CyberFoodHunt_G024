@@ -2,9 +2,8 @@ from urllib import request
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-from django.contrib.auth.hashers import make_password, check_password
 from .models import Event,User, Restaurant, Post, Review #this User is added just for test, remove it once Ayra done with login system
-
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -215,6 +214,63 @@ def login_view(request):
 def logout_view(request):
     request.session.flush()
     return redirect("login")
+  
+
+def restaurant_detail(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+    reviews = Review.objects.filter(restaurant=restaurant).order_by("-created_at")
+    return render(request, 'foodhunt/restaurant_detail.html', {
+        'restaurant': restaurant,
+        'reviews': reviews
+    })
+
+
+def review_create(request, restaurant_id=None, event_id=None):
+    restaurants = Restaurant.objects.all()
+    selected_restaurant = None
+    selected_event = None
+    
+    if restaurant_id:
+        selected_restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+    elif event_id:
+        selected_event = get_object_or_404(Event, event_id=event_id)
+    else:
+        # Fallback to query parameters
+        restaurant_id_param = request.GET.get('restaurant_id')
+        event_id_param = request.GET.get('event_id')
+        if restaurant_id_param:
+            selected_restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id_param)
+        if event_id_param:
+            selected_event = get_object_or_404(Event, event_id=event_id_param)
+    
+    return render(request, 'foodhunt/review.html', {
+        'restaurants': restaurants,
+        'selected_restaurant': selected_restaurant,
+        'selected_event': selected_event
+    })
+
+def review_submit(request):
+    if request.method == "POST":
+        restaurant_id = request.POST.get("restaurant")
+        rating = request.POST.get("rating")
+        comment = request.POST.get("comment")
+        image = request.FILES.get("image")
+        
+        # Temp: use first user
+        current_user = User.objects.first()
+        
+        restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+        
+        Review.objects.create(
+            user=current_user,
+            restaurant=restaurant,
+            rating=int(rating),
+            comment=comment,
+            image=image,
+            created_at=timezone.now()
+        )
+        return redirect("home")
+    return redirect("review_create")
 
 def password_recovery(request):
     return render(request, 'passwordrecovery.html')
