@@ -274,4 +274,4 @@ def review_submit(request):
     return redirect("review_create")
 
 def password_recovery(request):
-    return render(request, 'passwordrecovery.html')
+    return render(request, 'foodhunt/passwordrecovery.html')

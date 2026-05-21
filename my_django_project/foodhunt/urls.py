@@ -18,7 +18,7 @@ urlpatterns = [
     path("restaurant/<int:restaurant_id>/", views.restaurant_detail, name="restaurant_detail"),
     path("review/restaurant/<int:restaurant_id>/", views.review_create, name="review_create"),
     path("review/event/<int:event_id>/", views.review_create, name="review_create_event"),
-    path("review/", views.review_create, name="review_create_blank"),
+    path("review/", views.review_create, name="review_create"),
     path("review/submit/", views.review_submit, name="review_submit"),
 ]
 
