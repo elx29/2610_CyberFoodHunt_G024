@@ -189,9 +189,14 @@
 <div class="relative max-w-3xl mx-auto md:mx-8">
 <!-- Overlapping Background Element -->
 <div class="absolute inset-0 bg-surface-container-high rounded-3xl translate-x-3 translate-y-3 -rotate-1"></div>
-<form method="POST" enctype="multipart/form-data" class="relative bg-surface-container-lowest p-8 md:p-10 rounded-3xl shadow-[0_10px_40px_rgba(22,66,91,0.06)] flex flex-col gap-8 z-20">
+
 <form action="{% url 'review_submit' %}" method="POST" enctype="multipart/form-data" class="relative bg-surface-container-lowest p-8 md:p-10 rounded-3xl shadow-[0_10px_40px_rgba(22,66,91,0.06)] flex flex-col gap-8 z-20">
-    {% csrf_token %}
+  {% csrf_token %}
+    {%if error%}
+    <div class="bg-error-/container text-error px-4 py-3 rounded-lg flex items-center gap-2">
+        {{ error }}
+    </div>
+    {% endif %}
 <!-- Restaurant Selection -->
 <div class="space-y-2">
 <label class="font-headline font-bold text-on-surface-variant flex items-center gap-2" style="">
@@ -227,6 +232,7 @@
 
   <p id="ratingLabel" class="text-xs font-bold text-primary italic opacity-0 transition-opacity">Awesome!</p>
 
+  <input type="hidden" id="ratingValue" name="rating" value="0" required>
   <!-- Hidden input (useful later for Django form) 
   <input type="hidden" id="ratingValue" name="rating" value="0" required>
 </div>
@@ -353,7 +359,7 @@ function previewImage(input) {
 </div>
 </section>
 </main>
-<script>
+<!--script
   const stars = document.querySelectorAll("#starRating span");
   const ratingInput = document.getElementById("ratingValue");
 
@@ -381,6 +387,6 @@ function previewImage(input) {
       label.style.color = "#343bc8";
     }
     });
-</script>
+script-->
 </body>
 </html>

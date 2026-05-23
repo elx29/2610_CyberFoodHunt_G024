@@ -95,7 +95,7 @@ class User(models.Model):
     user_id = models.AutoField(primary_key=True)
     username = models.TextField(unique=True)
     email = models.TextField(unique=True)
-    password = models.CharField()
+    password = models.TextField()
 
     def __str__(self):
         return self.username  # username for the User class
