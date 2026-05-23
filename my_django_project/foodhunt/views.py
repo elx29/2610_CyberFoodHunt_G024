@@ -120,7 +120,9 @@ def home(request):
     })
 
 def userprofile(request):
-    current_user = User.objects.first()  #temp, change to request.user after login system done
+    #current_user = User.objects.first()  #temp, change to request.user after login system done
+    user_id      = request.session.get("user_id")
+    current_user = User.objects.get(user_id=user_id)
 
     post_count = Post.objects.filter(user=current_user).count() #get number of posts by user
     event_count= Event.objects.filter(user=current_user).count() #get number of event posts by user
@@ -149,25 +151,13 @@ def userprofile(request):
         badges.append({"name": "Detective", "icon": "search", "desc": "Posted 5 events"})
 
     return render(request, 'foodhunt/userprofile.html', {
+        "current_user":  current_user,  #this is for userprofile to show actual username
         "badges": badges,
         "post_count": post_count,
         "event_count": event_count,
         "recent_events": recent_events,
         "recents_post": recent_posts,
     })
-#!!!AYRA ADD UR BACKEND STUFF HERE!!!
-
-def review(request):
-    if request.method == "POST":
-        comment = request.POST.get("comment")
-        image   = request.FILES.get("image")
-        Review.objects.create(
-            user    = User.objects.first(),
-            comment = comment,
-            image   = image,
-        )
-        return redirect("home")
-    return render(request, "foodhunt/review.html")
 
 
 def register(request):
@@ -219,11 +209,37 @@ def logout_view(request):
 
 def restaurant_detail(request, restaurant_id):
     restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+
     reviews = Review.objects.filter(restaurant=restaurant).order_by("-created_at")
+
     return render(request, 'foodhunt/restaurant_detail.html', {
         'restaurant': restaurant,
         'reviews': reviews
     })
+
+def review(request):
+    if request.method == "POST":
+        restaurant_id = request.POST.get("restaurant")
+        rating = request.POST.get("rating")
+        comment = request.POST.get("comment")
+        image   = request.FILES.get("image")
+
+        current_user = User.objects.first() #temp
+        restaurant = get_object_or_404(Restaurant, restaurant_id = restaurant_id)
+
+        Review.objects.create(
+            user    = User.objects.first(),
+            comment = comment,
+            image   = image,
+            rating  = int(rating),
+            restaurant = restaurant,
+            created_at = timezone.now()
+
+        )
+        #I will change home to restaurant detail page
+        return redirect("restaurant_detail", restaurant_id=restaurant.restaurant_id)
+    
+    return redirect("review_create") 
 
 
 def review_create(request, restaurant_id=None, event_id=None):
@@ -252,15 +268,49 @@ def review_create(request, restaurant_id=None, event_id=None):
 
 def review_submit(request):
     if request.method == "POST":
+
+        #grab user id from custom login system
+        user_id = request.session.get("user_id")
+        if not user_id:
+            return redirect("login")
+        
         restaurant_id = request.POST.get("restaurant")
         rating = request.POST.get("rating")
         comment = request.POST.get("comment")
         image = request.FILES.get("image")
         
         # Temp: use first user
-        current_user = User.objects.first()
-        
+        current_user = User.objects.get(user_id=user_id)
         restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+        
+        #For compulsary photo
+        if not image:
+            return render(request, "foodhunt/review.html",{
+                "error":"Please upload photo as proof of visit.",
+                "restaurants": Restaurant.objects.all(),
+                "selected_restaurant": restaurant,
+            })
+        
+         #Check if user rated
+        if not rating or rating == "0":
+            return render(request, "foodhunt/review.html",{
+                "error": "Please provide a rating.",
+                "restaurants": Restaurant.objects.all(),
+                "selected_restaurant": restaurant,
+            })
+        
+        #check one review per user
+        already_reviewed = Review.objects.filter(
+            user = current_user,
+            restaurant = restaurant
+        ).exists()
+
+        if already_reviewed:
+            return render(request, "foodhunt/review.html",{
+                "error": "You have already reviewed this restaurant.",
+                "restaurants": Restaurant.objects.all(),
+                "selected_restaurant": restaurant,
+                })
         
         Review.objects.create(
             user=current_user,
@@ -270,7 +320,7 @@ def review_submit(request):
             image=image,
             created_at=timezone.now()
         )
-        return redirect("home")
+        return redirect("restaurant_detail", restaurant_id=restaurant.restaurant_id)
     return redirect("review_create")
 
 def password_recovery(request):
