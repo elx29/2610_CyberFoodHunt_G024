@@ -23,3 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("foodhunt.urls")),  
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #<-- newly added line to serve media files during development
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
