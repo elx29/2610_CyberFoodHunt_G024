@@ -275,3 +275,99 @@ def review_submit(request):
 
 def password_recovery(request):
     return render(request, 'passwordrecovery.html')
+
+# Foodspots — share a new restaurant / food spot
+CUISINE_CHOICES = ["Fast Food", "Western", "Chinese", "Malay", "Indian", "Cafe", "Bubble Tea", "Other"]
+TRANSPORT_CHOICES = ["Walking Distance", "Public Transport", "Grab/Taxi", "Personal Vehicle"]
+
+def foodspot_create(request):
+    """Display the food-spot submission form (GET) and process it (POST)."""
+
+    context = {
+        "cuisine_choices": CUISINE_CHOICES,
+        "transport_choices": TRANSPORT_CHOICES,
+    }
+
+    if request.method == "POST":
+        # --- collect raw values ---
+        restaurant_name = request.POST.get("restaurant_name", "").strip()
+        cuisine         = request.POST.get("cuisine", "").strip()
+        location        = request.POST.get("location", "").strip()
+        transport       = request.POST.get("transport", "").strip()
+        opening_hours   = request.POST.get("opening_hours", "").strip()
+        description     = request.POST.get("description", "").strip()
+        halal_raw       = request.POST.get("halal", "0")
+        min_price_raw   = request.POST.get("min_price", "").strip()
+        max_price_raw   = request.POST.get("max_price", "").strip()
+        photo           = request.FILES.get("photo")
+
+        # --- validation ---
+        errors = []
+        if not restaurant_name:
+            errors.append("Restaurant name is required.")
+        if not cuisine or cuisine == "Select cuisine":
+            errors.append("Please select a cuisine type.")
+        if not location:
+            errors.append("Location is required.")
+
+        min_price, max_price = None, None
+        if min_price_raw:
+            try:
+                min_price = int(min_price_raw)
+                if min_price < 0:
+                    errors.append("Min price cannot be negative.")
+            except ValueError:
+                errors.append("Min price must be a whole number.")
+        if max_price_raw:
+            try:
+                max_price = int(max_price_raw)
+                if max_price < 0:
+                    errors.append("Max price cannot be negative.")
+            except ValueError:
+                errors.append("Max price must be a whole number.")
+        if min_price is not None and max_price is not None and min_price > max_price:
+            errors.append("Min price cannot be greater than max price.")
+
+        # --- re-render form with errors & sticky values ---
+        if errors:
+            context.update({
+                "errors": errors,
+                "form_data": request.POST,
+            })
+            return render(request, "foodhunt/foodspots.html", context)
+
+        # --- save Restaurant ---
+        halal_value = int(halal_raw) if halal_raw in ("0", "1", "2") else 0
+        restaurant = Restaurant.objects.create(
+            restaurant_name = restaurant_name,
+            location        = location,
+            opening_hours   = opening_hours or None,
+            transport_mode  = transport or None,
+            cuisine         = cuisine,
+            is_halal        = halal_value,
+            min_price       = min_price,
+            max_price       = max_price,
+        )
+
+        # --- save Post (links photo + description to the restaurant) ---
+        # Use logged-in user from session, fall back to first user for now
+        user_id = request.session.get("user_id")
+        if user_id:
+            current_user = User.objects.filter(user_id=user_id).first() or User.objects.first()
+        else:
+            current_user = User.objects.first()
+
+        Post.objects.create(
+            user       = current_user,
+            restaurant = restaurant,
+            title      = restaurant_name,
+            description= description or None,
+            image      = photo.name if photo else None,
+            created_at = timezone.now(),
+        )
+
+        context["success"] = True
+        return render(request, "foodhunt/foodspots.html", context)
+
+    # GET — just show the blank form
+    return render(request, "foodhunt/foodspots.html", context)
