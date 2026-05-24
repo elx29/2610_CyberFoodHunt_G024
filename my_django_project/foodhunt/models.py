@@ -21,7 +21,7 @@ class Event(models.Model):
     event_name = models.TextField()
     event_location = models.TextField()
     description = models.TextField(blank=True, null=True)
-    image = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to="event_images/", blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True)

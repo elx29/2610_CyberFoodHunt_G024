@@ -36,22 +36,29 @@ def event_detail(request, event_id):
 #-----Logged-in: Post a new event
 #@login_required(will be put back after testing) #deceorater to require login
 def event_create(request):
+
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return redirect("login")
+    
     if request.method == "POST": #asking for data from form
         event_name     = request.POST.get("event_name")
         event_location = request.POST.get("event_location")
         description    = request.POST.get("description")
+        start_date     = request.POST.get("start_date")
         end_date       = request.POST.get("end_date")
+        image_file          = request.FILES.get("image")
 
-        #Add this just to test, remove it once Ayra done with login system
-        current_user = User.objects.first()   #get(username=request.user.username)  will be put back afetr test
+        current_user = User.objects.get(user_id=user_id)  
 
         Event.objects.create(
             user           = current_user, #after login system done, change this to request.user
             event_name     = event_name,
             event_location = event_location,
             description    = description,
+            start_date     = start_date,
             end_date       = end_date,
-            image          = request.FILES.get("image") #<-- newly added line 
+            image          = image_file
         )
         return redirect("event_list")
         #send user back to event list after creating new event
