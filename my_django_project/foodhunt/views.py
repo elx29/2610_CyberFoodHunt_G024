@@ -113,10 +113,17 @@ def home(request):
     events = Event.objects.filter(end_date__gte=today).order_by("end_date")[:3]
     #get restaurants, order by id for ow, later swap with rating
     restaurant = Restaurant.objects.all().order_by("-restaurant_id")[:6]
+
+    is_student = True # TEMPORARY: Enabled for easy previewing without login
+    user_email = request.session.get("email")
+    if user_email and user_email.strip().lower().endswith("@student.mmu.edu.my"):
+        is_student = True
+
     return render(request, 'foodhunt/main.html', {
         "events": events,
         "restaurants": restaurant,
         "today": today,
+        "is_student": is_student,
     })
 
 def userprofile(request):
