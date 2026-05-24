@@ -77,7 +77,7 @@ class Review(models.Model):
     event = models.ForeignKey(Event, models.CASCADE, blank=True, null=True)
     restaurant = models.ForeignKey('Restaurant', models.CASCADE, blank=True, null=True)
     comment = models.TextField(blank=True, null=True)
-    image = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to="review_pics/",blank=True, null=True)
     rating = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True)
 
@@ -87,6 +87,7 @@ class Review(models.Model):
     class Meta:
         managed = True
         db_table = 'review'
+        unique_together = ('user', 'restaurant'),  #one review per user per restaurant  
 
     
 
@@ -94,7 +95,7 @@ class User(models.Model):
     user_id = models.AutoField(primary_key=True)
     username = models.TextField(unique=True)
     email = models.TextField(unique=True)
-    password = models.CharField()
+    password = models.TextField()
 
     def __str__(self):
         return self.username  # username for the User class

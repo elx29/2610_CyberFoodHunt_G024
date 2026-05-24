@@ -118,17 +118,17 @@
 <header class="fixed top-0 w-full z-50 bg-[#effcff]/90 dark:bg-[#081e23]/90 backdrop-blur-md shadow-sm">
 <nav class="flex justify-between items-center max-w-7xl mx-auto px-6 h-14"> 
 <div class="text-xl font-bold bg-gradient-to-br from-[#343bc8] to-[#4f57e1] bg-clip-text text-transparent font-headline tracking-tighter" style"">Cyber Food Hunt</div>
-<nav class="flex justify-between items-center max-w-7xl mx-auto px-6 h-14">
+
 <div class="hidden md:flex items-center gap-6">
-<a class="text-[#343bc8] dark:text-[#4f57e1] font-bold border-b-2 border-[#343bc8] text-sm" href="#" style"">Discover</a>
-<a class="text-[#16425B] dark:text-[#d0e6ec] opacity-70 text-sm hover:opacity-100 transition-opacity" href="pop-ups.html" style"">Pop-Ups</a>
+<a class="text-[#343bc8] dark:text-[#4f57e1] font-bold border-b-2 border-[#343bc8] text-sm" href="{% url 'home' %}" style"">Discover</a>
+<a class="text-[#16425B] dark:text-[#d0e6ec] opacity-70 text-sm hover:opacity-100 transition-opacity" href="{% url 'event_list' %}" style"">Pop-Ups</a>
 </div>
-<div class="flex items-center gap-3">
-</div>
-    <a href="login.html" class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-bold text-sm tracking-wide">
-        <span class="material-symbols-outlined text-xl">logout</span>
-        Logout
-    </a>
+
+  
+      <a href="{% url 'logout' %}" class=" flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-bold text-sm tracking-wide">
+          <span class="material-symbols-outlined text-xl">logout</span>
+          Logout
+      </a>
 </nav>
 </header>
 <!-- SideNavBar -->
@@ -137,7 +137,7 @@
 <h1 class="font-headline font-bold text-[#343bc8] text-lg" style"">Welcome, User!</h1>
 </div>
 <div class="flex flex-col gap-1 px-2 flex-grow">
-<a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="#" style"">
+<a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="{% url 'home' %}" style"">
 <span class="material-symbols-outlined text-xl" style"">home</span>
 <span class="font-body text-sm font-medium" style"">Home</span>
 </a>
@@ -145,18 +145,18 @@
 <span class="material-symbols-outlined text-xl" style"">edit_note</span>
 <span class="font-body text-sm font-medium" style"">Reviews</span>
 </a>  -->
-<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="search.html" style"">
+<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'search' %}" style"">
 <span class="material-symbols-outlined text-xl" style"">search</span>
 <span class="font-body text-sm font-medium" style"">Search</span>
 </a>
-<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="userprofile.html" style"">
+<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'userprofile' %}" style"">
 <span class="material-symbols-outlined text-xl" style"">person</span>
 <span class="font-body text-sm font-medium" style"">Profile</span>
 </a>
 </div>
 <a>
 <div class="px-4 pb-6">
-  <a href="foodspots.html" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
+  <a href="#" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
     Share Now!
   </a>
 </div>
@@ -189,9 +189,14 @@
 <div class="relative max-w-3xl mx-auto md:mx-8">
 <!-- Overlapping Background Element -->
 <div class="absolute inset-0 bg-surface-container-high rounded-3xl translate-x-3 translate-y-3 -rotate-1"></div>
-<form method="POST" enctype="multipart/form-data" class="relative bg-surface-container-lowest p-8 md:p-10 rounded-3xl shadow-[0_10px_40px_rgba(22,66,91,0.06)] flex flex-col gap-8 z-20">
+
 <form action="{% url 'review_submit' %}" method="POST" enctype="multipart/form-data" class="relative bg-surface-container-lowest p-8 md:p-10 rounded-3xl shadow-[0_10px_40px_rgba(22,66,91,0.06)] flex flex-col gap-8 z-20">
-    {% csrf_token %}
+  {% csrf_token %}
+    {%if error%}
+    <div class="bg-error-/container text-error px-4 py-3 rounded-lg flex items-center gap-2">
+        {{ error }}
+    </div>
+    {% endif %}
 <!-- Restaurant Selection -->
 <div class="space-y-2">
 <label class="font-headline font-bold text-on-surface-variant flex items-center gap-2" style="">
@@ -227,10 +232,11 @@
 
   <p id="ratingLabel" class="text-xs font-bold text-primary italic opacity-0 transition-opacity">Awesome!</p>
 
-  <!-- Hidden input (useful later for Django form) -->
+  <input type="hidden" id="ratingValue" name="rating" value="0" required>
+  <!-- Hidden input (useful later for Django form) 
   <input type="hidden" id="ratingValue" name="rating" value="0" required>
 </div>
-<!-- Photo Upload Area -->
+<!-- Photo Upload Area 
 <div class="space-y-2">
 <label class="font-headline font-bold text-on-surface-variant" style="">Snapshot the vibe</label>
 <label for="imageUpload" class="border-2 border-dashed border-outline-variant bg-surface-container-low rounded-2xl h-48 flex flex-col items-center justify-center gap-3 transition-all hover:bg-surface-container-high group cursor-pointer">
@@ -239,7 +245,7 @@
 </div>
 <p class="text-sm text-on-surface-variant font-medium" id="uploadLabel">Click to attach a food photo</p>
 <input type="file" name="image">
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data"
     {% csrf_token %}
 
     <input type="file" name="image">
@@ -247,8 +253,8 @@
     <button type="submit">Post</button>
 </form>
 </label>
-<!-- This sends the photo to Django -->
-<input type="file" name="image" id="imageUpload" accept="image/*" class="hidden">
+<!-- This sends the photo to Django 
+<input type="file" name="image" id="imageUpload" accept="image/*" class="hidden"-->
 
 <script>
   const stars = document.querySelectorAll("#starRating span");
@@ -353,7 +359,7 @@ function previewImage(input) {
 </div>
 </section>
 </main>
-<script>
+<!--script
   const stars = document.querySelectorAll("#starRating span");
   const ratingInput = document.getElementById("ratingValue");
 
@@ -381,6 +387,6 @@ function previewImage(input) {
       label.style.color = "#343bc8";
     }
     });
-</script>
+script-->
 </body>
 </html>
