@@ -171,6 +171,54 @@
     </section>
     {% endif %}
 
+    {% if is_student %}
+    <!-- Student Promo section -->
+    <section class="mb-10">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 class="font-headline font-bold text-2xl text-primary">Student Exclusive Deals</h2>
+                <p class="text-sm text-on-surface-variant mt-0.5">Special offers for MMU Students!</p>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <a href="#" class="bg-surface-container-high rounded-xl p-5 shadow-md border border-primary/20 hover:shadow-lg transition-all hover:scale-[1.02] block">
+                <div class="flex gap-4">
+                    <div class="w-20 h-20 flex-shrink-0 rounded-lg bg-primary/10 flex items-center justify-center overflow-hidden border border-primary/20">
+                        <span class="material-symbols-outlined text-3xl text-primary">sell</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-headline font-black text-base text-on-surface truncate">20% Off at Burger King</h3>
+                        <p class="text-xs text-secondary flex items-center gap-1 mt-0.5">
+                            <span class="material-symbols-outlined text-xs">location_on</span>
+                            DPULZE Shopping Centre
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <span class="bg-primary/20 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">Promo Code: MMU20</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="bg-surface-container-high rounded-xl p-5 shadow-md border border-primary/20 hover:shadow-lg transition-all hover:scale-[1.02] block">
+                <div class="flex gap-4">
+                    <div class="w-20 h-20 flex-shrink-0 rounded-lg bg-primary/10 flex items-center justify-center overflow-hidden border border-primary/20">
+                        <span class="material-symbols-outlined text-3xl text-primary">local_cafe</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-headline font-black text-base text-on-surface truncate">Buy 1 Free 1 Boba</h3>
+                        <p class="text-xs text-secondary flex items-center gap-1 mt-0.5">
+                            <span class="material-symbols-outlined text-xs">location_on</span>
+                            Tamarind Square
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <span class="bg-primary/20 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">Show Student ID</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+    {% endif %}
+
     <!--Regular Food Spots section -->
     <section>
         <div class="flex items-center justify-between mb-6">
