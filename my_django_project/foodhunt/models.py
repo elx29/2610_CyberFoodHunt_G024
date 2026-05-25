@@ -61,6 +61,7 @@ class Restaurant(models.Model):
     is_halal = models.IntegerField(blank=True, null=True)
     min_price = models.IntegerField(blank=True, null=True)
     max_price = models.IntegerField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.restaurant_name  # username for the User class

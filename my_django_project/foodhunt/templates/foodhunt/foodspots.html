@@ -101,7 +101,7 @@
 </head>
 <body class="bg-background font-body text-on-surface min-h-screen scrapbook-bg overflow-x-hidden">
     <div class="fixed top-8 left-8 z-50">
-    <a class="flex items-center gap-2 text-slate-600 hover:opacity-80 transition-opacity font-display font-bold tracking-tight" href="{% url 'home' %}" style="">
+    <a class="flex items-center gap-2 text-slate-600 hover:opacity-80 transition-opacity font-display font-bold tracking-tight" href="{% url 'restaurant_detail' restaurant.restaurant_id %}" style="">
         <span class="material-symbols-outlined text-primary" style="">arrow_back</span><span class="" style="">BACK</span>
     </a>
 </div>
@@ -151,9 +151,16 @@
 <!-- Main Form Card (Scrapbook Aesthetic) -->
 <div class="relative">
 <div class="absolute -top-6 -right-4 w-32 h-32 bg-secondary-container rounded-full opacity-50 -z-10 blur-2xl"></div>
-<form method="POST" enctype="multipart/form-data" action="{% url 'foodspot_create' %}"
-    class="bg-surface-container-lowest p-8 md:p-12 rounded-xl asymmetric-shadow relative overflow-hidden border border-outline-variant/10">
-{% csrf_token %}    
+<form method="POST" 
+      enctype="multipart/form-data" 
+      action="{% if editing %}
+                 {% url 'restaurant_edit' restaurant.restaurant_id %}
+              {% else %}
+                 {% url 'foodspot_create' %}
+              {% endif %}"
+      class="bg-surface-container-lowest p-8 md:p-12 rounded-xl asymmetric-shadow relative overflow-hidden border border-outline-variant/10">
+
+    {% csrf_token %}    
 <div class="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/notebook.png')]"></div>
 
       <!-- Restaurant Name -->
@@ -310,7 +317,7 @@
         </label>
         <textarea name="description" rows="3"
                   class="w-full bg-surface-container-low border-none rounded-lg p-4 font-body text-on-surface placeholder:text-outline-variant resize-none"
-                  placeholder="Tell the community what makes this spot special...">{{ form_data.description|default:'' }}</textarea>
+                  placeholder="Tell the community what makes this spot special...">{{ restaurant.description|default:"No description available" }}</textarea>
       </div>
 
       <!-- Submit -->
