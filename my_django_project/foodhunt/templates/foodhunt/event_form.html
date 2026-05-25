@@ -50,7 +50,7 @@
 <div class="fixed top-8 left-8 z-50">
     <a class="flex items-center gap-2 text-slate-600 hover:opacity-80 transition-opacity font-display font-bold tracking-tight" href="{% url 'event_list' %}">
         <span class="material-symbols-outlined text-primary">arrow_back</span>
-        <span>BACK TO POP-UPS</span>
+        <span>BACK</span>
     </a>
 </div>
 
@@ -66,7 +66,7 @@
 <section class="mb-12 relative z-10">
     <div class="flex gap-4 mb-6 justify-center">
        
-        <a href="#" class="flex items-center gap-3 bg-white text-secondary border-2 border-outline-variant/30 px-10 py-5 rounded-2xl font-headline font-bold text-sm uppercase tracking-widest hover:bg-surface-container-low transition-all hover:scale-105 active:scale-95">
+        <a href="{% url 'foodspot_create' %}" class="flex items-center gap-3 bg-white text-secondary border-2 border-outline-variant/30 px-10 py-5 rounded-2xl font-headline font-bold text-sm uppercase tracking-widest hover:bg-surface-container-low transition-all hover:scale-105 active:scale-95">
             <span class="material-symbols-outlined text-2xl" style='font-variation-settings: "FILL" 1;'>storefront</span>
             Food Spot
         </a>
