@@ -181,7 +181,7 @@
         </div>
         <a>
             <div class="px-4 pb-6">
-                <a href="foodspots.html"
+                <a href="{% url 'foodspot_create' %}"
                     class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
                     Share Now!
                 </a>
@@ -387,7 +387,6 @@
                         <p class="text-sm text-on-surface-variant mb-4 leading-relaxed">{{ r.comment }}</p>
                         <div class="aspect-video bg-surface-container flex items-center justify-center rounded-sm border border-dashed border-primary/20">
                             <img src="{{ r.image.url }}" class="w-full h-full object-cover" alt="Food snapshot proof">
-                            <!--span class="material-symbols-outlined text-primary/30 text-4xl">image</span-->
                         </div>
                      
                     </div>
