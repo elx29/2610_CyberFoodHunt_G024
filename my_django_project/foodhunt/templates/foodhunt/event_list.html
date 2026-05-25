@@ -61,10 +61,15 @@
     <a class="text-[#16425B] opacity-70 text-sm hover:opacity-100 transition-opacity" href="{% url 'home' %}">Discover</a>
     <a class="text-[#343bc8] font-bold border-b-2 border-[#343bc8] text-sm" href="{% url 'event_list' %}">Pop-Ups</a>
 </div>
-    <a href="login.html" class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-bold text-sm tracking-wide">
+<form method="post" action="{% url 'logout' %}" class="inline">
+    {% csrf_token %}
+    <button type="submit"
+        class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-bold text-sm tracking-wide bg-transparent border-0 p-0 cursor-pointer">
+        
         <span class="material-symbols-outlined text-xl">logout</span>
         Logout
-    </a>
+    </button>
+</form>
 </nav>
 </header>
 

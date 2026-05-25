@@ -5,7 +5,7 @@ from django.utils import timezone
 from .models import Event,User, Restaurant, Post, Review #this User is added just for test, remove it once Ayra done with login system
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password, check_password
-
+from django.contrib.auth import logout
 
 
 #-----Show all active events
@@ -217,8 +217,8 @@ def login_view(request):
     return render(request, "foodhunt/login.html")
 
 def logout_view(request):
-    request.session.flush()
-    return redirect("login")
+    logout(request)
+    return redirect('login')
   
 
 def restaurant_detail(request, restaurant_id):
@@ -411,6 +411,7 @@ def foodspot_create(request):
             is_halal        = halal_value,
             min_price       = min_price,
             max_price       = max_price,
+            description     = description or None,
         )
 
         # --- save Post (links photo + description to the restaurant) ---
@@ -435,3 +436,36 @@ def foodspot_create(request):
 
     # GET — just show the blank form
     return render(request, "foodhunt/foodspots.html", context)
+
+def restaurant_delete(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+    if request.method == 'POST':
+        restaurant.delete()
+        return redirect('home')
+    return redirect('restaurant_detail', restaurant_id=restaurant_id)
+
+def restaurant_edit(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+
+    if request.method == 'POST':
+        restaurant.restaurant_name = request.POST.get('restaurant_name', restaurant.restaurant_name)
+        restaurant.location        = request.POST.get('location', restaurant.location)
+        restaurant.cuisine         = request.POST.get('cuisine', restaurant.cuisine)
+        restaurant.opening_hours   = request.POST.get('opening_hours', restaurant.opening_hours)
+        restaurant.transport_mode  = request.POST.get('transport', restaurant.transport_mode)
+        restaurant.description     = request.POST.get('description', restaurant.description)
+        restaurant.is_halal        = request.POST.get('halal', restaurant.is_halal)
+        min_price = request.POST.get('min_price')
+        max_price = request.POST.get('max_price')
+        if min_price: restaurant.min_price = int(min_price)
+        if max_price: restaurant.max_price = int(max_price)
+        restaurant.save()
+        return redirect('restaurant_detail', restaurant_id=restaurant.restaurant_id)
+
+    return render(request, 'foodhunt/foodspots.html', {
+        'cuisine_choices': CUISINE_CHOICES,
+        'transport_choices': TRANSPORT_CHOICES,
+        'form_data': restaurant,
+        'editing': True,
+        'restaurant': restaurant,
+    })
