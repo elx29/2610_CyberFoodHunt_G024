@@ -2,13 +2,12 @@ from urllib import request
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-from .models import Event,User, Restaurant, Post, Review #this User is added just for test, remove it once Ayra done with login system
-from django.contrib.auth.decorators import login_required
+from .models import Event,User, Restaurant, Post, Review 
 from django.contrib.auth.hashers import make_password, check_password
-from django.contrib.auth import logout
 
 
-#-----Show all active events
+
+#-----Event List(ELX): Show all active events
 def event_list(request):
     today  = timezone.now().date()
     #Only get events that haven't expired yet (end_date >= today)
@@ -16,7 +15,7 @@ def event_list(request):
     return render(request, "foodhunt/event_list.html", {"events": events})
     #Send event data to HTML page so user can see it.
 
-#-----Show 1 single event details
+#-----Event Detail(ELX): Show 1 single event details
 def event_detail(request, event_id):
     today = timezone.now().date()
     #looks for event with matching event_id, or shows 404 error if not found
@@ -30,11 +29,11 @@ def event_detail(request, event_id):
     return render(request, "foodhunt/event_detail.html", {
         "event": event,
         "days_left": days_left,
+        "login_user_id": request.session.get("user_id"), #the one who create the post can delete/edit button
     })
 
 
-#-----Logged-in: Post a new event
-#@login_required(will be put back after testing) #deceorater to require login
+#-----Event Create(ELX): Logged-in: Post a new event
 def event_create(request):
 
     user_id = request.session.get("user_id")
@@ -42,36 +41,32 @@ def event_create(request):
         return redirect("login")
     
     if request.method == "POST": #asking for data from form
-        event_name     = request.POST.get("event_name")
-        event_location = request.POST.get("event_location")
-        description    = request.POST.get("description")
-        start_date     = request.POST.get("start_date")
-        end_date       = request.POST.get("end_date")
-        image_file          = request.FILES.get("image")
-
-        current_user = User.objects.get(user_id=user_id)  
-
+        current_user = User.objects.get(user_id=user_id)
         Event.objects.create(
-            user           = current_user, #after login system done, change this to request.user
-            event_name     = event_name,
-            event_location = event_location,
-            description    = description,
-            start_date     = start_date,
-            end_date       = end_date,
-            image          = image_file
-        )
-        return redirect("event_list")
-        #send user back to event list after creating new event
-    
-    return render(request, "foodhunt/event_form.html")
-    #if no data is sent, show the form to create a new event
+            user           = current_user,
+            event_name     = request.POST.get("event_name"),
+            event_location = request.POST.get("event_location"),
+            description    = request.POST.get("description"),
+            start_date     = request.POST.get("start_date"),
+            end_date       = request.POST.get("end_date"),
+            image          = request.FILES.get("image"),
+    )
 
-#-----Logged-in: Delete own event
-#@login_required
+        return redirect("event_list") #send user back to event list after creating new event
+    return render(request, "foodhunt/event_form.html") #if no data is sent, show the form to create a new event
+   
+
+#-----Event Delete(ELX): Logged-in: Delete own event
 def event_delete(request, event_id):
-    event = get_object_or_404(Event, event_id=event_id) #, user= request.user) 
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return redirect("login")
+    
+    current_user = User.objects.get(user_id=user_id)
     # SECURITY CHECK: Only fetch the event if it exists AND belongs to the ogged-in user.
     # user can only view or edit their own event
+    event = get_object_or_404(Event, event_id=event_id, user=current_user)  
+    
 
     if request.method == "POST":
         event.delete() #permanently remove database
@@ -79,7 +74,7 @@ def event_delete(request, event_id):
     
     return render(request, "foodhunt/event_detail.html", {"event": event}) 
 
-#------Search page (basically dashboard)
+#------Search+Filter (ELX): Search bar and filter at search page
 def search(request):
     restaurants = Restaurant.objects.all()
 
@@ -114,14 +109,13 @@ def search(request):
 
     return render(request, "foodhunt/search.html", {"restaurants": restaurants})
 
+#------Home Page (ELX): Show active events + restaurant recommendations
 def home(request):
-    today = timezone.now().date()
-    #get active events for banner
-    events = Event.objects.filter(end_date__gte=today).order_by("end_date")[:3]
-    #get restaurants, order by id for ow, later swap with rating
-    restaurant = Restaurant.objects.all().order_by("-restaurant_id")[:6]
+    today   = timezone.now().date()#get active events for banner
+    events  = Event.objects.filter(end_date__gte=today).order_by("end_date")[:3] 
+    restaurant = Restaurant.objects.all().order_by("-restaurant_id")[:6]#get restaurants, order by id for ow, later swap with rating
 
-    is_student = True # TEMPORARY: Enabled for easy previewing without login
+    is_student = False
     user_email = request.session.get("email")
     if user_email and user_email.strip().lower().endswith("@student.mmu.edu.my"):
         is_student = True
@@ -133,11 +127,14 @@ def home(request):
         "is_student": is_student,
     })
 
+#------User Profile (ELX): Show user details, badges, recent posts/events
 def userprofile(request):
-    #current_user = User.objects.first()  #temp, change to request.user after login system done
-    user_id      = request.session.get("user_id")
-    current_user = User.objects.get(user_id=user_id)
 
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return redirect("login")
+    
+    current_user = get_object_or_404(User, user_id=user_id)
     post_count = Post.objects.filter(user=current_user).count() #get number of posts by user
     event_count= Event.objects.filter(user=current_user).count() #get number of event posts by user
     
@@ -158,7 +155,7 @@ def userprofile(request):
     if post_count >= 30:
         badges.append({"name": "Legend", "icon": "crown", "desc": "Posted 30 food spots"})
 
-            # Event badges
+    # Event badges
     if event_count >= 1:
         badges.append({"name": "Event Starter", "icon": "celebration", "desc": "Posted first event"})
     if event_count >= 5:
@@ -173,7 +170,7 @@ def userprofile(request):
         "recents_post": recent_posts,
     })
 
-
+#------User Registration (AYRA)
 def register(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -198,6 +195,7 @@ def register(request):
         return redirect("login")
     return render(request, "foodhunt/register.html")
 
+#------User Login (AYRA)
 def login_view(request):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -216,20 +214,27 @@ def login_view(request):
 
     return render(request, "foodhunt/login.html")
 
+#------User Logout (AYRA)
 def logout_view(request):
-    logout(request)
+    request.session.flush()  # Clear all session data
     return redirect('login')
   
-
+#------Restaurant Detail (AYRA)
 def restaurant_detail(request, restaurant_id):
     restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
-
     reviews = Review.objects.filter(restaurant=restaurant).order_by("-created_at")
+
+    # Fetch the original post to find which User account created this restaurant
+    first_post = Post.objects.filter(restaurant=restaurant).first()
+    creater_id = first_post.user.user_id if first_post else None
 
     return render(request, 'foodhunt/restaurant_detail.html', {
         'restaurant': restaurant,
-        'reviews': reviews
+        'reviews': reviews,
+        'creater_id': creater_id,
+        'login_user_id': request.session.get("user_id"), #the one who create the post can delete/edit button
     })
+
 
 def review(request):
     if request.method == "POST":
@@ -255,7 +260,7 @@ def review(request):
     
     return redirect("review_create") 
 
-
+#------Review Create (AYRA)
 def review_create(request, restaurant_id=None, event_id=None):
     restaurants = Restaurant.objects.all()
     selected_restaurant = None
@@ -280,22 +285,21 @@ def review_create(request, restaurant_id=None, event_id=None):
         'selected_event': selected_event
     })
 
+#------Review Submit (AYRA+ELX): Handle review form submission, limit to 1 review per user per restaurant/event, compulsary photo, rating
 def review_submit(request):
     if request.method == "POST":
 
-        #grab user id from custom login system
-        user_id = request.session.get("user_id")
+        user_id = request.session.get("user_id")#grab user id from custom login system
         if not user_id:
             return redirect("login")
         
+        current_user = get_object_or_404(User, user_id=user_id)
+        restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
         restaurant_id = request.POST.get("restaurant")
         rating = request.POST.get("rating")
         comment = request.POST.get("comment")
         image = request.FILES.get("image")
-        
-        # Temp: use first user
-        current_user = User.objects.get(user_id=user_id)
-        restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+
         
         #For compulsary photo
         if not image:
@@ -312,14 +316,8 @@ def review_submit(request):
                 "restaurants": Restaurant.objects.all(),
                 "selected_restaurant": restaurant,
             })
-        
-        #check one review per user
-        already_reviewed = Review.objects.filter(
-            user = current_user,
-            restaurant = restaurant
-        ).exists()
 
-        if already_reviewed:
+        if Review.objects.filter(user=current_user, restaurant=restaurant).exists():
             return render(request, "foodhunt/review.html",{
                 "error": "You have already reviewed this restaurant.",
                 "restaurants": Restaurant.objects.all(),
@@ -337,14 +335,19 @@ def review_submit(request):
         return redirect("restaurant_detail", restaurant_id=restaurant.restaurant_id)
     return redirect("review_create")
 
+#------Password Recovery (AKISHA)
 def password_recovery(request):
     return render(request, 'foodhunt/passwordrecovery.html')
 
-# Foodspots — share a new restaurant / food spot
+
+#------(AYRA) Foodspots — share a new restaurant / food spot
 CUISINE_CHOICES = ["Fast Food", "Western", "Chinese", "Malay", "Indian", "Cafe", "Bubble Tea", "Other"]
 TRANSPORT_CHOICES = ["Walking Distance", "Public Transport", "Grab/Taxi", "Personal Vehicle"]
 
 def foodspot_create(request):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return redirect("login")
     """Display the food-spot submission form (GET) and process it (POST)."""
 
     context = {
@@ -416,11 +419,7 @@ def foodspot_create(request):
 
         # --- save Post (links photo + description to the restaurant) ---
         # Use logged-in user from session, fall back to first user for now
-        user_id = request.session.get("user_id")
-        if user_id:
-            current_user = User.objects.filter(user_id=user_id).first() or User.objects.first()
-        else:
-            current_user = User.objects.first()
+        current_user = get_object_or_404(User, user_id=user_id)
 
         Post.objects.create(
             user       = current_user,
@@ -437,14 +436,24 @@ def foodspot_create(request):
     # GET — just show the blank form
     return render(request, "foodhunt/foodspots.html", context)
 
+#------ Restaurant Delete and Edit (only by the user who posted it)
 def restaurant_delete(request, restaurant_id):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return redirect("login")
+    
     restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
     if request.method == 'POST':
         restaurant.delete()
         return redirect('home')
     return redirect('restaurant_detail', restaurant_id=restaurant_id)
 
+#------Restaurant Edit (AYRA): Only the user who posted the restaurant can edit it
 def restaurant_edit(request, restaurant_id):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return redirect("login")
+
     restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
 
     if request.method == 'POST':
