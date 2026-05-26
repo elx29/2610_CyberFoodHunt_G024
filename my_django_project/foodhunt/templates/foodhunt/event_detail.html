@@ -249,7 +249,7 @@
                         <!--  Edit/Delete buttons -->
                         <div class="mt-8 pt-6 border-t border-outline-variant/20 flex gap-3">
 
-                            {% if True %}
+                            {% if login_user_id == event.user.user_id %}
 
                             <a id="editBtn" href="{% url 'event_create' %}?event_id={{ event.event_id }}" class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-primary border border-primary/20 hover:bg-primary hover:text-on-primary transition-all shadow-sm">
                                 <span class="material-symbols-outlined" id="editIcon" style="font-variation-settings: 'FILL' 0;">edit</span>
