@@ -120,11 +120,16 @@ def home(request):
     if user_email and user_email.strip().lower().endswith("@student.mmu.edu.my"):
         is_student = True
 
+    student_promos = []
+    if is_student:
+        student_promos = Restaurant.objects.filter(is_student_promo=True).order_by("-restaurant_id")[:6]
+
     return render(request, 'foodhunt/main.html', {
         "events": events,
         "restaurants": restaurant,
         "today": today,
         "is_student": is_student,
+        "student_promos": student_promos,
     })
 
 #------User Profile (ELX): Show user details, badges, recent posts/events
@@ -221,6 +226,7 @@ def logout_view(request):
   
 #------Restaurant Detail (AYRA)
 def restaurant_detail(request, restaurant_id):
+    from django.db.models import Avg
     restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
     reviews = Review.objects.filter(restaurant=restaurant).order_by("-created_at")
 
@@ -228,10 +234,14 @@ def restaurant_detail(request, restaurant_id):
     first_post = Post.objects.filter(restaurant=restaurant).first()
     creater_id = first_post.user.user_id if first_post else None
 
+    # Calculate average rating of all reviews
+    average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+
     return render(request, 'foodhunt/restaurant_detail.html', {
         'restaurant': restaurant,
         'reviews': reviews,
         'creater_id': creater_id,
+        'average_rating': average_rating,
         'login_user_id': request.session.get("user_id"), #the one who create the post can delete/edit button
     })
 
@@ -294,8 +304,8 @@ def review_submit(request):
             return redirect("login")
         
         current_user = get_object_or_404(User, user_id=user_id)
-        restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
         restaurant_id = request.POST.get("restaurant")
+        restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
         rating = request.POST.get("rating")
         comment = request.POST.get("comment")
         image = request.FILES.get("image")
@@ -367,6 +377,9 @@ def foodspot_create(request):
         min_price_raw   = request.POST.get("min_price", "").strip()
         max_price_raw   = request.POST.get("max_price", "").strip()
         photo           = request.FILES.get("photo")
+        is_student_promo_raw = request.POST.get("is_student_promo")
+        is_student_promo = True if is_student_promo_raw else False
+        student_promo_desc = request.POST.get("student_promo_desc", "").strip()
 
         # --- validation ---
         errors = []
@@ -415,6 +428,9 @@ def foodspot_create(request):
             min_price       = min_price,
             max_price       = max_price,
             description     = description or None,
+            is_student_promo = is_student_promo,
+            student_promo_desc = student_promo_desc or None,
+            image           = photo,  # Save photo directly to Restaurant
         )
 
         # --- save Post (links photo + description to the restaurant) ---
@@ -464,6 +480,11 @@ def restaurant_edit(request, restaurant_id):
         restaurant.transport_mode  = request.POST.get('transport', restaurant.transport_mode)
         restaurant.description     = request.POST.get('description', restaurant.description)
         restaurant.is_halal        = request.POST.get('halal', restaurant.is_halal)
+        
+        photo = request.FILES.get("photo")
+        if photo:
+            restaurant.image = photo
+
         min_price = request.POST.get('min_price')
         max_price = request.POST.get('max_price')
         if min_price: restaurant.min_price = int(min_price)
