@@ -62,6 +62,9 @@ class Restaurant(models.Model):
     min_price = models.IntegerField(blank=True, null=True)
     max_price = models.IntegerField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    is_student_promo = models.BooleanField(default=False)
+    student_promo_desc = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to="restaurant_images/", blank=True, null=True)
 
     def __str__(self):
         return self.restaurant_name  # username for the User class
