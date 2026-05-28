@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Event,User, Restaurant, Post, Review 
 from django.contrib.auth.hashers import make_password, check_password
+from django.db.models import Avg, F
 
 
 
@@ -74,7 +75,7 @@ def event_delete(request, event_id):
     
     return render(request, "foodhunt/event_detail.html", {"event": event}) 
 
-
+#-----open now function(akisha)
 import re
 from datetime import datetime
 
@@ -126,7 +127,7 @@ def is_restaurant_open(opening_hours_str):
             
     return False
 
-#------Search+Filter (ELX): Search bar and filter at search page
+#------Search+Filter (ELX + AKISHA): Search bar and filter at search page
 def search(request):
     restaurants = Restaurant.objects.all()
 
@@ -159,18 +160,31 @@ def search(request):
     elif price == "$$$":
         restaurants = restaurants.filter(min_price__gte=30)
 
-    #filter by Open Now
+    #filter by Open Now (AKISHA)
     open_now = request.GET.get("open_now")
     if open_now:
         restaurants = [r for r in restaurants if is_restaurant_open(r.opening_hours)]
 
-    return render(request, "foodhunt/search.html", {"restaurants": restaurants})
+    #filter for rating (ELX)
+    sort_by = request.GET.get("sort", "top_rated")#default sorting is by top rated
+
+    if sort_by == "top_rated":
+        restaurants = restaurants.annotate(avg_rating=Avg('review__rating')).order_by(F('avg_rating').desc(nulls_last=True))# calculate average rating and sort by it, with unrated restaurants at the end
+    elif sort_by == "low_rated":
+        restaurants = restaurants.annotate(avg_rating=Avg('review__rating')).order_by(F('avg_rating').asc(nulls_last=True))# ascending
+    elif sort_by == "newest":
+        restaurants = restaurants.order_by("-restaurant_id") #newest first based on restaurant_id
+
+    return render(request, "foodhunt/search.html", {
+        "restaurants": restaurants,
+        "sort": sort_by,
+    })
 
 #------Home Page (ELX): Show active events + restaurant recommendations
 def home(request):
     today   = timezone.now().date()#get active events for banner
     events  = Event.objects.filter(end_date__gte=today).order_by("end_date")[:3] 
-    restaurant = Restaurant.objects.all().order_by("-restaurant_id")[:6]#get restaurants, order by id for ow, later swap with rating
+    restaurant = Restaurant.objects.all().order_by("-restaurant_id")[:6]
 
     is_student = False
     user_email = request.session.get("email")
@@ -229,7 +243,7 @@ def userprofile(request):
         "post_count": post_count,
         "event_count": event_count,
         "recent_events": recent_events,
-        "recents_post": recent_posts,
+        "recent_posts": recent_posts,
     })
 
 #------User Registration (AYRA)
@@ -302,30 +316,6 @@ def restaurant_detail(request, restaurant_id):
         'login_user_id': request.session.get("user_id"), #the one who create the post can delete/edit button
     })
 
-
-def review(request):
-    if request.method == "POST":
-        restaurant_id = request.POST.get("restaurant")
-        rating = request.POST.get("rating")
-        comment = request.POST.get("comment")
-        image   = request.FILES.get("image")
-
-        current_user = User.objects.first() #temp
-        restaurant = get_object_or_404(Restaurant, restaurant_id = restaurant_id)
-
-        Review.objects.create(
-            user    = User.objects.first(),
-            comment = comment,
-            image   = image,
-            rating  = int(rating),
-            restaurant = restaurant,
-            created_at = timezone.now()
-
-        )
-        #I will change home to restaurant detail page
-        return redirect("restaurant_detail", restaurant_id=restaurant.restaurant_id)
-    
-    return redirect("review_create") 
 
 #------Review Create (AYRA)
 def review_create(request, restaurant_id=None, event_id=None):
@@ -499,7 +489,7 @@ def foodspot_create(request):
             restaurant = restaurant,
             title      = restaurant_name,
             description= description or None,
-            image      = photo.name if photo else None,
+            image      = photo if photo else None,
             created_at = timezone.now(),
         )
 

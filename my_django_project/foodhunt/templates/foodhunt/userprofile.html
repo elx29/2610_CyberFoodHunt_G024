@@ -288,53 +288,52 @@
 
 <!-- Recent Restaurants Feed History -->
 <div class="md:col-span-8 flex flex-col gap-4 relative"> <!-- IF CHANGE gap-8 to gap-4 THEN RECENT EVENT WILL LOOK NATURAL-->
-<h2 class="font-headline text-2xl font-black text-primary tracking-tight px-4 flex items-center gap-2" style"">
-<span class="material-symbols-outlined" style"">rate_review</span> Recent Posts
-                    </h2>
-<!-- Post Card 1 -->
-<div class="relative group">
-<div class="bg-surface-container-highest p-4 rounded-xl rotate-scrapbook-pos shadow-lg z-20 relative translate-x-2 translate-y-2 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-300">
-<div class="flex flex-col md:flex-row gap-4">
-<div class="w-full md:w-32 h-32 flex-shrink-0 bg-white rounded flex items-center justify-center">
-<span class="material-symbols-outlined text-4xl text-slate-300" style"">lunch_dining</span>
-</div>
-<div class="flex-1">
-<div class="flex justify-between items-start">
-<h3 class="font-headline font-bold text-lg" style"">Tamarind Burger House</h3>
-<div class="bg-primary text-white text-[10px] px-2 py-0.5 rounded font-bold" style"">4.8/5</div>
-</div>
-<p class="text-sm text-on-surface-variant font-body line-clamp-2 mt-2 italic" style"">"The wagyu beef is incredibly juicy. Perfect study-break meal. A bit pricey for students but worth it every Friday!"</p>
-<div class="mt-4 flex gap-2">
-<span class="material-symbols-outlined text-xs text-slate-400" style"">thumb_up</span>
-<span class="text-[10px] font-bold text-slate-400" style"">24 Helpful</span>
-</div>
-</div>
-</div>
-</div>
-<div class="absolute inset-0 bg-primary/10 rounded-xl -rotate-1 z-10"></div>
-</div>
-<!-- Post Card 2 -->
-<div class="relative group -mt-4">
-<div class="bg-surface-container-lowest p-4 rounded-xl -rotate-scrapbook-neg shadow-lg z-20 relative -translate-x-2 group-hover:translate-x-0 transition-transform duration-300">
-<div class="flex flex-col md:flex-row gap-4">
-<div class="w-full md:w-32 h-32 flex-shrink-0 bg-white rounded flex items-center justify-center">
-<span class="material-symbols-outlined text-4xl text-slate-300" style"">set_meal</span>
-</div>
-<div class="flex-1">
-<div class="flex justify-between items-start">
-<h3 class="font-headline font-bold text-lg" style"">Cyber Healthy Bowls</h3>
-<div class="bg-primary text-white text-[10px] px-2 py-0.5 rounded font-bold" style"">4.2/5</div>
-</div>
-<p class="text-sm text-on-surface-variant font-body line-clamp-2 mt-2 italic" style"">"Actually fresh salmon in Cyberjaya. Finally. Portions are a bit small though. Good vibe for coding sessions."</p>
-<div class="mt-4 flex gap-2">
-<span class="material-symbols-outlined text-xs text-slate-400" style"">thumb_up</span>
-<span class="text-[10px] font-bold text-slate-400" style"">12 Helpful</span>
-</div>
-</div>
-</div>
-</div>
 
-</div>
+    <h2 class="font-headline text-2xl font-black text-primary tracking-tight px-4 flex items-center gap-2" style"">
+        <span class="material-symbols-outlined" style"">rate_review</span> Recent Posts
+    </h2>
+
+<!-- Post Card -->
+    {% for post in recent_posts %}
+    <div class="relative group">
+        <div class="bg-surface-container-highest p-4 rounded-xl rotate-scrapbook-pos shadow-lg z-20 relative translate-x-2 translate-y-2 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-300">
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="w-full md:w-32 h-32 flex-shrink-0 bg-white rounded flex items-center justify-center">
+                   
+                    {% if post.image %}
+
+                    <img src="{{ post.image.url }}" class="w-full h-full object-cover rounded"/>
+                    
+                    {% else %}
+
+                    <span class="material-symbols-outlined text-4xl text-slate-300" style"">lunch_dining</span>
+                    
+                    {% endif %}
+                </div>
+
+                <div class="flex-1">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-headline font-bold text-lg">{{ post.restaurant.restaurant_name }}</h3>
+                    </div>
+                    <p class=="text-xs text-slate-400 uppercase tracking-widest mt-1">{{ post.restaurant.location }}</p>
+                    <p class="text-sm text-on-surface-variant font-body line-clamp-2 mt-2 italic">
+                        {{ post.description }}
+                    </p>
+                    <div class="mt-4 flex gap-2">
+                        <a href="{% url 'restaurant_detail' post.restaurant.restaurant_id %}" class="text-primary text-xs font-bold">
+                            View Restaurant →
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="absolute inset-0 bg-primary/10 rounded-xl -rotate-1 z-10"></div>
+    </div>
+    {% empty %}
+    <p class="text-sm text-slate-400 px-4">No posts yet — share your first food spot!</p>
+    {% endfor %}
+
 <!-- Recent Events -->
 <h2 class="font-headline text-2xl font-black text-primary tracking-tight px-4 flex items-center gap-2">
     <span class="material-symbols-outlined">event</span> Recent Events

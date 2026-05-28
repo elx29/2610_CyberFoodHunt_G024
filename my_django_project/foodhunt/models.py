@@ -40,7 +40,7 @@ class Post(models.Model):
     restaurant = models.ForeignKey('Restaurant', models.CASCADE, blank=True, null=True)
     title = models.TextField()
     description = models.TextField(blank=True, null=True)
-    image = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to="post_pics/", blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
