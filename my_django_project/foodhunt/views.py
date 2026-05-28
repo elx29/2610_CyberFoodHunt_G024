@@ -74,6 +74,58 @@ def event_delete(request, event_id):
     
     return render(request, "foodhunt/event_detail.html", {"event": event}) 
 
+
+import re
+from datetime import datetime
+
+def is_restaurant_open(opening_hours_str):
+    if not opening_hours_str:
+        return False
+    
+    hours_clean = opening_hours_str.lower().strip()
+    
+    # Handle common 24-hour identifiers
+    if any(x in hours_clean for x in ["24 hours", "24h", "24/7"]):
+        return True
+        
+    # Match standard times like "10:00am", "10am", "10:00 am", "10 pm", "22:00"
+    time_pattern = r'(\d{1,2})(?::(\d{2}))?\s*(am|pm)?'
+    matches = re.findall(time_pattern, hours_clean)
+    
+    if len(matches) >= 2:
+        try:
+            current_time = datetime.now().time()
+            
+            has_ampm = 'am' in hours_clean or 'pm' in hours_clean
+            
+            # Helper to convert a parsed match to a 24-hour time object
+            def to_time(hour_str, min_str, period, is_end_time=False, start_hour=None):
+                h = int(hour_str)
+                m = int(min_str) if min_str else 0
+                
+                # Smart PM heuristic: if no AM/PM is specified anywhere, and the end hour is smaller than the start hour
+                # (e.g., "7 to 1" or "9 to 5"), assume the end hour is in the afternoon (PM)
+                if not has_ampm and is_end_time and start_hour is not None and h < start_hour and h < 12:
+                    h += 12
+                elif period == 'pm' and h < 12:
+                    h += 12
+                elif period == 'am' and h == 12:
+                    h = 0
+                return datetime.strptime(f"{h}:{m}", "%H:%M").time()
+            
+            start = to_time(matches[0][0], matches[0][1], matches[0][2])
+            end = to_time(matches[1][0], matches[1][1], matches[1][2], is_end_time=True, start_hour=int(matches[0][0]))
+            
+            if start <= end:
+                return start <= current_time <= end
+            else:
+                # Handle overnight ranges (e.g. 6:00pm to 2:00am)
+                return current_time >= start or current_time <= end
+        except Exception:
+            return False
+            
+    return False
+
 #------Search+Filter (ELX): Search bar and filter at search page
 def search(request):
     restaurants = Restaurant.objects.all()
@@ -86,12 +138,12 @@ def search(request):
     #filter by cuisine
     cuisine = request.GET.get("cuisine")
     if cuisine:
-        restaurants = restaurants.filter(cuisine = cuisine)
+        restaurants = restaurants.filter(cuisine__iexact = cuisine)
 
     #filter by transport
     transport = request.GET.get("transport")
     if transport:
-        restaurants = restaurants.filter(transport_mode = transport)
+        restaurants = restaurants.filter(transport_mode__icontains = transport)
 
     #filter by Halal/Non halal
     is_halal = request.GET.get("is_halal")
@@ -106,6 +158,11 @@ def search(request):
         restaurants = restaurants.filter(max_price__gte=15, max_price__lte=30)
     elif price == "$$$":
         restaurants = restaurants.filter(min_price__gte=30)
+
+    #filter by Open Now
+    open_now = request.GET.get("open_now")
+    if open_now:
+        restaurants = [r for r in restaurants if is_restaurant_open(r.opening_hours)]
 
     return render(request, "foodhunt/search.html", {"restaurants": restaurants})
 
