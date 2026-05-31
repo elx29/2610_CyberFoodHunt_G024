@@ -254,8 +254,8 @@
          <span class="material-symbols-outlined text-primary text-lg">sort</span>
    
          <!-- form="filterForm" tells the browser this select belongs to the main sidebar form! -->
-         <!-- onchange="document.getElementById('filterForm').submit()" makes it auto-submit instantly on click! -->
-         <select name="sort" form="filterForm" onchange="document.getElementById('filterForm').submit()"
+         <!-- onchange="... get current URL filters, updates/adds the sort parameter, and reloads the page -->
+         <select name="sort" form="filterForm" onchange="const urlParams = new URLSearchParams(window.location.search); urlParams.set('sort', this.value); window.location.search = urlParams.toString();"
                  class="bg-transparent border-none text-xs font-black uppercase tracking-widest text-primary focus:ring-0 cursor-pointer p-0 pr-6">
            <option value="top_rated" {% if sort == "top_rated" %}selected{% endif %}>Top Rated</option>
            <option value="low_rated" {% if sort == "low_rated" %}selected{% endif %}>Low Rated</option>
