@@ -4,7 +4,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Event,User, Restaurant, Post, Review 
 from django.contrib.auth.hashers import make_password, check_password
-from django.db.models import Avg, F
+from django.db.models import Avg, F, FloatField
+from django.db.models.functions import Coalesce
 
 
 
@@ -169,11 +170,18 @@ def search(request):
     sort_by = request.GET.get("sort", "top_rated")#default sorting is by top rated
 
     if sort_by == "top_rated":
-        restaurants = restaurants.annotate(avg_rating=Avg('review__rating')).order_by(F('avg_rating').desc(nulls_last=True))# calculate average rating and sort by it, with unrated restaurants at the end
+        #restaurants = restaurants.annotate(avg_rating=Avg('review__rating')).order_by(F('avg_rating').desc(nulls_last=True))# calculate average rating and sort by it, with unrated restaurants at the end
+        restaurants = restaurants.annotate(
+        avg_rating=Coalesce(Avg('review__rating'), 0.0, output_field=FloatField())
+    ).order_by('-avg_rating')
     elif sort_by == "low_rated":
-        restaurants = restaurants.annotate(avg_rating=Avg('review__rating')).order_by(F('avg_rating').asc(nulls_last=True))# ascending
+        #restaurants = restaurants.annotate(avg_rating=Avg('review__rating')).order_by(F('avg_rating').asc(nulls_last=True))# ascending
+         restaurants = restaurants.annotate(
+        avg_rating=Coalesce(Avg('review__rating'), 0.0, output_field=FloatField())
+    ).order_by('avg_rating')
     elif sort_by == "newest":
         restaurants = restaurants.order_by("-restaurant_id") #newest first based on restaurant_id
+
 
     return render(request, "foodhunt/search.html", {
         "restaurants": restaurants,
