@@ -75,7 +75,7 @@
 
 <aside class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-6 bg-[#e1f8fe] w-52 shadow-lg border-r border-primary/5">
 <div class="px-6 mb-8 mt-14">
-<h1 class="font-headline font-bold text-[#343bc8] text-lg">Welcome, User!</h1>
+<h1 class="font-headline font-bold text-[#343bc8] text-lg">Welcome, {{ current_user.username }}!</h1>
 </div>
 <div class="flex flex-col gap-1 px-2 flex-grow">
 <a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'home' %}">
