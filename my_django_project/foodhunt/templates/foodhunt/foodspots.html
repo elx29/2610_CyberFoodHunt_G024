@@ -269,6 +269,28 @@
                    class="bg-surface-container-low border-none rounded-lg p-4 font-body text-on-surface placeholder:text-outline-variant"
                    placeholder="e.g. 10:00am — 10:00pm" type="text"/>
           </div>
+
+          <!-- Operating Days -->
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-headline font-bold uppercase tracking-wider text-secondary flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm">calendar_month</span>
+              Operating Days
+            </label>
+            <input name="operating_days" value="{{ form_data.operating_days|default:'' }}"
+                   class="bg-surface-container-low border-none rounded-lg p-4 font-body text-on-surface placeholder:text-outline-variant"
+                   placeholder="e.g. Monday — Saturday" type="text"/>
+          </div>
+
+          <!-- Closed On -->
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-headline font-bold uppercase tracking-wider text-secondary flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm">event_busy</span>
+              Closed On
+            </label>
+            <input name="closed_days" value="{{ form_data.closed_days|default:'' }}"
+                   class="bg-surface-container-low border-none rounded-lg p-4 font-body text-on-surface placeholder:text-outline-variant"
+                   placeholder="e.g. Sunday" type="text"/>
+          </div>
         </div>
       </div>
 
