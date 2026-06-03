@@ -4,7 +4,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Event,User, Restaurant, Post, Review, Bookmark 
 from django.contrib.auth.hashers import make_password, check_password
-
+from django.db.models import Avg, F, FloatField
+from django.db.models.functions import Coalesce
 
 
 #-----Event List(ELX): Show all active events
@@ -171,18 +172,36 @@ def search(request):
     elif price == "$$":
         restaurants = restaurants.filter(max_price__gte=15, max_price__lte=30)
     elif price == "$$$":
-        restaurants = restaurants.filter(max_price__gte=30, max_price__lte=100)
+        restaurants = restaurants.filter(min_price__gte=30)
+
+        #filter for rating (ELX)
+    sort_by = request.GET.get("sort", "top_rated")#default sorting is by top rated
+
+    if sort_by == "top_rated":
+        #restaurants = restaurants.annotate(avg_rating=Avg('review__rating')).order_by(F('avg_rating').desc(nulls_last=True))# calculate average rating and sort by it, with unrated restaurants at the end
+        restaurants = restaurants.annotate(
+        avg_rating=Coalesce(Avg('review__rating'), 0.0, output_field=FloatField())
+    ).order_by('-avg_rating')
+    elif sort_by == "low_rated":
+        #restaurants = restaurants.annotate(avg_rating=Avg('review__rating')).order_by(F('avg_rating').asc(nulls_last=True))# ascending
+         restaurants = restaurants.annotate(
+        avg_rating=Coalesce(Avg('review__rating'), 0.0, output_field=FloatField())
+    ).order_by('avg_rating')
+    elif sort_by == "newest":
+        restaurants = restaurants.order_by("-restaurant_id") #newest first based on restaurant_id
 
     #filter by Open Now
     open_now = request.GET.get("open_now")
     if open_now:
         restaurants = [r for r in restaurants if is_restaurant_open(r.opening_hours)]
 
-    current_user = None
-    user_id = request.session.get("user_id")
-    if user_id:
-        current_user = User.objects.filter(user_id=user_id).first()
-    return render(request, "foodhunt/search.html", {"restaurants": restaurants, "current_user": current_user})
+
+    return render(request, "foodhunt/search.html", {
+        "restaurants": restaurants,
+        "sort": sort_by,
+    })
+
+
 
 #------Home Page (ELX): Show active events + restaurant recommendations
 def home(request):
@@ -469,8 +488,6 @@ def foodspot_create(request):
         location        = request.POST.get("location", "").strip()
         transport       = request.POST.get("transport", "").strip()
         opening_hours   = request.POST.get("opening_hours", "").strip()
-        operating_days  = request.POST.get("operating_days", "").strip()
-        closed_days     = request.POST.get("closed_days", "").strip()
         description     = request.POST.get("description", "").strip()
         halal_raw       = request.POST.get("halal", "0")
         min_price_raw   = request.POST.get("min_price", "").strip()
@@ -521,8 +538,6 @@ def foodspot_create(request):
             restaurant_name = restaurant_name,
             location        = location,
             opening_hours   = opening_hours or None,
-            operating_days  = operating_days or None,
-            closed_days     = closed_days or None,
             transport_mode  = transport or None,
             cuisine         = cuisine,
             is_halal        = halal_value,
@@ -578,8 +593,6 @@ def restaurant_edit(request, restaurant_id):
         restaurant.location        = request.POST.get('location', restaurant.location)
         restaurant.cuisine         = request.POST.get('cuisine', restaurant.cuisine)
         restaurant.opening_hours   = request.POST.get('opening_hours', restaurant.opening_hours)
-        restaurant.operating_days  = request.POST.get('operating_days', restaurant.operating_days)
-        restaurant.closed_days     = request.POST.get('closed_days', restaurant.closed_days)
         restaurant.transport_mode  = request.POST.get('transport', restaurant.transport_mode)
         restaurant.description     = request.POST.get('description', restaurant.description)
         restaurant.is_halal        = request.POST.get('halal', restaurant.is_halal)
