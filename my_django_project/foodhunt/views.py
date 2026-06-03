@@ -12,11 +12,17 @@ def event_list(request):
     today  = timezone.now().date()
     #Only get events that haven't expired yet (end_date >= today)
     events = Event.objects.filter(end_date__gte=today).order_by("end_date")
-    current_user = None
+
+    
+    user_id = request.session.get("user_id")
+    current_user = User.objects.get(user_id=user_id) if user_id else None
+
     user_id = request.session.get("user_id")
     if user_id:
         current_user = User.objects.filter(user_id=user_id).first()
-    return render(request, "foodhunt/event_list.html", {"events": events, "current_user": current_user})
+    return render(request, "foodhunt/event_list.html", {
+        "events": events, 
+        "current_user": current_user})
     #Send event data to HTML page so user can see it.
 
 #-----Event Detail(ELX): Show 1 single event details
@@ -28,12 +34,16 @@ def event_detail(request, event_id):
     #Go back to the list if types expired event
     if event.end_date < today:
         return redirect("event_list")
-    
     days_left = (event.end_date - today).days
+
+    user_id = request.session.get("user_id")
+    current_user = User.objects.get(user_id=user_id) if user_id else None
+    
     return render(request, "foodhunt/event_detail.html", {
         "event": event,
         "days_left": days_left,
         "login_user_id": request.session.get("user_id"), #the one who create the post can delete/edit button
+        "current_user": current_user
     })
 
 
@@ -313,6 +323,9 @@ def restaurant_detail(request, restaurant_id):
     # Calculate average rating of all reviews
     average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
 
+    user_id = request.session.get("user_id")
+    current_user = User.objects.get(user_id=user_id) if user_id else None
+
     # Check if logged-in user has bookmarked this restaurant
     login_user_id = request.session.get("user_id")
     is_bookmarked = False
@@ -326,6 +339,7 @@ def restaurant_detail(request, restaurant_id):
         'average_rating': average_rating,
         'login_user_id': login_user_id,
         'is_bookmarked': is_bookmarked,
+        'current_user': current_user,
     })
 
 
