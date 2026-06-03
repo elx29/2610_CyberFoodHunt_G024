@@ -169,6 +169,10 @@
                 <span class="material-symbols-outlined text-xl" style"">home</span>
                 <span class="font-body text-sm font-medium" style"">Home</span>
             </a>
+            <!--  <a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="review.html" style"">
+<span class="material-symbols-outlined text-xl" style"">edit_note</span>
+<span class="font-body text-sm font-medium" style"">Reviews</span>
+</a>  -->
             <a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors"
                 href="{% url 'search' %}" style"">
                 <span class="material-symbols-outlined text-xl" style"">search</span>
@@ -179,10 +183,6 @@
                 <span class="material-symbols-outlined text-xl" style"">person</span>
                 <span class="font-body text-sm font-medium" style"">Profile</span>
             </a>
-            <a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'bookmark_list' %}">
-      <span class="material-symbols-outlined text-xl">bookmark</span>
-      <span class="font-body text-sm font-medium">Bookmarks</span>
-    </a>
         </div>
         <a>
             <div class="px-4 pb-6">
@@ -296,15 +296,6 @@
                                         style="font-variation-settings: 'FILL' 0;">thumb_down</span></button>
                             </div>
 
-                            {% if login_user_id %}
-                            <form method="post" action="{% url 'bookmark_toggle' restaurant.restaurant_id %}" class="inline">
-                                {% csrf_token %}
-                                <button type="submit" title="{% if is_bookmarked %}Remove bookmark{% else %}Save bookmark{% endif %}"
-                                    class="flex items-center justify-center w-10 h-10 rounded-full bg-white border transition-all shadow-sm {% if is_bookmarked %}text-primary border-primary/40 hover:bg-error/10 hover:text-error hover:border-error/40{% else %}text-outline border-outline/20 hover:bg-primary hover:text-on-primary hover:border-primary{% endif %}">
-                                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' {% if is_bookmarked %}1{% else %}0{% endif %};">bookmark</span>
-                                </button>
-                            </form>
-                            {% endif %}
                             {% if login_user_id == creater_id %}
                             <a href="{% url 'restaurant_edit' restaurant.restaurant_id %}" class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-primary border border-primary/20 hover:bg-primary hover:text-on-primary transition-all shadow-sm">
                                 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">edit</span>
