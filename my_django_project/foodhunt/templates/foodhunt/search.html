@@ -141,9 +141,9 @@
 <div class="mb-8">
   <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Price Range</label>
   <div class="flex gap-3" id="price-buttons">
-    <button type="button" onclick="selectPrice(this, '$')" class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$</button>
-    <button type="button" onclick="selectPrice(this, '$$')" class="price-btn bg-primary text-white w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-neg-1 hover:scale-110 transition-all shadow-lg">$$</button>
-    <button type="button" onclick="selectPrice(this, '$$$')" class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$$$</button>
+    <button type="button" onclick="selectPrice(this, '$')" value="$" class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$</button>
+    <button type="button" onclick="selectPrice(this, '$$')" value="$$" class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-neg-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$$</button>
+    <button type="button" onclick="selectPrice(this, '$$$')" value="$$$" class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$$$</button>
   </div>
   <input type="hidden" id="price-input" name="price" value="{{ request.GET.price }}"/>
 </div>
@@ -319,6 +319,7 @@
                 b.classList.add('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
             });
             document.getElementById('price-input').value = '';
+            btn.closest('form').submit();
             return;
         }
         document.querySelectorAll('.price-btn').forEach(b => {
@@ -328,17 +329,19 @@
         btn.classList.remove('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
         btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
         document.getElementById('price-input').value = value;
+        btn.closest('form').submit();
     }
 
     const savedPrice = document.getElementById('price-input').value;
-    if (savedPrice) {
-        document.querySelectorAll('.price-btn').forEach(btn => {
-            if (btn.value === savedPrice) {
-                btn.classList.remove('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
-                btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
-            }
-        });
-    }
+    document.querySelectorAll('.price-btn').forEach(btn => {
+        if (savedPrice && btn.getAttribute('value') === savedPrice) {
+            btn.classList.remove('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
+            btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
+        } else {
+            btn.classList.remove('bg-primary', 'text-white', 'shadow-lg');
+            btn.classList.add('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
+        }
+    });
 
     document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
         cb.addEventListener('change', () => cb.closest('form').submit());
