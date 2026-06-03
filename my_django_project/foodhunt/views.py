@@ -195,10 +195,13 @@ def search(request):
     if open_now:
         restaurants = [r for r in restaurants if is_restaurant_open(r.opening_hours)]
 
+    user_id = request.session.get("user_id")
+    current_user = User.objects.get(user_id=user_id) if user_id else None
 
     return render(request, "foodhunt/search.html", {
         "restaurants": restaurants,
         "sort": sort_by,
+        "current_user": current_user
     })
 
 
