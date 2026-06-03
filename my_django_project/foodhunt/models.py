@@ -65,6 +65,8 @@ class Restaurant(models.Model):
     is_student_promo = models.BooleanField(default=False)
     student_promo_desc = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to="restaurant_images/", blank=True, null=True)
+    operating_days = models.TextField(blank=True, null=True)
+    closed_days = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.restaurant_name  # username for the User class
