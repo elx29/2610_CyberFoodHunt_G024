@@ -2,10 +2,8 @@ from urllib import request
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-from .models import Event,User, Restaurant, Post, Review 
+from .models import Event,User, Restaurant, Post, Review, Bookmark 
 from django.contrib.auth.hashers import make_password, check_password
-from django.db.models import Avg, F, FloatField
-from django.db.models.functions import Coalesce
 
 
 
@@ -14,7 +12,11 @@ def event_list(request):
     today  = timezone.now().date()
     #Only get events that haven't expired yet (end_date >= today)
     events = Event.objects.filter(end_date__gte=today).order_by("end_date")
-    return render(request, "foodhunt/event_list.html", {"events": events})
+    current_user = None
+    user_id = request.session.get("user_id")
+    if user_id:
+        current_user = User.objects.filter(user_id=user_id).first()
+    return render(request, "foodhunt/event_list.html", {"events": events, "current_user": current_user})
     #Send event data to HTML page so user can see it.
 
 #-----Event Detail(ELX): Show 1 single event details
@@ -76,7 +78,7 @@ def event_delete(request, event_id):
     
     return render(request, "foodhunt/event_detail.html", {"event": event}) 
 
-#-----open now function(akisha)
+
 import re
 from datetime import datetime
 
@@ -128,7 +130,7 @@ def is_restaurant_open(opening_hours_str):
             
     return False
 
-#------Search+Filter (ELX + AKISHA): Search bar and filter at search page
+#------Search+Filter (ELX): Search bar and filter at search page
 def search(request):
     restaurants = Restaurant.objects.all()
 
@@ -161,38 +163,22 @@ def search(request):
     elif price == "$$$":
         restaurants = restaurants.filter(min_price__gte=30)
 
-    #filter by Open Now (AKISHA)
+    #filter by Open Now
     open_now = request.GET.get("open_now")
     if open_now:
         restaurants = [r for r in restaurants if is_restaurant_open(r.opening_hours)]
 
-    #filter for rating (ELX)
-    sort_by = request.GET.get("sort", "top_rated")#default sorting is by top rated
-
-    if sort_by == "top_rated":
-        #restaurants = restaurants.annotate(avg_rating=Avg('review__rating')).order_by(F('avg_rating').desc(nulls_last=True))# calculate average rating and sort by it, with unrated restaurants at the end
-        restaurants = restaurants.annotate(
-        avg_rating=Coalesce(Avg('review__rating'), 0.0, output_field=FloatField())
-    ).order_by('-avg_rating')
-    elif sort_by == "low_rated":
-        #restaurants = restaurants.annotate(avg_rating=Avg('review__rating')).order_by(F('avg_rating').asc(nulls_last=True))# ascending
-         restaurants = restaurants.annotate(
-        avg_rating=Coalesce(Avg('review__rating'), 0.0, output_field=FloatField())
-    ).order_by('avg_rating')
-    elif sort_by == "newest":
-        restaurants = restaurants.order_by("-restaurant_id") #newest first based on restaurant_id
-
-
-    return render(request, "foodhunt/search.html", {
-        "restaurants": restaurants,
-        "sort": sort_by,
-    })
+    current_user = None
+    user_id = request.session.get("user_id")
+    if user_id:
+        current_user = User.objects.filter(user_id=user_id).first()
+    return render(request, "foodhunt/search.html", {"restaurants": restaurants, "current_user": current_user})
 
 #------Home Page (ELX): Show active events + restaurant recommendations
 def home(request):
     today   = timezone.now().date()#get active events for banner
     events  = Event.objects.filter(end_date__gte=today).order_by("end_date")[:3] 
-    restaurant = Restaurant.objects.all().order_by("-restaurant_id")[:6]
+    restaurant = Restaurant.objects.all().order_by("-restaurant_id")[:6]#get restaurants, order by id for ow, later swap with rating
 
     is_student = False
     user_email = request.session.get("email")
@@ -203,12 +189,18 @@ def home(request):
     if is_student:
         student_promos = Restaurant.objects.filter(is_student_promo=True).order_by("-restaurant_id")[:6]
 
+    current_user = None
+    user_id = request.session.get("user_id")
+    if user_id:
+        current_user = User.objects.filter(user_id=user_id).first()
+
     return render(request, 'foodhunt/main.html', {
         "events": events,
         "restaurants": restaurant,
         "today": today,
         "is_student": is_student,
         "student_promos": student_promos,
+        "current_user": current_user,
     })
 
 #------User Profile (ELX): Show user details, badges, recent posts/events
@@ -245,13 +237,18 @@ def userprofile(request):
     if event_count >= 5:
         badges.append({"name": "Detective", "icon": "search", "desc": "Posted 5 events"})
 
+    bookmarks = Bookmark.objects.filter(user=current_user).select_related("restaurant").order_by("-saved_at")[:5]
+    bookmark_count = Bookmark.objects.filter(user=current_user).count()
+
     return render(request, 'foodhunt/userprofile.html', {
-        "current_user":  current_user,  #this is for userprofile to show actual username
+        "current_user":  current_user,
         "badges": badges,
         "post_count": post_count,
         "event_count": event_count,
         "recent_events": recent_events,
-        "recent_posts": recent_posts,
+        "recents_post": recent_posts,
+        "bookmarks": bookmarks,
+        "bookmark_count": bookmark_count,
     })
 
 #------User Registration (AYRA)
@@ -316,14 +313,45 @@ def restaurant_detail(request, restaurant_id):
     # Calculate average rating of all reviews
     average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
 
+    # Check if logged-in user has bookmarked this restaurant
+    login_user_id = request.session.get("user_id")
+    is_bookmarked = False
+    if login_user_id:
+        is_bookmarked = Bookmark.objects.filter(user_id=login_user_id, restaurant=restaurant).exists()
+
     return render(request, 'foodhunt/restaurant_detail.html', {
         'restaurant': restaurant,
         'reviews': reviews,
         'creater_id': creater_id,
         'average_rating': average_rating,
-        'login_user_id': request.session.get("user_id"), #the one who create the post can delete/edit button
+        'login_user_id': login_user_id,
+        'is_bookmarked': is_bookmarked,
     })
 
+
+def review(request):
+    if request.method == "POST":
+        restaurant_id = request.POST.get("restaurant")
+        rating = request.POST.get("rating")
+        comment = request.POST.get("comment")
+        image   = request.FILES.get("image")
+
+        current_user = User.objects.first() #temp
+        restaurant = get_object_or_404(Restaurant, restaurant_id = restaurant_id)
+
+        Review.objects.create(
+            user    = User.objects.first(),
+            comment = comment,
+            image   = image,
+            rating  = int(rating),
+            restaurant = restaurant,
+            created_at = timezone.now()
+
+        )
+        #I will change home to restaurant detail page
+        return redirect("restaurant_detail", restaurant_id=restaurant.restaurant_id)
+    
+    return redirect("review_create") 
 
 #------Review Create (AYRA)
 def review_create(request, restaurant_id=None, event_id=None):
@@ -497,7 +525,7 @@ def foodspot_create(request):
             restaurant = restaurant,
             title      = restaurant_name,
             description= description or None,
-            image      = photo if photo else None,
+            image      = photo.name if photo else None,
             created_at = timezone.now(),
         )
 
@@ -554,3 +582,42 @@ def restaurant_edit(request, restaurant_id):
         'editing': True,
         'restaurant': restaurant,
     })
+
+#------ Bookmark List (show saved restaurants for logged-in user)
+def bookmark_list(request):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return redirect("login")
+
+    current_user = get_object_or_404(User, user_id=user_id)
+    bookmarks = Bookmark.objects.filter(user=current_user).select_related("restaurant").order_by("-saved_at")
+
+    return render(request, "foodhunt/bookmark.html", {
+        "bookmarks": bookmarks,
+        "current_user": current_user,
+    })
+
+#------ Bookmark Toggle (add or remove a bookmark via POST)
+def bookmark_toggle(request, restaurant_id):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return redirect("login")
+
+    current_user = get_object_or_404(User, user_id=user_id)
+    restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+
+    existing = Bookmark.objects.filter(user=current_user, restaurant=restaurant).first()
+    if existing:
+        existing.delete()
+    else:
+        Bookmark.objects.create(
+            user=current_user,
+            restaurant=restaurant,
+            saved_at=timezone.now(),
+        )
+
+    # Redirect back to whichever page sent the request
+    next_url = request.POST.get("next") or request.GET.get("next") or "restaurant_detail"
+    if next_url == "bookmark_list":
+        return redirect("bookmark_list")
+    return redirect("restaurant_detail", restaurant_id=restaurant_id)

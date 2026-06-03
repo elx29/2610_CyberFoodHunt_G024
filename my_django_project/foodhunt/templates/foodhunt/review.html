@@ -142,22 +142,22 @@
 <h1 class="font-headline font-bold text-[#343bc8] text-lg" style"">Welcome, User!</h1>
 </div>
 <div class="flex flex-col gap-1 px-2 flex-grow">
-<a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="{% url 'home' %}" style"">
+<a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'home' %}" style"">
 <span class="material-symbols-outlined text-xl" style"">home</span>
 <span class="font-body text-sm font-medium" style"">Home</span>
 </a>
-<!--  <a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="review.html" style"">
-<span class="material-symbols-outlined text-xl" style"">edit_note</span>
-<span class="font-body text-sm font-medium" style"">Reviews</span>
-</a>  -->
-<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'search' %}" style"">
+<a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'search' %}" style"">
 <span class="material-symbols-outlined text-xl" style"">search</span>
 <span class="font-body text-sm font-medium" style"">Search</span>
 </a>
-<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'userprofile' %}" style"">
+<a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'userprofile' %}" style"">
 <span class="material-symbols-outlined text-xl" style"">person</span>
 <span class="font-body text-sm font-medium" style"">Profile</span>
 </a>
+<a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'bookmark_list' %}">
+      <span class="material-symbols-outlined text-xl">bookmark</span>
+      <span class="font-body text-sm font-medium">Bookmarks</span>
+    </a>
 </div>
 <a>
 <div class="px-4 pb-6">
@@ -166,7 +166,6 @@
   </a>
 </div>
 </aside>
-<!-- <main class="lg:ml-52 pt-14 px-4 md:px-8 pb-8 max-w-7xl mx-auto"> -->
 
 <!-- Main Content Area -->
 <main class="relative flex-1 lg:ml-72 pt-16 pb-32 px-4 md:px-8 max-w-5xl mx-auto overflow-x-hidden">
