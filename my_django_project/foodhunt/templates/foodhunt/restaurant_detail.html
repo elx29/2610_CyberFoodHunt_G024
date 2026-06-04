@@ -161,7 +161,7 @@
     <aside
         class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-6 bg-[#e1f8fe] dark:bg-[#0d2a30] w-52 shadow-lg border-r border-primary/5">
         <div class="px-6 mb-8 mt-14">
-            <h1 class="font-headline font-bold text-[#343bc8] text-lg" style"">Welcome, User!</h1>
+            <h1 class="font-headline font-bold text-[#343bc8] text-lg" style"">Welcome, {{ current_user.username }}!</h1>
         </div>
         <div class="flex flex-col gap-1 px-2 flex-grow">
             <a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105"
@@ -234,13 +234,17 @@
                                 Describe the environment of the restaurant:</p>
                             {{ restaurant.description|default:"No description available" }}
                         </div>
-                        <div class="space-y-6">
-                            <p class="text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-md font-medium">
-                            Cuisine Type: {{ restaurant.cuisine }}
-                            </p>
-                        </div>
-                        
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
+                            <div
+                                class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+                                <div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+                                    <span class="material-symbols-outlined">restaurant</span>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Cuisine Type</p>
+                                    <p class="font-bold text-on-surface">{{ restaurant.cuisine|default:"Not specified" }}</p>
+                                </div>
+                            </div>
                             <div
                                 class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
                                 <div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
@@ -260,6 +264,26 @@
                                 <div>
                                     <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Time</p>
                                     <p class="font-bold text-on-surface">{{ restaurant.opening_hours|default:"Not specified" }}</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+                                <div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+                                    <span class="material-symbols-outlined">calendar_month</span>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Operating Days</p>
+                                    <p class="font-bold text-on-surface">{{ restaurant.operating_days|default:"Not specified" }}</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+                                <div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+                                    <span class="material-symbols-outlined">event_busy</span>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Closed On</p>
+                                    <p class="font-bold text-on-surface">{{ restaurant.closed_days|default:"None" }}</p>
                                 </div>
                             </div>
                             <div

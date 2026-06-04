@@ -167,10 +167,7 @@
                     <div class="relative z-10">
                         <div class="flex justify-between items-start mb-6">
                             <span class="bg-primary text-on-primary text-[10px] font-bold px-3 py-1 rounded-full tracking-widest uppercase font-label">EXCLUSIVE EVENT</span>
-                            <div class="flex gap-1">
-                                <span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-                                <span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-                            </div>
+                          
                         </div>
 
                         <!-- event name from database -->
@@ -184,20 +181,12 @@
                             <p>{{ event.description }}</p>
                         </div>
 
-                        <!--Location will link to google maps, basically when other user press on the address, it will lead to google maps -->
-                        <div>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Location</p>
-                            <a href="https://www.google.com/maps/search/?api=1&amp;query={{event.event_location|urlencode}}"
-                                target="_blank"
-                                class="font-bold text-on-surface hover:underline">
-                                {{ event.event_location }}
-                            </a>
-                        </div>
+                       
 
                         <div class="space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
 
-                                <!-- location from database -->
+                                <!--Location will link to google maps, basically when other user press on the address, it will lead to google maps -->
                                 <div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
                                     <div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
                                         <span class="material-symbols-outlined">location_on</span>

@@ -132,3 +132,72 @@ class RestaurantModelTest(TestCase):
         self.assertIn("Open Burger", open_names)
         self.assertNotIn("Closed Pizza", open_names)
 
+    def test_search_price_filter(self):
+        from django.test import Client
+
+        # Create restaurants with different max prices
+        Restaurant.objects.create(
+            restaurant_name="Cheap Spot",
+            location="MMU Cyberjaya",
+            min_price=5,
+            max_price=12
+        )
+        Restaurant.objects.create(
+            restaurant_name="Medium Spot",
+            location="MMU Cyberjaya",
+            min_price=10,
+            max_price=25
+        )
+        Restaurant.objects.create(
+            restaurant_name="Expensive Spot",
+            location="MMU Cyberjaya",
+            min_price=20,
+            max_price=50
+        )
+        Restaurant.objects.create(
+            restaurant_name="Very Expensive Spot",
+            location="MMU Cyberjaya",
+            min_price=40,
+            max_price=80
+        )
+
+        client = Client()
+
+        # Test filter '$' (max_price <= 15) -> should only return Cheap Spot
+        response = client.get('/search/?price=$')
+        self.assertEqual(response.status_code, 200)
+        names = [r.restaurant_name for r in response.context['restaurants']]
+        self.assertIn("Cheap Spot", names)
+        self.assertNotIn("Medium Spot", names)
+        self.assertNotIn("Expensive Spot", names)
+        self.assertNotIn("Very Expensive Spot", names)
+
+        # Test filter '$$' (15 <= max_price <= 30) -> should return Medium Spot
+        response = client.get('/search/?price=$$')
+        self.assertEqual(response.status_code, 200)
+        names = [r.restaurant_name for r in response.context['restaurants']]
+        self.assertNotIn("Cheap Spot", names)
+        self.assertIn("Medium Spot", names)
+        self.assertNotIn("Expensive Spot", names)
+        self.assertNotIn("Very Expensive Spot", names)
+
+        # Test filter '$$$' (30 <= max_price <= 100) -> should return Expensive Spot and Very Expensive Spot
+        response = client.get('/search/?price=$$$')
+        self.assertEqual(response.status_code, 200)
+        names = [r.restaurant_name for r in response.context['restaurants']]
+        self.assertNotIn("Cheap Spot", names)
+        self.assertNotIn("Medium Spot", names)
+        self.assertIn("Expensive Spot", names)
+        self.assertIn("Very Expensive Spot", names)
+
+    def test_restaurant_operating_and_closed_days(self):
+        restaurant = Restaurant.objects.create(
+            restaurant_name="Days Test Spot",
+            location="MMU Cyberjaya",
+            operating_days="Monday — Saturday",
+            closed_days="Sunday"
+        )
+        db_restaurant = Restaurant.objects.get(restaurant_id=restaurant.restaurant_id)
+        self.assertEqual(db_restaurant.operating_days, "Monday — Saturday")
+        self.assertEqual(db_restaurant.closed_days, "Sunday")
+

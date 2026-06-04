@@ -78,7 +78,7 @@
 <!-- Side navigation bar -->
 <aside class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-6 bg-[#e1f8fe] dark:bg-[#0d2a30] w-52 shadow-lg border-r border-primary/5">
 <div class="px-6 mb-8 mt-14">
-<h1 class="font-headline font-bold text-[#343bc8] text-lg">Welcome, User!</h1>
+<h1 class="font-headline font-bold text-[#343bc8] text-lg">Welcome, {{ current_user.username }}!</h1>
 </div>
 <div class="flex flex-col gap-1 px-2 flex-grow">
     <a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'home' %}">
@@ -93,6 +93,7 @@
         <span class="material-symbols-outlined text-xl">person</span>
         <span class="font-body text-sm font-medium">Profile</span>
     </a>
+    
 </div>
 <div class="px-4 pb-6">
     <a href="{% url 'foodspot_create' %}" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
@@ -141,9 +142,9 @@
 <div class="mb-8">
   <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Price Range</label>
   <div class="flex gap-3" id="price-buttons">
-    <button type="button" onclick="selectPrice(this, '$')" class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$</button>
-    <button type="button" onclick="selectPrice(this, '$$')" class="price-btn bg-primary text-white w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-neg-1 hover:scale-110 transition-all shadow-lg">$$</button>
-    <button type="button" onclick="selectPrice(this, '$$$')" class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$$$</button>
+    <button type="button" value="$" onclick="selectPrice(this, '$')" class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$</button>
+    <button type="button" value="$$" onclick="selectPrice(this, '$$')" class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-neg-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$$</button>
+    <button type="button" value="$$$" onclick="selectPrice(this, '$$$')" class="price-btn bg-white text-on-surface w-12 h-10 rounded-lg text-xs font-bold sticker-rotate-1 hover:scale-110 transition-all shadow-sm border border-slate-100">$$$</button>
   </div>
   <input type="hidden" id="price-input" name="price" value="{{ request.GET.price }}"/>
 </div>
@@ -326,6 +327,7 @@
                 b.classList.add('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
             });
             document.getElementById('price-input').value = '';
+            btn.closest('form').submit();
             return;
         }
         document.querySelectorAll('.price-btn').forEach(b => {
@@ -335,17 +337,19 @@
         btn.classList.remove('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
         btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
         document.getElementById('price-input').value = value;
+        btn.closest('form').submit();
     }
 
     const savedPrice = document.getElementById('price-input').value;
-    if (savedPrice) {
-        document.querySelectorAll('.price-btn').forEach(btn => {
-            if (btn.value === savedPrice) {
-                btn.classList.remove('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
-                btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
-            }
-        });
-    }
+    document.querySelectorAll('.price-btn').forEach(btn => {
+        if (savedPrice && btn.getAttribute('value') === savedPrice) {
+            btn.classList.remove('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
+            btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
+        } else {
+            btn.classList.remove('bg-primary', 'text-white', 'shadow-lg');
+            btn.classList.add('bg-white', 'text-on-surface', 'shadow-sm', 'border', 'border-slate-100');
+        }
+    });
 
     document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
         cb.addEventListener('change', () => cb.closest('form').submit());
