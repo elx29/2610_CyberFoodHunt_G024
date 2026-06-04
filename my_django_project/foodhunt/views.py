@@ -172,7 +172,7 @@ def search(request):
     elif price == "$$":
         restaurants = restaurants.filter(max_price__gte=15, max_price__lte=30)
     elif price == "$$$":
-        restaurants = restaurants.filter(min_price__gte=30)
+        restaurants = restaurants.filter(max_price__gte=30, max_price__lte=100)
 
         #filter for rating (ELX)
     sort_by = request.GET.get("sort", "top_rated")#default sorting is by top rated
@@ -491,6 +491,8 @@ def foodspot_create(request):
         location        = request.POST.get("location", "").strip()
         transport       = request.POST.get("transport", "").strip()
         opening_hours   = request.POST.get("opening_hours", "").strip()
+        operating_days  = request.POST.get("operating_days", "").strip()
+        closed_days     = request.POST.get("closed_days", "").strip()
         description     = request.POST.get("description", "").strip()
         halal_raw       = request.POST.get("halal", "0")
         min_price_raw   = request.POST.get("min_price", "").strip()
@@ -541,6 +543,8 @@ def foodspot_create(request):
             restaurant_name = restaurant_name,
             location        = location,
             opening_hours   = opening_hours or None,
+            operating_days  = operating_days or None,
+            closed_days     = closed_days or None,
             transport_mode  = transport or None,
             cuisine         = cuisine,
             is_halal        = halal_value,
@@ -596,6 +600,8 @@ def restaurant_edit(request, restaurant_id):
         restaurant.location        = request.POST.get('location', restaurant.location)
         restaurant.cuisine         = request.POST.get('cuisine', restaurant.cuisine)
         restaurant.opening_hours   = request.POST.get('opening_hours', restaurant.opening_hours)
+        restaurant.operating_days  = request.POST.get('operating_days', restaurant.operating_days)
+        restaurant.closed_days     = request.POST.get('closed_days', restaurant.closed_days)
         restaurant.transport_mode  = request.POST.get('transport', restaurant.transport_mode)
         restaurant.description     = request.POST.get('description', restaurant.description)
         restaurant.is_halal        = request.POST.get('halal', restaurant.is_halal)
