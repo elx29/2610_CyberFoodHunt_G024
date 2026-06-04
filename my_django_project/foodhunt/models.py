@@ -15,6 +15,27 @@ class Bookmark(models.Model):
         db_table = 'bookmark'
 
 
+class RestaurantVote(models.Model):
+    VOTE_CHOICES = (
+        ("like", "Like"),
+        ("dislike", "Dislike"),
+    )
+
+    vote_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey('User', models.CASCADE)
+    restaurant = models.ForeignKey('Restaurant', models.CASCADE)
+    vote_type = models.CharField(max_length=10, choices=VOTE_CHOICES)
+    created_at = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user} {self.vote_type}d {self.restaurant}"
+
+    class Meta:
+        managed = True
+        db_table = 'restaurant_vote'
+        unique_together = ('user', 'restaurant')
+
+
 class Event(models.Model):
     event_id = models.AutoField(primary_key=True)
     user = models.ForeignKey('User', models.CASCADE)
@@ -67,6 +88,7 @@ class Restaurant(models.Model):
     image = models.ImageField(upload_to="restaurant_images/", blank=True, null=True)
     operating_days = models.TextField(blank=True, null=True)
     closed_days = models.TextField(blank=True, null=True)
+  
 
     def __str__(self):
         return self.restaurant_name  # username for the User class

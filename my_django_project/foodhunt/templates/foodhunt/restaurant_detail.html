@@ -303,21 +303,25 @@
                         </div>
                         
                         <div class="flex flex-wrap items-center gap-4 pt-8 mt-6 border-t border-primary/10">
-                            <button id="bookmarkBtn"
-                                class="flex items-center justify-center w-12 h-12 rounded-full bg-white text-primary border border-primary/20 hover:bg-primary hover:text-on-primary transition-all shadow-sm">
-                                <span class="material-symbols-outlined" id="bookmarkIcon"
-                                    style="font-variation-settings: 'FILL' 0;">bookmark</span></button>
-                            <div
-                                class="flex items-center gap-2 bg-white rounded-full p-1 border border-primary/20 shadow-sm">
-                                <button id="thumbUpBtn"
-                                    class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-secondary-container transition-colors">
-                                    <span class="material-symbols-outlined text-secondary" id="thumbUpIcon"
-                                        style="font-variation-settings: 'FILL' 0;">thumb_up</span></button>
+                            <div class="flex items-center gap-2 bg-white rounded-full p-1 border border-primary/20 shadow-sm">
+                                
+                                <!--like & dislike buttons -->
+                                <form method="POST" action="{% url 'restaurant_vote_toggle' restaurant.restaurant_id 'like' %}" class="inline">
+                                    {% csrf_token %}
+                                    <button type="submit" id="thumbUpBtn" class="flex items-center justify-center gap-1 min-w-10 h-10 px-3 rounded-full hover:bg-secondary-container transition-colors {% if current_vote == 'like' %}bg-secondary-container{% endif %}">
+                                        <span class="material-symbols-outlined text-secondary" id="thumbUpIcon" style="font-variation-settings: 'FILL' {% if current_vote == 'like' %}1{% else %}0{% endif %};">thumb_up</span>
+                                        <span id="like-count" class="text-xs font-bold text-secondary">{{ like_count }}</span>
+                                    </button>
+                                </form>
                                 <div class="w-[1px] h-6 bg-primary/10"></div>
-                                <button id="thumbDownBtn"
-                                    class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-error-container/20 transition-colors">
-                                    <span class="material-symbols-outlined text-error" id="thumbDownIcon"
-                                        style="font-variation-settings: 'FILL' 0;">thumb_down</span></button>
+
+                                <form method="POST" action="{% url 'restaurant_vote_toggle' restaurant.restaurant_id 'dislike' %}" class="inline">
+                                    {% csrf_token %}
+                                    <button type="submit" id="thumbDownBtn" class="flex items-center justify-center gap-1 min-w-10 h-10 px-3 rounded-full hover:bg-error-container/20 transition-colors {% if current_vote == 'dislike' %}bg-error-container bg-red-100{% endif %}">
+                                        <span class="material-symbols-outlined text-error" id="thumbDownIcon" style="font-variation-settings: 'FILL' {% if current_vote == 'dislike' %}1{% else %}0{% endif %};">thumb_down</span>
+                                        <span id="dislike-count" class="text-xs font-bold text-error">{{ dislike_count }}</span>
+                                    </button>
+                                </form>
                             </div>
 
                             {% if login_user_id %}
@@ -427,6 +431,16 @@
             const thumbDownBtn = document.getElementById('thumbDownBtn');
             const thumbDownIcon = document.getElementById('thumbDownIcon');
 
+            let currentVote = null;
+
+            function updateCount(id, delta) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            let n = Math.max(0, parseInt(el.textContent) || 0);
+            n += delta;
+            el.textContent = n >= 1000 ? (n / 1000).toFixed(1) + 'k' : n;
+        }
+
             if (bookmarkBtn && bookmarkIcon) {
                 bookmarkBtn.addEventListener('click', () => {
                     bookmarkBtn.classList.toggle('bg-white');
@@ -439,39 +453,7 @@
                 });
             }
 
-            if (thumbUpBtn && thumbUpIcon) {
-                thumbUpBtn.addEventListener('click', () => {
-                    const isFilled = thumbUpIcon.style.fontVariationSettings.includes("'FILL' 1");
-                    if (isFilled) {
-                        thumbUpIcon.style.fontVariationSettings = "'FILL' 0";
-                        thumbUpBtn.classList.remove('bg-secondary-container');
-                    } else {
-                        thumbUpIcon.style.fontVariationSettings = "'FILL' 1";
-                        thumbUpBtn.classList.add('bg-secondary-container');
 
-                        // Disable thumb down if active
-                        if (thumbDownIcon) thumbDownIcon.style.fontVariationSettings = "'FILL' 0";
-                        if (thumbDownBtn) thumbDownBtn.classList.remove('bg-error-container', 'bg-red-100');
-                    }
-                });
-            }
-
-            if (thumbDownBtn && thumbDownIcon) {
-                thumbDownBtn.addEventListener('click', () => {
-                    const isFilled = thumbDownIcon.style.fontVariationSettings.includes("'FILL' 1");
-                    if (isFilled) {
-                        thumbDownIcon.style.fontVariationSettings = "'FILL' 0";
-                        thumbDownBtn.classList.remove('bg-error-container', 'bg-red-100');
-                    } else {
-                        thumbDownIcon.style.fontVariationSettings = "'FILL' 1";
-                        thumbDownBtn.classList.add('bg-error-container', 'bg-red-100');
-
-                        // Disable thumb up if active
-                        if (thumbUpIcon) thumbUpIcon.style.fontVariationSettings = "'FILL' 0";
-                        if (thumbUpBtn) thumbUpBtn.classList.remove('bg-secondary-container');
-                    }
-                });
-            }
         });
     </script>
 </body>
