@@ -2,7 +2,7 @@ from urllib import request
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-from .models import Event,User, Restaurant, Post, Review 
+from .models import Event,User, Restaurant, Post, Review, Bookmark
 from django.contrib.auth.hashers import make_password, check_password
 from django.db.models import Avg, F, FloatField
 from django.db.models.functions import Coalesce
