@@ -244,45 +244,43 @@
 </div>
 </div>
 
-<!-- My Bookmarks Section -->
-<div class="flex flex-col gap-4 px-2">
-  <h2 class="font-headline text-xl font-bold flex items-center gap-2 px-2">
-    <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">
-      bookmark
-    </span>
-    My Bookmarks
-  </h2>
-<div class="space-y-[-1.5rem]">
-<div class="bg-white p-4 rounded-xl shadow-md rotate-scrapbook-pos relative z-30 flex items-center gap-4 border border-slate-100 hover:z-50 transition-all hover:-translate-y-2">
-<div class="w-12 h-12 bg-primary-fixed rounded flex items-center justify-center">
-<span class="material-symbols-outlined text-primary" style"">lunch_dining</span>
-</div>
-<div>
-<div class="font-headline font-bold text-sm" style"">Village Pizza Co.</div>
-<div class="text-[10px] text-slate-400 uppercase tracking-widest" style"">D'Pulze Mall</div>
-</div>
-</div>
-<div class="bg-surface-container-lowest p-4 rounded-xl shadow-md -rotate-scrapbook-neg relative z-20 flex items-center gap-4 border border-slate-100 hover:z-50 transition-all hover:-translate-y-2">
-<div class="w-12 h-12 bg-secondary-container rounded flex items-center justify-center">
-<span class="material-symbols-outlined text-secondary" style"">coffee</span>
-</div>
-<div>
-<div class="font-headline font-bold text-sm" style"">The Caffeine Hub</div>
-<div class="text-[10px] text-slate-400 uppercase tracking-widest" style"">DPulze</div>
-</div>
-</div>
-<div class="bg-white p-4 rounded-xl shadow-md rotate-scrapbook-pos relative z-10 flex items-center gap-4 border border-slate-100 hover:z-50 transition-all hover:-translate-y-2">
-<div class="w-12 h-12 bg-tertiary-container/20 rounded flex items-center justify-center">
-<span class="material-symbols-outlined text-tertiary" style"">ramen_dining</span>
-</div>
-<div>
-<div class="font-headline font-bold text-sm" style"">Ramen Zen</div>
-<div class="text-[10px] text-slate-400 uppercase tracking-widest" style"">Shaftsbury</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<!-- My Bookmarks preview -->
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center justify-between px-1">
+          <h2 class="font-headline text-xl font-bold flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+            My Bookmarks
+          </h2>
+          <a href="{% url 'bookmark_list' %}" class="text-primary text-xs font-bold hover:underline">View all →</a>
+        </div>
+        {% if bookmarks %}
+        <div class="space-y-2">
+          {% for bm in bookmarks %}
+          {% with r=bm.restaurant %}
+          <a href="{% url 'restaurant_detail' r.restaurant_id %}" class="bg-white p-4 rounded-xl shadow-sm flex items-center gap-4 border border-slate-100 hover:-translate-y-1 transition-transform block">
+            <div class="w-12 h-12 flex-shrink-0 bg-primary-fixed rounded-lg flex items-center justify-center overflow-hidden">
+              {% if r.image %}
+              <img src="{{ r.image.url }}" alt="{{ r.restaurant_name }}" class="w-full h-full object-cover"/>
+              {% else %}
+              <span class="material-symbols-outlined text-primary">restaurant</span>
+              {% endif %}
+            </div>
+            <div class="min-w-0">
+              <div class="font-headline font-bold text-sm truncate">{{ r.restaurant_name }}</div>
+              <div class="text-[10px] text-slate-400 uppercase tracking-widest truncate">{{ r.location }}</div>
+            </div>
+          </a>
+          {% endwith %}
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="bg-white/40 p-4 rounded-xl text-center text-sm text-slate-400">
+          <a href="{% url 'search' %}" class="text-primary font-bold hover:underline">explore restaurants</a>
+        </div>
+        {% endif %}
+      </div>
+
+    </div>
 
 <!-- Recent Restaurants Feed History -->
 <div class="md:col-span-8 flex flex-col gap-4 relative"> <!-- IF CHANGE gap-8 to gap-4 THEN RECENT EVENT WILL LOOK NATURAL-->
