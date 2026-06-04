@@ -2,7 +2,7 @@ from urllib import request
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-from .models import Event,User, Restaurant, Post, Review 
+from .models import Event,User, Restaurant, Post, Review, Bookmark
 from django.contrib.auth.hashers import make_password, check_password
 from django.db.models import Avg, F, FloatField
 from django.db.models.functions import Coalesce
@@ -15,16 +15,15 @@ def event_list(request):
     #Only get events that haven't expired yet (end_date >= today)
     events = Event.objects.filter(end_date__gte=today).order_by("end_date")
 
-    
-    user_id = request.session.get("user_id")
-    current_user = User.objects.get(user_id=user_id) if user_id else None
-
+    current_user = None
     user_id = request.session.get("user_id")
     if user_id:
         current_user = User.objects.filter(user_id=user_id).first()
+        
     return render(request, "foodhunt/event_list.html", {
         "events": events, 
-        "current_user": current_user})
+        "current_user": current_user
+        })
     #Send event data to HTML page so user can see it.
 
 #-----Event Detail(ELX): Show 1 single event details
@@ -196,10 +195,16 @@ def search(request):
     elif sort_by == "newest":
         restaurants = restaurants.order_by("-restaurant_id") #newest first based on restaurant_id
 
+    current_user = None
+    user_id = request.session.get("user_id")
+    if user_id:
+        current_user = User.objects.filter(user_id=user_id).first()
+
 
     return render(request, "foodhunt/search.html", {
         "restaurants": restaurants,
         "sort": sort_by,
+        "current_user": current_user,
     })
 
 #------Home Page (ELX): Show active events + restaurant recommendations
@@ -217,12 +222,19 @@ def home(request):
     if is_student:
         student_promos = Restaurant.objects.filter(is_student_promo=True).order_by("-restaurant_id")[:6]
 
+    current_user = None                                          # ADD
+    user_id = request.session.get("user_id")                    # ADD
+    if user_id:                                                  # ADD
+        current_user = User.objects.filter(user_id=user_id).first()  # ADD
+
+
     return render(request, 'foodhunt/main.html', {
         "events": events,
         "restaurants": restaurant,
         "today": today,
         "is_student": is_student,
         "student_promos": student_promos,
+        "current_user": current_user,  
     })
 
 #------User Profile (ELX): Show user details, badges, recent posts/events
@@ -608,3 +620,31 @@ def restaurant_edit(request, restaurant_id):
         'editing': True,
         'restaurant': restaurant,
     })
+# Bookmark List
+def bookmark_list(request):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return redirect("login")
+    current_user = get_object_or_404(User, user_id=user_id)
+    bookmarks = Bookmark.objects.filter(user=current_user).select_related("restaurant").order_by("-saved_at")
+    return render(request, "foodhunt/bookmark.html", {
+        "bookmarks": bookmarks,
+        "current_user": current_user,
+    })
+
+# Bookmark Toggle
+def bookmark_toggle(request, restaurant_id):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return redirect("login")
+    current_user = get_object_or_404(User, user_id=user_id)
+    restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+    existing = Bookmark.objects.filter(user=current_user, restaurant=restaurant).first()
+    if existing:
+        existing.delete()
+    else:
+        Bookmark.objects.create(user=current_user, restaurant=restaurant, saved_at=timezone.now())
+    next_url = request.POST.get("next") or request.GET.get("next") or ""
+    if next_url == "bookmark_list":
+        return redirect("bookmark_list")
+    return redirect("restaurant_detail", restaurant_id=restaurant_id)

@@ -136,36 +136,34 @@
 </nav>
 </header>
 <!-- SideNavBar -->
-<aside class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-6 bg-[#e1f8fe] dark:bg-[#0d2a30] w-52 shadow-lg border-r border-primary/5">
-<div class="px-6 mb-8 mt-14">
-<h1 class="font-headline font-bold text-[#343bc8] text-lg" style"">Welcome, User!</h1>
-</div>
-<div class="flex flex-col gap-1 px-2 flex-grow">
-<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'home' %}" style"">
-<span class="material-symbols-outlined text-xl" style"">home</span>
-<span class="font-body text-sm font-medium" style"">Home</span>
-</a>
-<!--  <a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="review.html" style"">
-<span class="material-symbols-outlined text-xl" style"">edit_note</span>
-<span class="font-body text-sm font-medium" style"">Reviews</span>
-</a>  -->
-<a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'search' %}" style"">
-<span class="material-symbols-outlined text-xl" style"">search</span>
-<span class="font-body text-sm font-medium" style"">Search</span>
-</a>
-<a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="{% url 'userprofile' %}" style"">
-<span class="material-symbols-outlined text-xl" style"">person</span>
-<span class="font-body text-sm font-medium" style"">Profile</span>
-</a>
-</div>
-<a>
-<div class="px-4 pb-6">
-  <a href="{% url 'foodspot_create' %}" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
-    Share Now!
-  </a>
-</div>
+<aside class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-6 bg-[#e1f8fe] w-52 shadow-lg border-r border-primary/5">
+  <div class="px-6 mb-8 mt-14">
+    <h1 class="font-headline font-bold text-[#343bc8] text-lg">Welcome, {{ current_user.username }}!</h1>
+  </div>
+  <div class="flex flex-col gap-1 px-2 flex-grow">
+    <a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'home' %}">
+      <span class="material-symbols-outlined text-xl">home</span>
+      <span class="font-body text-sm font-medium">Home</span>
+    </a>
+    <a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'search' %}">
+      <span class="material-symbols-outlined text-xl">search</span>
+      <span class="font-body text-sm font-medium">Search</span>
+    </a>
+    <a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="{% url 'userprofile' %}">
+      <span class="material-symbols-outlined text-xl">person</span>
+      <span class="font-body text-sm font-medium">Profile</span>
+    </a>
+    <a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'bookmark_list' %}">
+      <span class="material-symbols-outlined text-xl">bookmark</span>
+      <span class="font-body text-sm font-medium">Bookmarks</span>
+    </a>
+  </div>
+  <div class="px-4 pb-6">
+    <a href="{% url 'foodspot_create' %}" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
+      Share Now!
+    </a>
+  </div>
 </aside>
-<!-- <main class="lg:ml-52 pt-14 px-4 md:px-8 pb-8 max-w-7xl mx-auto"> -->
 
 <!-- Main Content Canvas -->
 <main class="lg:ml-52 pt-28 lg:pt-32 p-4 md:p-8 relative overflow-hidden ">
