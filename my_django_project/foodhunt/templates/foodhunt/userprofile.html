@@ -1,115 +1,140 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
-<head>
+
+<html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Profile | CYBER FOOD HUNT</title>
+<title>Home | CYBER FOOD HUNT</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Hanken+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        "colors": {
-          "on-tertiary-fixed": "#001e2e",
-          "on-tertiary-container": "#d4ecff",
-          "surface-container-low": "#e1f8fe",
-          "inverse-on-surface": "#def5fb",
-          "inverse-surface": "#1f3438",
-          "surface": "#effcff",
-          "surface-dim": "#c7dee4",
-          "secondary-fixed": "#c8e6ff",
-          "primary-fixed": "#e0e0ff",
-          "background": "#effcff",
-          "surface-variant": "#d0e6ec",
-          "tertiary": "#0e5678",
-          "on-secondary": "#ffffff",
-          "on-error": "#ffffff",
-          "primary-container": "#4f57e1",
-          "secondary-container": "#b7dffe",
-          "secondary-fixed-dim": "#a3cbea",
-          "secondary": "#3b637d",
-          "primary-fixed-dim": "#bfc2ff",
-          "on-background": "#081e23",
-          "on-primary": "#ffffff",
-          "primary": "#343bc8",
-          "on-secondary-fixed": "#001e2e",
-          "tertiary-fixed-dim": "#94cdf5",
-          "on-secondary-container": "#3b637e",
-          "surface-container-highest": "#d0e6ec",
-          "outline": "#767686",
-          "surface-container": "#dbf2f8",
-          "surface-tint": "#444cd6",
-          "tertiary-container": "#316e92",
-          "on-secondary-fixed-variant": "#214b64",
-          "surface-container-lowest": "#ffffff",
-          "error": "#ba1a1a",
-          "tertiary-fixed": "#c7e7ff",
-          "on-surface-variant": "#454554",
-          "on-tertiary-fixed-variant": "#004c6d",
-          "outline-variant": "#c6c5d7",
-          "on-primary-container": "#e8e6ff",
-          "surface-bright": "#effcff",
-          "on-error-container": "#93000a",
-          "on-primary-fixed": "#01006e",
-          "error-container": "#ffdad6",
-          "on-primary-fixed-variant": "#292fbe",
-          "surface-container-high": "#d5ecf2",
-          "inverse-primary": "#bfc2ff",
-          "on-surface": "#081e23",
-          "on-tertiary": "#ffffff"
-        },
-        "borderRadius": {
-          "DEFAULT": "0.125rem",
-          "lg": "0.25rem",
-          "xl": "0.5rem",
-          "full": "0.75rem"
-        },
-        "fontFamily": {
-          "headline": ["Space Grotesk"],
-          "body": ["Hanken Grotesk"],
-          "label": ["Inter"]
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-tertiary-fixed": "#001e2e",
+                "on-tertiary-container": "#d4ecff",
+                "surface-container-low": "#e1f8fe",
+                "inverse-on-surface": "#def5fb",
+                "inverse-surface": "#1f3438",
+                "surface": "#effcff",
+                "surface-dim": "#c7dee4",
+                "secondary-fixed": "#c8e6ff",
+                "primary-fixed": "#e0e0ff",
+                "background": "#effcff",
+                "surface-variant": "#d0e6ec",
+                "tertiary": "#0e5678",
+                "on-secondary": "#ffffff",
+                "on-error": "#ffffff",
+                "primary-container": "#4f57e1",
+                "secondary-container": "#b7dffe",
+                "secondary-fixed-dim": "#a3cbea",
+                "secondary": "#3b637d",
+                "primary-fixed-dim": "#bfc2ff",
+                "on-background": "#081e23",
+                "on-primary": "#ffffff",
+                "primary": "#343bc8",
+                "on-secondary-fixed": "#001e2e",
+                "tertiary-fixed-dim": "#94cdf5",
+                "on-secondary-container": "#3b637e",
+                "surface-container-highest": "#d0e6ec",
+                "outline": "#767686",
+                "surface-container": "#dbf2f8",
+                "surface-tint": "#444cd6",
+                "tertiary-container": "#316e92",
+                "on-secondary-fixed-variant": "#214b64",
+                "surface-container-lowest": "#ffffff",
+                "error": "#ba1a1a",
+                "tertiary-fixed": "#c7e7ff",
+                "on-surface-variant": "#454554",
+                "on-tertiary-fixed-variant": "#004c6d",
+                "outline-variant": "#c6c5d7",
+                "on-primary-container": "#e8e6ff",
+                "surface-bright": "#effcff",
+                "on-error-container": "#93000a",
+                "on-primary-fixed": "#01006e",
+                "error-container": "#ffdad6",
+                "on-primary-fixed-variant": "#292fbe",
+                "surface-container-high": "#d5ecf2",
+                "inverse-primary": "#bfc2ff",
+                "on-surface": "#081e23",
+                "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "fontFamily": {
+                "headline": ["Space Grotesk"],
+                "body": ["Hanken Grotesk"],
+                "label": ["Inter"]
+            }
+          }
         }
       }
-    }
-  }
-</script>
+    </script>
 <style>
-  body { font-family: 'Hanken Grotesk', sans-serif; background-color: #DAF1F7; }
-  .scrapbook-bg {
-    background-image: radial-gradient(circle at 2px 2px, rgba(52, 59, 200, 0.05) 1px, transparent 0);
-    background-size: 30px 30px;
-  }
-  .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  }
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: #343bc833; border-radius: 10px; }
-</style>
+        body { font-family: 'Hanken Grotesk', sans-serif; background-color: #DAF1F7; }
+        .scrapbook-bg {
+            background-image: radial-gradient(circle at 2px 2px, rgba(52, 59, 200, 0.05) 1px, transparent 0);
+            background-size: 30px 30px;
+        }
+        .tape-effect {
+            position: relative;
+        }
+        .tape-effect::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 70px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(2px);
+            z-index: 10;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for dense layout */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #343bc833; border-radius: 10px; }
+        
+        .map-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
 </head>
 <body class="bg-background scrapbook-bg text-on-surface overflow-x-hidden">
-
 <!-- TopNavBar -->
-<header class="fixed top-0 w-full z-50 bg-[#effcff]/90 backdrop-blur-md shadow-sm">
-  <nav class="flex justify-between items-center max-w-7xl mx-auto px-6 h-14">
-    <div class="text-xl font-bold bg-gradient-to-br from-[#343bc8] to-[#4f57e1] bg-clip-text text-transparent font-headline tracking-tighter">Cyber Food Hunt</div>
-    <div class="flex-1 flex justify-center items-center gap-8">
-      <a class="text-[#16425B] opacity-70 text-sm hover:opacity-100 transition-opacity" href="{% url 'home' %}">Discover</a>
-      <a class="text-[#16425B] opacity-70 text-sm hover:opacity-100 transition-opacity" href="{% url 'event_list' %}">Pop-Ups</a>
-    </div>
-    <form method="post" action="{% url 'logout' %}" class="inline">
-      {% csrf_token %}
-      <button type="submit" class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-bold text-sm tracking-wide bg-transparent border-0 p-0 cursor-pointer">
+<header class="fixed top-0 w-full z-50 bg-[#effcff]/90 dark:bg-[#081e23] shadow-sm">
+<nav class="flex justify-between items-center max-w-7xl mx-auto px-6 h-14"> 
+<div class="text-xl font-bold bg-gradient-to-br from-[#343bc8] to-[#4f57e1] bg-clip-text text-transparent font-headline tracking-tighter" style"">Cyber Food Hunt</div>
+<div class="flex-1 flex justify-center items-center gap-8">
+<a class="text-[#343bc8] dark:text-[#4f57e1] font-bold border-b-2 border-[#343bc8] text-sm" href="{% url 'home' %}" style"">Discover</a>
+<a class="text-[#16425B] dark:text-[#d0e6ec] opacity-70 text-sm hover:opacity-100 transition-opacity" href="{% url 'event_list' %}" style"">Pop-Ups</a>
+</div>
+<div class="flex items-center gap-3">
+</div>
+<form method="post" action="{% url 'logout' %}" class="inline">
+    {% csrf_token %}
+    <button type="submit"
+        class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors font-bold text-sm tracking-wide bg-transparent border-0 p-0 cursor-pointer">
+        
         <span class="material-symbols-outlined text-xl">logout</span>
         Logout
-      </button>
-    </form>
-  </nav>
+    </button>
+</form>
+</nav>
 </header>
-
 <!-- SideNavBar -->
 <aside class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-6 bg-[#e1f8fe] w-52 shadow-lg border-r border-primary/5">
   <div class="px-6 mb-8 mt-14">
@@ -140,215 +165,214 @@
   </div>
 </aside>
 
-<!-- Main Content -->
-<main class="lg:ml-52 pt-28 lg:pt-32 p-4 md:p-8 relative overflow-hidden">
+<!-- Main Content Canvas -->
+<main class="lg:ml-52 pt-28 lg:pt-32 p-4 md:p-8 relative overflow-hidden ">
 <div class="scrapbook-bg absolute inset-0 pointer-events-none"></div>
 <div class="max-w-6xl mx-auto relative z-10">
-
-  <!-- User Profile Header -->
-  <section class="mb-12 flex flex-col md:flex-row items-center md:items-start gap-8">
-    <div class="relative">
-      <div class="w-32 h-32 md:w-44 md:h-44 bg-surface-container-highest rounded-xl p-1 shadow-lg">
-        <div class="w-full h-full bg-white overflow-hidden rounded-lg flex items-center justify-center">
-          <span class="material-symbols-outlined text-6xl text-slate-300">person</span>
-        </div>
-      </div>
-    </div>
-    <div class="flex-1 text-center md:text-left mt-4 md:mt-0">
-      <h1 class="text-4xl md:text-6xl font-headline font-black text-primary tracking-tighter mb-2">{{ current_user.username }}</h1>
-      <p class="text-on-surface-variant font-body text-lg max-w-xl mb-6">{{ current_user.email }}</p>
-      <div class="flex flex-wrap justify-center md:justify-start gap-4">
-        {% for badge in badges %}
-        <span class="bg-secondary-container px-4 py-1.5 rounded-full text-xs font-bold font-headline text-on-secondary-container uppercase tracking-widest shadow-sm flex items-center gap-1">
-          <span class="material-symbols-outlined text-sm">{{ badge.icon }}</span>
-          {{ badge.name }}
-        </span>
-        {% empty %}
-        <span class="bg-secondary-container px-4 py-1.5 rounded-full text-xs font-bold font-headline text-on-secondary-container uppercase tracking-widest shadow-sm">
-          New Member
-        </span>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-
-  <!-- Bento Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-
-    <!-- Left Column: Stats + Achievements + Bookmarks -->
-    <div class="md:col-span-4 flex flex-col gap-6">
-
-      <!-- Stats + Achievements card -->
-      <div class="bg-surface-container-low p-6 rounded-2xl shadow-xl relative overflow-hidden">
-        <div class="absolute top-2 right-2 text-primary/20">
-          <span class="material-symbols-outlined text-4xl">star_rate</span>
-        </div>
-
-        <!-- Stat counters -->
-        <div class="grid grid-cols-3 gap-3 mb-6">
-          <div class="bg-white/40 p-3 rounded-lg text-center">
-            <div class="text-xl font-black font-headline text-primary">{{ post_count }}</div>
-            <div class="text-[10px] text-slate-500 uppercase tracking-wide">Spots</div>
-          </div>
-          <div class="bg-white/40 p-3 rounded-lg text-center">
-            <div class="text-xl font-black font-headline text-primary">{{ event_count }}</div>
-            <div class="text-[10px] text-slate-500 uppercase tracking-wide">Events</div>
-          </div>
-          <div class="bg-white/40 p-3 rounded-lg text-center">
-            <div class="text-xl font-black font-headline text-primary">{{ bookmark_count }}</div>
-            <div class="text-[10px] text-slate-500 uppercase tracking-wide">Saved</div>
-          </div>
-        </div>
-
-        <h2 class="font-headline text-xl font-bold mb-4 flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary">military_tech</span> Achievements
-        </h2>
-        <div class="space-y-3">
-          {% for badge in badges %}
-          <div class="flex items-center gap-4 bg-white/40 p-3 rounded-lg backdrop-blur-sm">
-            <span class="material-symbols-outlined text-tertiary">{{ badge.icon }}</span>
-            <div>
-              <div class="text-xs font-black font-headline uppercase tracking-tight">{{ badge.name }}</div>
-              <div class="text-[10px] text-slate-500">{{ badge.desc }}</div>
-            </div>
-          </div>
-          {% empty %}
-          <p class="text-sm text-slate-400">No badges yet — start posting!</p>
-          {% endfor %}
-        </div>
-      </div>
-
-      <!-- My Bookmarks preview -->
-      <div class="flex flex-col gap-3">
-        <div class="flex items-center justify-between px-1">
-          <h2 class="font-headline text-xl font-bold flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">bookmark</span>
-            My Bookmarks
-          </h2>
-          <a href="{% url 'bookmark_list' %}" class="text-primary text-xs font-bold hover:underline">View all →</a>
-        </div>
-        {% if bookmarks %}
-        <div class="space-y-2">
-          {% for bm in bookmarks %}
-          {% with r=bm.restaurant %}
-          <a href="{% url 'restaurant_detail' r.restaurant_id %}" class="bg-white p-4 rounded-xl shadow-sm flex items-center gap-4 border border-slate-100 hover:-translate-y-1 transition-transform block">
-            <div class="w-12 h-12 flex-shrink-0 bg-primary-fixed rounded-lg flex items-center justify-center overflow-hidden">
-              {% if r.image %}
-              <img src="{{ r.image.url }}" alt="{{ r.restaurant_name }}" class="w-full h-full object-cover"/>
-              {% else %}
-              <span class="material-symbols-outlined text-primary">restaurant</span>
-              {% endif %}
-            </div>
-            <div class="min-w-0">
-              <div class="font-headline font-bold text-sm truncate">{{ r.restaurant_name }}</div>
-              <div class="text-[10px] text-slate-400 uppercase tracking-widest truncate">{{ r.location }}</div>
-            </div>
-          </a>
-          {% endwith %}
-          {% endfor %}
-        </div>
-        {% else %}
-        <div class="bg-white/40 p-4 rounded-xl text-center text-sm text-slate-400">
-          No bookmarks yet — <a href="{% url 'search' %}" class="text-primary font-bold hover:underline">explore restaurants</a>
-        </div>
-        {% endif %}
-      </div>
-
-    </div><!-- end left column -->
-
-    <!-- Right Column: Recent Posts + Recent Events -->
-    <div class="md:col-span-8 flex flex-col gap-6">
-
-      <!-- Recent Posts -->
-      <h2 class="font-headline text-2xl font-black text-primary tracking-tight px-4 flex items-center gap-2">
-        <span class="material-symbols-outlined">rate_review</span> Recent Posts
-      </h2>
-
-      {% for post in recents_post %}
-      <div class="relative group">
-        <div class="bg-surface-container-highest p-4 rounded-xl shadow-md z-20 relative group-hover:-translate-y-1 transition-transform duration-300">
-          <div class="flex flex-col md:flex-row gap-4">
-            <div class="w-full md:w-32 h-32 flex-shrink-0 bg-white rounded-lg overflow-hidden flex items-center justify-center">
-              {% if post.restaurant and post.restaurant.image %}
-              <img src="{{ post.restaurant.image.url }}" alt="{{ post.title }}" class="w-full h-full object-cover"/>
-              {% else %}
-              <span class="material-symbols-outlined text-4xl text-slate-300">lunch_dining</span>
-              {% endif %}
-            </div>
-            <div class="flex-1 min-w-0">
-              <div class="flex justify-between items-start gap-2">
-                <h3 class="font-headline font-bold text-lg truncate">{{ post.title }}</h3>
-                <span class="text-[10px] text-slate-400 whitespace-nowrap">{{ post.created_at|date:"d M Y" }}</span>
-              </div>
-              {% if post.description %}
-              <p class="text-sm text-on-surface-variant font-body line-clamp-2 mt-2 italic">"{{ post.description }}"</p>
-              {% endif %}
-              {% if post.restaurant %}
-              <div class="mt-3">
-                <a href="{% url 'restaurant_detail' post.restaurant.restaurant_id %}" class="text-primary text-xs font-bold hover:underline">View Restaurant →</a>
-              </div>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-      </div>
-      {% empty %}
-      <div class="bg-white/40 p-8 rounded-xl text-center">
-        <span class="material-symbols-outlined text-4xl text-slate-300 block mb-2">restaurant</span>
-        <p class="text-sm text-slate-400">No food spots posted yet.</p>
-        <a href="{% url 'foodspot_create' %}" class="mt-3 inline-block text-primary text-sm font-bold hover:underline">Share your first spot →</a>
-      </div>
-      {% endfor %}
-
-      <!-- Recent Events -->
-      <h2 class="font-headline text-2xl font-black text-primary tracking-tight px-4 flex items-center gap-2 mt-2">
-        <span class="material-symbols-outlined">event</span> Recent Events
-      </h2>
-
-      {% for event in recent_events %}
-      <div class="relative group">
-        <div class="bg-surface-container-lowest p-4 rounded-xl shadow-md z-20 relative group-hover:-translate-y-1 transition-transform duration-300 border border-outline-variant/20">
-          <div class="flex flex-col md:flex-row gap-4">
-            <div class="w-full md:w-32 h-32 flex-shrink-0 bg-white rounded-lg overflow-hidden flex items-center justify-center">
-              {% if event.image %}
-              <img src="{{ event.image.url }}" alt="{{ event.event_name }}" class="w-full h-full object-cover"/>
-              {% else %}
-              <span class="material-symbols-outlined text-4xl text-slate-300">event</span>
-              {% endif %}
-            </div>
-            <div class="flex-1 min-w-0">
-              <div class="flex justify-between items-start gap-2">
-                <h3 class="font-headline font-bold text-base truncate">{{ event.event_name }}</h3>
-                <div class="bg-primary text-white text-[10px] px-2 py-0.5 rounded font-bold whitespace-nowrap">Ends {{ event.end_date }}</div>
-              </div>
-              <p class="text-sm text-on-surface-variant mt-2 flex items-center gap-1">
-                <span class="material-symbols-outlined text-sm">location_on</span>
-                {{ event.event_location }}
-              </p>
-              {% if event.description %}
-              <p class="text-sm text-on-surface-variant font-body line-clamp-1 mt-1 italic">{{ event.description }}</p>
-              {% endif %}
-              <div class="mt-3 flex gap-3">
-                <a href="{% url 'event_detail' event.event_id %}" class="text-primary text-xs font-bold hover:underline">View Event →</a>
-                <a href="{% url 'event_delete' event.event_id %}" onclick="return confirm('Delete this event?')" class="text-error text-xs font-bold hover:underline">Delete</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% empty %}
-      <div class="bg-white/40 p-8 rounded-xl text-center">
-        <span class="material-symbols-outlined text-4xl text-slate-300 block mb-2">event</span>
-        <p class="text-sm text-slate-400">No active events posted yet.</p>
-        <a href="{% url 'event_create' %}" class="mt-3 inline-block text-primary text-sm font-bold hover:underline">Create your first event →</a>
-      </div>
-      {% endfor %}
-
-    </div>
-  </div>
-
+<!-- User Profile Section -->
+<section class="mb-12 flex flex-col md:flex-row items-center md:items-start gap-8">
+<div class="relative">
+<div class="w-32 h-32 md:w-44 md:h-44 bg-surface-container-highest rounded-xl rotate-scrapbook-neg p-1 shadow-lg">
+<div class="w-full h-full bg-white overflow-hidden rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-6xl text-slate-300" style"">person</span>
 </div>
-</main>
+</div>
+<div class="absolute -bottom-2 -right-2 w-10 h-10 bg-[#4F57E1] rounded-full flex items-center justify-center text-white rotate-scrapbook-pos shadow-md">
+<span class="material-symbols-outlined text-sm" style"">edit</span>
+</div>
+</div>
+<div class="flex-1 text-center md:text-left mt-4 md:mt-0">
+<h1 class="text-4xl md:text-6xl font-headline font-black text-primary tracking-tighter mb-2" style"">{{ current_user.username }}</h1>
+<p class="text-on-surface-variant font-body text-lg max-w-xl mb-6" style"">{{ current_user.email }}</p>
 
-</body>
-</html>
+<!--Achievements badge will become tags-->
+<div class="flex flex-wrap justify-center md:justify-start gap-4">
+    {% for badge in badges %}
+    <span class="bg-secondary-container px-4 py-1.5 rounded-full text-xs font-bold font-headline text-on-secondary-container uppercase tracking-widest shadow-sm flex items-center gap-1">
+        <span class="material-symbols-outlined text-sm">{{ badge.icon }}</span>
+        {{ badge.name }}
+    </span>
+    {% empty %}
+    <span class="bg-secondary-container px-4 py-1.5 rounded-full text-xs font-bold font-headline text-on-secondary-container uppercase tracking-widest shadow-sm">
+        New Member
+    </span>
+    {% endfor %}
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+<!-- Achievements and Bookmarks Column -->
+<div class="md:col-span-4 flex flex-col gap-6">
+
+<!-- Achievements Section -->
+<div class="bg-surface-container-low p-6 rounded-2xl rotate-scrapbook-neg shadow-xl relative overflow-hidden">
+<div class="absolute top-2 right-2 text-primary/20">
+<span class="material-symbols-outlined text-4xl" style"">star_rate</span>
+</div>
+
+<!-- ADDING stat counters -->
+<div class="grid grid-cols-2 gap-3 mb-6">
+    <div class="bg-white/40 p-3 rounded-lg text-center">
+        <div class="text-xl font-black font-headline text-primary">{{ post_count }}</div>
+        <div class="text-[10px] text-slate-500 uppercase tracking-wide">Spots</div>
+    </div>
+    <div class="bg-white/40 p-3 rounded-lg text-center">
+        <div class="text-xl font-black font-headline text-primary">{{ event_count }}</div>
+        <div class="text-[10px] text-slate-500 uppercase tracking-wide">Events</div>
+    </div>
+</div>
+<!-- #end till here -->
+
+<h2 class="font-headline text-xl font-bold mb-6 flex items-center gap-2" style"">
+<span class="material-symbols-outlined text-primary" style"">military_tech</span> Achievements
+                        </h2>
+                      
+ <!--The icon for achievements section, i think-->
+<div class="space-y-4">
+    {% for badge in badges %}
+    <div class="flex items-center gap-4 bg-white/40 p-3 rounded-lg backdrop-blur-sm">
+        <span class="material-symbols-outlined text-tertiary">{{ badge.icon }}</span>
+        <div>
+            <div class="text-xs font-black font-headline uppercase tracking-tight">{{ badge.name }}</div>
+            <div class="text-[10px] text-slate-500">{{ badge.desc }}</div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-sm text-slate-400">No badges yet — start posting!</p>
+    {% endfor %}
+</div>
+</div>
+
+<!-- My Bookmarks Section -->
+<div class="flex flex-col gap-4 px-2">
+  <h2 class="font-headline text-xl font-bold flex items-center gap-2 px-2">
+    <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">
+      bookmark
+    </span>
+    My Bookmarks
+  </h2>
+<div class="space-y-[-1.5rem]">
+<div class="bg-white p-4 rounded-xl shadow-md rotate-scrapbook-pos relative z-30 flex items-center gap-4 border border-slate-100 hover:z-50 transition-all hover:-translate-y-2">
+<div class="w-12 h-12 bg-primary-fixed rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style"">lunch_dining</span>
+</div>
+<div>
+<div class="font-headline font-bold text-sm" style"">Village Pizza Co.</div>
+<div class="text-[10px] text-slate-400 uppercase tracking-widest" style"">D'Pulze Mall</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-md -rotate-scrapbook-neg relative z-20 flex items-center gap-4 border border-slate-100 hover:z-50 transition-all hover:-translate-y-2">
+<div class="w-12 h-12 bg-secondary-container rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" style"">coffee</span>
+</div>
+<div>
+<div class="font-headline font-bold text-sm" style"">The Caffeine Hub</div>
+<div class="text-[10px] text-slate-400 uppercase tracking-widest" style"">DPulze</div>
+</div>
+</div>
+<div class="bg-white p-4 rounded-xl shadow-md rotate-scrapbook-pos relative z-10 flex items-center gap-4 border border-slate-100 hover:z-50 transition-all hover:-translate-y-2">
+<div class="w-12 h-12 bg-tertiary-container/20 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" style"">ramen_dining</span>
+</div>
+<div>
+<div class="font-headline font-bold text-sm" style"">Ramen Zen</div>
+<div class="text-[10px] text-slate-400 uppercase tracking-widest" style"">Shaftsbury</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Recent Restaurants Feed History -->
+<div class="md:col-span-8 flex flex-col gap-4 relative"> <!-- IF CHANGE gap-8 to gap-4 THEN RECENT EVENT WILL LOOK NATURAL-->
+
+    <h2 class="font-headline text-2xl font-black text-primary tracking-tight px-4 flex items-center gap-2" style"">
+        <span class="material-symbols-outlined" style"">rate_review</span> Recent Posts
+    </h2>
+
+<!-- Post Card -->
+    {% for post in recent_posts %}
+    <div class="relative group">
+        <div class="bg-surface-container-highest p-4 rounded-xl rotate-scrapbook-pos shadow-lg z-20 relative translate-x-2 translate-y-2 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-300">
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="w-full md:w-32 h-32 flex-shrink-0 bg-white rounded flex items-center justify-center">
+                   
+                    {% if post.image %}
+
+                    <img src="{{ post.image.url }}" class="w-full h-full object-cover rounded"/>
+                    
+                    {% else %}
+
+                    <span class="material-symbols-outlined text-4xl text-slate-300" style"">lunch_dining</span>
+                    
+                    {% endif %}
+                </div>
+
+                <div class="flex-1">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-headline font-bold text-lg">{{ post.restaurant.restaurant_name }}</h3>
+                    </div>
+                    <p class=="text-xs text-slate-400 uppercase tracking-widest mt-1">{{ post.restaurant.location }}</p>
+                    <p class="text-sm text-on-surface-variant font-body line-clamp-2 mt-2 italic">
+                        {{ post.description }}
+                    </p>
+                    <div class="mt-4 flex gap-2">
+                        <a href="{% url 'restaurant_detail' post.restaurant.restaurant_id %}" class="text-primary text-xs font-bold">
+                            View Restaurant →
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="absolute inset-0 bg-primary/10 rounded-xl -rotate-1 z-10"></div>
+    </div>
+    {% empty %}
+    <p class="text-sm text-slate-400 px-4">No posts yet — share your first food spot!</p>
+    {% endfor %}
+
+<!-- Recent Events -->
+<h2 class="font-headline text-2xl font-black text-primary tracking-tight px-4 flex items-center gap-2">
+    <span class="material-symbols-outlined">event</span> Recent Events
+</h2>
+
+{% for event in recent_events %}
+<div class="relative group mb-2">
+    <div class="bg-surface-container-highest p-4 rounded-xl rotate-scrapbook-pos shadow-md z-20 relative translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-300">
+        <div class="flex flex-col md:flex-row gap-2">
+            <div class="w-full md:w-32 h-32 flex-shrink-0 bg-white rounded flex items-center justify-center">
+                <span class="material-symbols-outlined text-4xl text-slate-300">event</span>
+            </div>
+            <div class="flex-1">
+                <div class="flex justify-between items-start">
+                    <h3 class="font-headline font-bold text-base">{{ event.event_name }}</h3>
+                    <div class="bg-primary text-white text-[10px] px-2 py-0.5 rounded font-bold">{{ event.end_date }}</div>
+                </div>
+                <p class="text-sm text-on-surface-variant font-body line-clamp-2 mt-2 italic">
+                    <span class="material-symbols-outlined text-xs">location_on</span>
+                    {{ event.event_location }}
+                </p>
+                <div class="mt-3 flex gap-2">
+                    <a href="{% url 'event_detail' event.event_id %}" 
+                       class="text-primary text-xs font-bold">
+                        View Event →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% empty %}
+<p class="text-sm text-slate-400 px-4">No active events posted yet.</p>
+{% endfor %}
+</div>
+</div>
+</div>
+<!-- Decorative Stickers -->
+<span class="material-symbols-outlined absolute -bottom-6 -left-6 text-white/5 text-[120px] pointer-events-none" style='font-variation-settings: "FILL" 1;'>star</span>
+<span class="material-symbols-outlined absolute bottom-4 right-2 text-primary text-4xl opacity-40 rotate-12" style='font-variation-settings: "FILL" 1;'>stars</span>
+<span class="material-symbols-outlined absolute top-1/2 left-4 text-white/10 text-3xl animate-pulse">auto_awesome</span>
+</main>
+</body></html>

@@ -75,25 +75,28 @@
 </nav>
 </header>
 
-<!-- Side navigation bar -->
-<aside class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-6 bg-[#e1f8fe] dark:bg-[#0d2a30] w-52 shadow-lg border-r border-primary/5">
+<!-- Side Naviagtion Bar -->
+<aside class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col py-6 bg-[#e1f8fe] w-52 shadow-lg border-r border-primary/5">
 <div class="px-6 mb-8 mt-14">
-<h1 class="font-headline font-bold text-[#343bc8] text-lg">Welcome, {{ current_user.username }}!</h1>
+    <h1 class="font-headline font-bold text-[#343bc8] text-lg">Welcome, {{ current_user.username }}!</h1>
 </div>
 <div class="flex flex-col gap-1 px-2 flex-grow">
-    <a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'home' %}">
-        <span class="material-symbols-outlined text-xl">home</span>
+    <a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'home' %}">
+        <span class="material-symbols-outlined text-xl">home</span>   
         <span class="font-body text-sm font-medium">Home</span>
     </a>
     <a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="{% url 'search' %}">
         <span class="material-symbols-outlined text-xl">search</span>
         <span class="font-body text-sm font-medium">Search</span>
     </a>
-    <a class="text-[#16425B] dark:text-[#d0e6ec] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'userprofile' %}">
+    <a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'userprofile' %}">
         <span class="material-symbols-outlined text-xl">person</span>
         <span class="font-body text-sm font-medium">Profile</span>
     </a>
-    
+    <a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'bookmark_list' %}">
+        <span class="material-symbols-outlined text-xl">bookmark</span>
+        <span class="font-body text-sm font-medium">Bookmarks</span>
+    </a>
 </div>
 <div class="px-4 pb-6">
     <a href="{% url 'foodspot_create' %}" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">

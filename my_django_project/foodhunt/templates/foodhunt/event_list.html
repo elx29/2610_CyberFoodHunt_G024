@@ -78,7 +78,7 @@
 <h1 class="font-headline font-bold text-[#343bc8] text-lg">Welcome, {{ current_user.username }}!</h1>
 </div>
 <div class="flex flex-col gap-1 px-2 flex-grow">
-<a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'home' %}">
+<a class="bg-[#343bc8] text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-transform hover:scale-105" href="{% url 'home' %}">
 <span class="material-symbols-outlined text-xl">home</span>
 <span class="font-body text-sm font-medium">Home</span>
 </a>
@@ -90,10 +90,6 @@
 <span class="material-symbols-outlined text-xl">person</span>
 <span class="font-body text-sm font-medium">Profile</span>
 </a>
-<a class="text-[#16425B] px-4 py-2 flex items-center gap-3 hover:bg-white/50 transition-colors" href="{% url 'bookmark_list' %}">
-      <span class="material-symbols-outlined text-xl">bookmark</span>
-      <span class="font-body text-sm font-medium">Bookmarks</span>
-    </a>
 </div>
 <div class="px-4 pb-6">
     <a href="{% url 'foodspot_create' %}" class="w-full block text-center py-2.5 bg-primary text-white rounded-lg text-sm font-medium shadow-md hover:brightness-110 transition-all">
