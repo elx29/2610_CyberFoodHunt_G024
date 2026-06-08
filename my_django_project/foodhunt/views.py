@@ -6,6 +6,7 @@ from .models import Event,User, Restaurant, Post, Review, Bookmark, RestaurantVo
 from django.contrib.auth.hashers import make_password, check_password
 from django.db.models import Avg, F, FloatField, Case, When, Value, IntegerField
 from django.db.models.functions import Coalesce
+import json
 
 
 
@@ -230,11 +231,13 @@ def home(request):
     if is_student:
         student_promos = Restaurant.objects.filter(is_student_promo=True).order_by("-restaurant_id")[:6]
 
-    current_user = None                                          # ADD
-    user_id = request.session.get("user_id")                    # ADD
-    if user_id:                                                  # ADD
-        current_user = User.objects.filter(user_id=user_id).first()  # ADD
+    current_user = None
+    user_id = request.session.get("user_id")
+    if user_id:
+        current_user = User.objects.filter(user_id=user_id).first()
 
+    all_restaurants = list(Restaurant.objects.values('restaurant_id', 'restaurant_name', 'location', 'cuisine'))
+    all_restaurants_json = json.dumps(all_restaurants)
 
     return render(request, 'foodhunt/main.html', {
         "events": events,
@@ -242,7 +245,8 @@ def home(request):
         "today": today,
         "is_student": is_student,
         "student_promos": student_promos,
-        "current_user": current_user,  
+        "current_user": current_user,
+        "all_restaurants_json": all_restaurants_json,
     })
 
 #------User Profile (ELX): Show user details, badges, recent posts/events
