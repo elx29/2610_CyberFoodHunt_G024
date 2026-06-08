@@ -26,6 +26,7 @@ urlpatterns = [
 #review
     path("review/restaurant/<int:restaurant_id>/", views.review_create, name="review_create"),
     path("review/submit/", views.review_submit, name="review_submit"),
+    path('review/<int:review_id>/delete/', views.review_delete, name='review_delete'),
 #bookmarks
     path("bookmarks/", views.bookmark_list, name="bookmark_list"),
     path("restaurant/<int:restaurant_id>/bookmark/", views.bookmark_toggle, name="bookmark_toggle"),

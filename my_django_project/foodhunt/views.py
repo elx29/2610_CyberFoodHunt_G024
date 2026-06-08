@@ -377,6 +377,7 @@ def restaurant_detail(request, restaurant_id):
         'like_count': like_count,
         'dislike_count': dislike_count,
         'current_user': current_user,
+        'login_user_id': login_user_id,
     })
 
 
@@ -507,6 +508,24 @@ def review_submit(request):
         )
         return redirect("restaurant_detail", restaurant_id=restaurant.restaurant_id)
     return redirect("review_create")
+
+#------Review Delete (ELX): Only the user who posted the review can delete it
+def review_delete(request, review_id):
+   
+    user_id = request.session.get("user_id") #Ensure the user is logged in
+    if not user_id:
+        return redirect("login")
+        
+    if request.method == "POST":
+        review = get_object_or_404(Review, pk=review_id)
+        restaurant_id = review.restaurant.restaurant_id # Save this to redirect back smoothly
+        
+        if review.user.user_id == user_id:#Make sure the session user actually owns this review
+            review.delete()
+            
+        return redirect('restaurant_detail', restaurant_id=restaurant_id)
+        
+    return redirect('search')
 
 #------Password Recovery (AKISHA)
 def password_recovery(request):
