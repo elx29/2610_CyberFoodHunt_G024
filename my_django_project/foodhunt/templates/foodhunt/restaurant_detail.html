@@ -351,9 +351,23 @@
                         class="bg-primary text-on-primary px-6 py-3 rounded-full font-headline font-bold text-sm tracking-wide hover:scale-105 transition-transform inline-flex items-center gap-2 shadow-lg shadow-primary/20">
                         <span class="material-symbols-outlined">edit_note</span>WRITE A REVIEW!</a>
                 </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {% for review in reviews %}
-                    <div class="bg-white p-6 rounded-sm shadow-md transition-transform hover:scale-[1.02]">
+                    <div class="relative bg-white p-6 rounded-sm shadow-md transition-transform hover:scale-[1.02]">
+                        {% if login_user_id == review.user.user_id %}
+                        <div class="absolute top-4 right-4 z-30">
+                            <form method="POST" action="{% url 'review_delete' review.review_id %}" id="delete-form-{{ review.review_id }}" class="inline">
+                                {% csrf_token %}
+                                <button type="button" 
+                                        onclick="if(confirm('Delete this review? This cannot be undone.')) document.getElementById('delete-form-{{ review.review_id }}').submit();"
+                                        class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-error border border-error/20 hover:bg-error hover:text-on-error transition-all shadow-sm">
+                                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">delete</span>
+                                </button>
+                            </form>
+                        </div>
+                        {% endif %}
+
                         <div class="flex items-center gap-3 mb-4">
                             <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
                                 <span class="material-symbols-outlined">account_circle</span>
@@ -368,6 +382,8 @@
                                 </div>
                             </div>
                         </div>
+
+          
                         <p class="text-sm text-on-surface-variant mb-4 leading-relaxed">{{ review.comment }}</p>
                         {% if review.image %}
                         <div class="aspect-video bg-surface-container overflow-hidden rounded-sm border border-dashed border-primary/20">

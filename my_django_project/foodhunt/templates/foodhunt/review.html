@@ -238,29 +238,7 @@
   <p id="ratingLabel" class="text-xs font-bold text-primary italic opacity-0 transition-opacity">Awesome!</p>
 
   <input type="hidden" id="ratingValue" name="rating" value="0" required>
-  <!-- Hidden input (useful later for Django form) 
-  <input type="hidden" id="ratingValue" name="rating" value="0" required>
-</div>
-<!-- Photo Upload Area 
-<div class="space-y-2">
-<label class="font-headline font-bold text-on-surface-variant" style="">Snapshot the vibe</label>
-<label for="imageUpload" class="border-2 border-dashed border-outline-variant bg-surface-container-low rounded-2xl h-48 flex flex-col items-center justify-center gap-3 transition-all hover:bg-surface-container-high group cursor-pointer">
-<div class="w-16 h-16 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-3xl text-secondary" style="">add_a_photo</span>
-</div>
-<p class="text-sm text-on-surface-variant font-medium" id="uploadLabel">Click to attach a food photo</p>
-<input type="file" name="image">
-<form method="POST" enctype="multipart/form-data"
-    {% csrf_token %}
-
-    <input type="file" name="image">
-
-    <button type="submit">Post</button>
-</form>
-</label>
-<!-- This sends the photo to Django 
-<input type="file" name="image" id="imageUpload" accept="image/*" class="hidden"-->
-
+ 
 <script>
   const stars = document.querySelectorAll("#starRating span");
   const ratingInput = document.getElementById("ratingValue");
@@ -364,34 +342,6 @@ function previewImage(input) {
 </div>
 </section>
 </main>
-<!--script
-  const stars = document.querySelectorAll("#starRating span");
-  const ratingInput = document.getElementById("ratingValue");
 
-  stars.forEach((star, index) => {
-    star.addEventListener("click", () => {
-      let rating = index + 1;
-      ratingInput.value = rating;
-
-      stars.forEach((s, i) => {
-        if (i < rating) {
-          s.style.color = "#343bc8"; // filled color
-          s.style.fontVariationSettings = "'FILL' 1";
-        } else {
-          s.style.color = "#c6c5d7"; // empty color
-          s.style.fontVariationSettings = "'FILL' 0";
-        }
-      });
-    });
-  });
-  //photo upload
-  document.getElementById("imageUpload").addEventListener ("change", function() {
-    const label = document.getElementById("uploadLabel");
-    if (this.files && this.files[0]) {
-      label.textContent = "📷 " + this.files[0].name;
-      label.style.color = "#343bc8";
-    }
-    });
-script-->
 </body>
 </html>
