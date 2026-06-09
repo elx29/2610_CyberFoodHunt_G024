@@ -229,12 +229,6 @@
                                 Describe the environment of the restaurant:</p>
                             {{ restaurant.description|default:"No description available" }}
                         </div>
-                        <div class="space-y-6">
-                            <p class="text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-md font-medium">
-                            Cuisine Type: {{ restaurant.cuisine }}
-                            </p>
-                        </div>
-                        
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
                             <div
                                 class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
@@ -269,6 +263,36 @@
                                     {% else %}
                                     <p class="font-bold text-on-surface">Price not available</p>
                                     {% endif %}                                    
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+                                <div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+                                    <span class="material-symbols-outlined">restaurant_menu</span>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Cuisine Type</p>
+                                    <p class="font-bold text-on-surface">{{ restaurant.cuisine|default:"Not specified" }}</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+                                <div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+                                    <span class="material-symbols-outlined">calendar_today</span>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Operating Days</p>
+                                    <p class="font-bold text-on-surface">{{ restaurant.operating_days|default:"Not specified" }}</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+                                <div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+                                    <span class="material-symbols-outlined">event_busy</span>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Closed On</p>
+                                    <p class="font-bold text-on-surface">{{ restaurant.closed_days|default:"Not specified" }}</p>
                                 </div>
                             </div>
                         </div>

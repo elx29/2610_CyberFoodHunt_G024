@@ -173,13 +173,7 @@ def search(request):
     elif price == "$$":
         restaurants = restaurants.filter(max_price__gte=15, max_price__lte=30)
     elif price == "$$$":
-        restaurants = restaurants.filter(min_price__gte=30)
-
-        #filter by rating (ELX)
-    #filter by Open Now (AKISHA)
-    open_now = request.GET.get("open_now")
-    if open_now:
-        restaurants = [r for r in restaurants if is_restaurant_open(r.opening_hours)]
+        restaurants = restaurants.filter(max_price__gte=30, max_price__lte=100)
 
     #filter for rating (ELX)
     sort_by = request.GET.get("sort", "top_rated")#default sorting is by top rated
@@ -203,6 +197,11 @@ def search(request):
 
     elif sort_by == "newest":
         restaurants = restaurants.order_by("-restaurant_id") #newest first based on restaurant_id
+
+    #filter by Open Now (AKISHA)
+    open_now = request.GET.get("open_now")
+    if open_now:
+        restaurants = [r for r in restaurants if is_restaurant_open(r.opening_hours)]
 
     current_user = None
     user_id = request.session.get("user_id")
