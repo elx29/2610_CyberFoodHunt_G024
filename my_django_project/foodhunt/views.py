@@ -531,6 +531,8 @@ def review_delete(request, review_id):
         
     return redirect('search')
 
+
+
 #------Password Recovery (AKISHA)
 def password_recovery(request):
     return render(request, 'foodhunt/passwordrecovery.html')

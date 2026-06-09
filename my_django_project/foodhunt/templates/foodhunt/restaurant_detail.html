@@ -355,8 +355,15 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {% for review in reviews %}
                     <div class="relative bg-white p-6 rounded-sm shadow-md transition-transform hover:scale-[1.02]">
+
                         {% if login_user_id == review.user.user_id %}
-                        <div class="absolute top-4 right-4 z-30">
+                        <div class="absolute top-4 right-4 z-30 flex flex-row items-center gap-2">
+
+                            <a href="{% url 'review_create' restaurant.restaurant_id %}?edit_id={{ review.review_id }}"
+                               class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-primary border border-primary/20 hover:bg-primary hover:text-on-primary transition-all shadow-sm">
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">edit</span>
+                            </a>
+
                             <form method="POST" action="{% url 'review_delete' review.review_id %}" id="delete-form-{{ review.review_id }}" class="inline">
                                 {% csrf_token %}
                                 <button type="button" 
@@ -391,6 +398,8 @@
                         </div>
                         {% endif %}
                         <p class="text-[10px] text-outline mt-2 text-right">{{ review.created_at|date:"M d, Y" }}</p>
+
+ 
                     </div>
                     {% empty %}
                     <div class="col-span-full text-center py-12">
