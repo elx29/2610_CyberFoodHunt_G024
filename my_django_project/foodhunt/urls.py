@@ -10,7 +10,8 @@ urlpatterns = [
 #user management
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
-    path('password-recovery/', views.password_recovery, name='password_recovery'),
+    path('passwordrecovery/', views.password_recovery, name='passwordrecovery'),
+    path('change-password/', views.change_password, name='change_password'),
     path("userprofile/", views.userprofile, name="userprofile"),
     path('register/', views.register, name='register'),
 #event and foodspot

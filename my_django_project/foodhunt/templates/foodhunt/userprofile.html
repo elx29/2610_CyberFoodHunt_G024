@@ -124,6 +124,11 @@
 </div>
 <div class="flex items-center gap-3">
 </div>
+<a href="{% url 'change_password' %}"
+   class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors font-bold text-sm tracking-wide mr-2">
+    <span class="material-symbols-outlined text-xl">lock_reset</span>
+    Change Password
+</a>
 <form method="post" action="{% url 'logout' %}" class="inline">
     {% csrf_token %}
     <button type="submit"
