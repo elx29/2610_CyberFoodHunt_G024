@@ -91,7 +91,7 @@ class Restaurant(models.Model):
   
 
     def __str__(self):
-        return self.restaurant_name  # username for the User class
+        return self.restaurant_name 
 
     class Meta:
         managed = True
@@ -124,9 +124,10 @@ class User(models.Model):
     username = models.TextField(unique=True)
     email = models.TextField(unique=True)
     password = models.TextField()
+    avatar = models.ImageField(upload_to="profile_pics/", blank=True, null=True)
 
     def __str__(self):
-        return self.username  # username for the User class
+        return self.username  
     
     class Meta:
         managed = True

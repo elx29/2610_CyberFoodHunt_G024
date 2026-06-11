@@ -175,6 +175,11 @@ def search(request):
     elif price == "$$$":
         restaurants = restaurants.filter(max_price__gte=30, max_price__lte=100)
 
+    #filter by Open Now (AKISHA)
+    open_now = request.GET.get("open_now")
+    if open_now:
+        restaurants = [r for r in restaurants if is_restaurant_open(r.opening_hours)]
+
     #filter for rating (ELX)
     sort_by = request.GET.get("sort", "top_rated")#default sorting is by top rated
 
@@ -197,11 +202,6 @@ def search(request):
 
     elif sort_by == "newest":
         restaurants = restaurants.order_by("-restaurant_id") #newest first based on restaurant_id
-
-    #filter by Open Now (AKISHA)
-    open_now = request.GET.get("open_now")
-    if open_now:
-        restaurants = [r for r in restaurants if is_restaurant_open(r.opening_hours)]
 
     current_user = None
     user_id = request.session.get("user_id")
@@ -248,7 +248,7 @@ def home(request):
         "all_restaurants_json": all_restaurants_json,
     })
 
-#------User Profile (ELX): Show user details, badges, recent posts/events
+#------User Profile (ELX+AYRA): Show user details, badges, recent posts/events
 def userprofile(request):
 
     user_id = request.session.get("user_id")
@@ -259,6 +259,12 @@ def userprofile(request):
     post_count = Post.objects.filter(user=current_user).count() #get number of posts by user
     event_count= Event.objects.filter(user=current_user).count() #get number of event posts by user
     
+    if request.method == "POST":
+        if request.FILES.get("avatar"):
+            current_user.avatar = request.FILES.get("avatar")
+            current_user.save()
+            return redirect("userprofile")
+        
     #Recent post and events that will appear on user profile page
     today = timezone.now().date()
     recent_events = Event.objects.filter(user=current_user, end_date__gte=today).order_by("-event_id")[:5]
@@ -529,7 +535,6 @@ def review_delete(request, review_id):
         return redirect('restaurant_detail', restaurant_id=restaurant_id)
         
     return redirect('search')
-
 
 
 #------Password Recovery (AKISHA)
