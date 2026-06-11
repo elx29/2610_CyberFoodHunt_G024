@@ -176,19 +176,31 @@
 <div class="max-w-6xl mx-auto relative z-10">
 <!-- User Profile Section -->
 <section class="mb-12 flex flex-col md:flex-row items-center md:items-start gap-8">
-<div class="relative">
-<div class="w-32 h-32 md:w-44 md:h-44 bg-surface-container-highest rounded-xl rotate-scrapbook-neg p-1 shadow-lg">
-<div class="w-full h-full bg-white overflow-hidden rounded-lg flex items-center justify-center">
-<span class="material-symbols-outlined text-6xl text-slate-300" style"">person</span>
-</div>
-</div>
-<div class="absolute -bottom-2 -right-2 w-10 h-10 bg-[#4F57E1] rounded-full flex items-center justify-center text-white rotate-scrapbook-pos shadow-md">
-<span class="material-symbols-outlined text-sm" style"">edit</span>
-</div>
-</div>
-<div class="flex-1 text-center md:text-left mt-4 md:mt-0">
-<h1 class="text-4xl md:text-6xl font-headline font-black text-primary tracking-tighter mb-2" style"">{{ current_user.username }}</h1>
-<p class="text-on-surface-variant font-body text-lg max-w-xl mb-6" style"">{{ current_user.email }}</p>
+    <div class="relative">
+        <div class="w-32 h-32 md:w-44 md:h-44 bg-surface-container-highest rounded-xl rotate-scrapbook-neg p-1 shadow-lg">
+            <div class="w-full h-full bg-white overflow-hidden rounded-lg flex items-center justify-center">
+
+            {% if current_user.avatar %}
+            <img src="{{ current_user.avatar.url }}" class="w-full h-full object-cover" alt="Profile Picture" />
+            {% else %}
+            <span class="material-symbols-outlined text-6xl text-slate-300" style"">person</span>
+            {% endif %}
+            </div>
+        </div>
+        <label for="profile_pic_input" class="absolute -bottom-2 -right-2 w-10 h-10 bg-[#4F57E1] rounded-full flex items-center justify-center text-white rotate-scrapbook-pos shadow-md cursor-pointer hover:scale-105 transition-transform">
+            <span class="material-symbols-outlined text-sm">add_a_photo</span>
+        </label>
+    </div>
+
+    <div class="flex-1 text-center md:text-left mt-4 md:mt-0">
+        <h1 class="text-4xl md:text-6xl font-headline font-black text-primary tracking-tighter mb-2" style"">{{ current_user.username }}</h1>
+        <p class="text-on-surface-variant font-body text-lg max-w-xl mb-6" style"">{{ current_user.email }}</p>
+
+        <form method="POST" action="{% url 'userprofile' %}" enctype="multipart/form-data" class="inline-block">
+            {% csrf_token %}
+            <input type="file" id="profile_pic_input" name="avatar" accept="image/*" class="hidden" onchange="this.form.submit();">
+        </form>
+    
 
 <!--Achievements badge will become tags-->
 <div class="flex flex-wrap justify-center md:justify-start gap-4">
@@ -233,7 +245,7 @@
 <span class="material-symbols-outlined text-primary" style"">military_tech</span> Achievements
                         </h2>
                       
- <!--The icon for achievements section, i think-->
+ <!--The icon for achievements, i think-->
 <div class="space-y-4">
     {% for badge in badges %}
     <div class="flex items-center gap-4 bg-white/40 p-3 rounded-lg backdrop-blur-sm">
@@ -288,7 +300,7 @@
     </div>
 
 <!-- Recent Restaurants Feed History -->
-<div class="md:col-span-8 flex flex-col gap-4 relative"> <!-- IF CHANGE gap-8 to gap-4 THEN RECENT EVENT WILL LOOK NATURAL-->
+<div class="md:col-span-8 flex flex-col gap-4 relative"> 
 
     <h2 class="font-headline text-2xl font-black text-primary tracking-tight px-4 flex items-center gap-2" style"">
         <span class="material-symbols-outlined" style"">rate_review</span> Recent Posts
@@ -345,7 +357,11 @@
     <div class="bg-surface-container-highest p-4 rounded-xl rotate-scrapbook-pos shadow-md z-20 relative translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-300">
         <div class="flex flex-col md:flex-row gap-2">
             <div class="w-full md:w-32 h-32 flex-shrink-0 bg-white rounded flex items-center justify-center">
+                {% if event.image %}
+                    <img src="{{ event.image.url }}" class="w-full h-full object-cover" alt="{{ event.event_name }}" />
+                {% else %}
                 <span class="material-symbols-outlined text-4xl text-slate-300">event</span>
+                {% endif %}
             </div>
             <div class="flex-1">
                 <div class="flex justify-between items-start">

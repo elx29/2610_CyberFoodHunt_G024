@@ -23,9 +23,12 @@ urlpatterns = [
     path("restaurant/<int:restaurant_id>/", views.restaurant_detail, name="restaurant_detail"),
     path("restaurant/<int:restaurant_id>/edit/", views.restaurant_edit, name="restaurant_edit"),
     path("restaurant/<int:restaurant_id>/delete/", views.restaurant_delete, name="restaurant_delete"),
+    path("restaurant/<int:restaurant_id>/vote/<str:vote_type>/", views.restaurant_vote_toggle, name="restaurant_vote_toggle"),
 #review
     path("review/restaurant/<int:restaurant_id>/", views.review_create, name="review_create"),
     path("review/submit/", views.review_submit, name="review_submit"),
+    path('review/<int:review_id>/delete/', views.review_delete, name='review_delete'),
+
 #bookmarks
     path("bookmarks/", views.bookmark_list, name="bookmark_list"),
     path("restaurant/<int:restaurant_id>/bookmark/", views.bookmark_toggle, name="bookmark_toggle"),

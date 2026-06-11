@@ -2,10 +2,11 @@ from urllib import request
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-from .models import Event,User, Restaurant, Post, Review, Bookmark
+from .models import Event,User, Restaurant, Post, Review, Bookmark, RestaurantVote 
 from django.contrib.auth.hashers import make_password, check_password
-from django.db.models import Avg, F, FloatField
+from django.db.models import Avg, F, FloatField, Case, When, Value, IntegerField
 from django.db.models.functions import Coalesce
+import json
 
 
 
@@ -172,7 +173,7 @@ def search(request):
     elif price == "$$":
         restaurants = restaurants.filter(max_price__gte=15, max_price__lte=30)
     elif price == "$$$":
-        restaurants = restaurants.filter(min_price__gte=30)
+        restaurants = restaurants.filter(max_price__gte=30, max_price__lte=100)
 
     #filter by Open Now (AKISHA)
     open_now = request.GET.get("open_now")
@@ -183,15 +184,22 @@ def search(request):
     sort_by = request.GET.get("sort", "top_rated")#default sorting is by top rated
 
     if sort_by == "top_rated":
-        #restaurants = restaurants.annotate(avg_rating=Avg('review__rating')).order_by(F('avg_rating').desc(nulls_last=True))# calculate average rating and sort by it, with unrated restaurants at the end
         restaurants = restaurants.annotate(
         avg_rating=Coalesce(Avg('review__rating'), 0.0, output_field=FloatField())
     ).order_by('-avg_rating')
+        
     elif sort_by == "low_rated":
-        #restaurants = restaurants.annotate(avg_rating=Avg('review__rating')).order_by(F('avg_rating').asc(nulls_last=True))# ascending
          restaurants = restaurants.annotate(
-        avg_rating=Coalesce(Avg('review__rating'), 0.0, output_field=FloatField())
-    ).order_by('avg_rating')
+            avg_rating=Coalesce(Avg('review__rating'), 0.0, output_field=FloatField())
+        )
+         restaurants = restaurants.annotate(
+             is_unrated=Case(
+                 When(avg_rating=0.0, then=Value(1)),
+                 default=Value(0),
+                 output_field=IntegerField(),
+             )
+         ).order_by('is_unrated', 'avg_rating' )
+
     elif sort_by == "newest":
         restaurants = restaurants.order_by("-restaurant_id") #newest first based on restaurant_id
 
@@ -222,11 +230,13 @@ def home(request):
     if is_student:
         student_promos = Restaurant.objects.filter(is_student_promo=True).order_by("-restaurant_id")[:6]
 
-    current_user = None                                          # ADD
-    user_id = request.session.get("user_id")                    # ADD
-    if user_id:                                                  # ADD
-        current_user = User.objects.filter(user_id=user_id).first()  # ADD
+    current_user = None
+    user_id = request.session.get("user_id")
+    if user_id:
+        current_user = User.objects.filter(user_id=user_id).first()
 
+    all_restaurants = list(Restaurant.objects.values('restaurant_id', 'restaurant_name', 'location', 'cuisine'))
+    all_restaurants_json = json.dumps(all_restaurants)
 
     return render(request, 'foodhunt/main.html', {
         "events": events,
@@ -234,10 +244,11 @@ def home(request):
         "today": today,
         "is_student": is_student,
         "student_promos": student_promos,
-        "current_user": current_user,  
+        "current_user": current_user,
+        "all_restaurants_json": all_restaurants_json,
     })
 
-#------User Profile (ELX): Show user details, badges, recent posts/events
+#------User Profile (ELX+AYRA): Show user details, badges, recent posts/events
 def userprofile(request):
 
     user_id = request.session.get("user_id")
@@ -248,6 +259,12 @@ def userprofile(request):
     post_count = Post.objects.filter(user=current_user).count() #get number of posts by user
     event_count= Event.objects.filter(user=current_user).count() #get number of event posts by user
     
+    if request.method == "POST":
+        if request.FILES.get("avatar"):
+            current_user.avatar = request.FILES.get("avatar")
+            current_user.save()
+            return redirect("userprofile")
+        
     #Recent post and events that will appear on user profile page
     today = timezone.now().date()
     recent_events = Event.objects.filter(user=current_user, end_date__gte=today).order_by("-event_id")[:5]
@@ -348,8 +365,15 @@ def restaurant_detail(request, restaurant_id):
     # Check if logged-in user has bookmarked this restaurant
     login_user_id = request.session.get("user_id")
     is_bookmarked = False
+    current_vote = None
+
     if login_user_id:
         is_bookmarked = Bookmark.objects.filter(user_id=login_user_id, restaurant=restaurant).exists()
+        vote = RestaurantVote.objects.filter(user_id=login_user_id, restaurant=restaurant).first()
+        current_vote = vote.vote_type if vote else None
+
+    like_count = RestaurantVote.objects.filter(restaurant=restaurant, vote_type="like").count()
+    dislike_count = RestaurantVote.objects.filter(restaurant=restaurant, vote_type="dislike").count()
 
     return render(request, 'foodhunt/restaurant_detail.html', {
         'restaurant': restaurant,
@@ -358,8 +382,42 @@ def restaurant_detail(request, restaurant_id):
         'average_rating': average_rating,
         'login_user_id': login_user_id,
         'is_bookmarked': is_bookmarked,
+        'current_vote': current_vote,
+        'like_count': like_count,
+        'dislike_count': dislike_count,
         'current_user': current_user,
+        'login_user_id': login_user_id,
     })
+
+
+def restaurant_vote_toggle(request, restaurant_id, vote_type):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return redirect("login")
+
+    if request.method != "POST" or vote_type not in ("like", "dislike"):
+        return redirect("restaurant_detail", restaurant_id=restaurant_id)
+
+    current_user = get_object_or_404(User, user_id=user_id)
+    restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+    existing_vote = RestaurantVote.objects.filter(user=current_user, restaurant=restaurant).first()
+
+    if existing_vote:
+        if existing_vote.vote_type == vote_type:
+            existing_vote.delete()
+        else:
+            existing_vote.vote_type = vote_type
+            existing_vote.save()
+    else:
+        RestaurantVote.objects.create(
+            user=current_user,
+            restaurant=restaurant,
+            vote_type=vote_type,
+            created_at=timezone.now(),
+        )
+
+    return redirect("restaurant_detail", restaurant_id=restaurant_id)
+
 
 def review(request):
     if request.method == "POST":
@@ -460,7 +518,30 @@ def review_submit(request):
         return redirect("restaurant_detail", restaurant_id=restaurant.restaurant_id)
     return redirect("review_create")
 
+<<<<<<< HEAD
 #------Password Recovery (AYRA)
+=======
+#------Review Delete (ELX): Only the user who posted the review can delete it
+def review_delete(request, review_id):
+   
+    user_id = request.session.get("user_id") #Ensure the user is logged in
+    if not user_id:
+        return redirect("login")
+        
+    if request.method == "POST":
+        review = get_object_or_404(Review, pk=review_id)
+        restaurant_id = review.restaurant.restaurant_id # Save this to redirect back smoothly
+        
+        if review.user.user_id == user_id:#Make sure the session user actually owns this review
+            review.delete()
+            
+        return redirect('restaurant_detail', restaurant_id=restaurant_id)
+        
+    return redirect('search')
+
+
+#------Password Recovery (AKISHA)
+>>>>>>> c27226f80e46e6d5f9937a166367419f26ad175f
 def password_recovery(request):
     if request.method == 'POST':
         email = request.POST.get('email', '').strip()

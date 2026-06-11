@@ -115,20 +115,62 @@
         <div class="bg-surface-container-low rounded-xl p-8 md:p-10 relative overflow-hidden shadow-sm border border-outline-variant/10">
             <!-- Decorative dots background -->
             <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle, #343bc8 1px, transparent 1px); background-size: 20px 20px;"></div>
-            <div class="relative z-10">
-                <h1 class="text-4xl md:text-5xl font-black font-headline text-on-surface mb-4 leading-tight">
-                    Welcome to <br/><span class="text-primary">Cyber Food Hunt!</span>
-                </h1>
-                <!-- Search bar -->
-                <form method="GET" action="{% url 'search' %}" class="flex gap-2 max-w-xl">
-                    <div class="flex-1 relative">
-                        <input type="text" name="q" placeholder="Search for Nasi Lemak, Boba, or T505 gems..."
-                            class="w-full pl-4 pr-4 py-3 rounded-lg border-2 border-dashed border-primary/30 bg-white text-sm focus:outline-none focus:border-primary placeholder:text-outline/50"/>
+            
+            <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <!-- Left Side: Welcome & Search (2/3 width on desktop) -->
+                <div class="md:col-span-2">
+                    <h1 class="text-4xl md:text-5xl font-black font-headline text-on-surface mb-4 leading-tight">
+                        Welcome to <br/><span class="text-primary">Cyber Food Hunt!</span>
+                    </h1>
+                    <!-- Search bar -->
+                    <form method="GET" action="{% url 'search' %}" class="flex gap-2 max-w-xl">
+                        <div class="flex-1 relative">
+                            <input type="text" name="q" placeholder="Search for Nasi Lemak, Boba, or T505 gems..."
+                                class="w-full pl-4 pr-4 py-3 rounded-lg border-2 border-dashed border-primary/30 bg-white text-sm focus:outline-none focus:border-primary placeholder:text-outline/50"/>
+                        </div>
+                        <button type="submit" class="bg-primary text-white px-4 py-3 rounded-lg hover:brightness-110 transition-all">
+                            <span class="material-symbols-outlined">search</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right Side: Decide for Me Cube (1/3 width on desktop) -->
+                <div class="flex justify-center md:justify-end">
+                    <div class="w-full max-w-[240px] aspect-square bg-red-50/30 dark:bg-red-950/10 rounded-2xl border-2 border-dashed border-red-500/20 p-5 flex flex-col justify-between shadow-sm relative overflow-hidden transition-all duration-300 hover:border-red-500/40" id="decide-cube">
+                        <!-- Default state -->
+                        <div id="decide-default" class="flex flex-col items-center justify-center flex-grow gap-3 text-center">
+                            <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500">
+                                <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'wght' 600;">casino</span>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold font-headline text-on-surface uppercase tracking-wider">Unsure what to eat?</p>
+                            </div>
+                            <button type="button" onclick="rollDecide()" class="w-full py-2.5 bg-red-600 text-white rounded-lg text-xs font-bold uppercase tracking-wider shadow-md hover:brightness-110 transition-all">
+                                Decide for Me
+                            </button>
+                        </div>
+
+                        <!-- Result state (hidden by default) -->
+                        <div id="decide-result" class="hidden flex flex-col justify-between flex-grow text-center h-full">
+                            <div class="flex justify-between items-center text-[10px] uppercase font-black tracking-widest text-red-600">
+                                <span>Your Pick</span>
+                                <button type="button" onclick="rollDecide()" class="hover:text-red-800 transition-colors" title="Pick again">
+                                    <span class="material-symbols-outlined text-sm">cached</span>
+                                </button>
+                            </div>
+                            
+                            <div class="py-2">
+                                <h4 id="cube-result-name" class="font-headline font-black text-base text-on-surface line-clamp-2 leading-tight"></h4>
+                                <p id="cube-result-cuisine" class="text-[10px] text-secondary font-semibold uppercase tracking-wider mt-1"></p>
+                            </div>
+
+                            <a id="cube-result-link" href="#" class="w-full py-2 bg-red-600 text-white rounded-lg text-xs font-bold uppercase tracking-wider shadow-md hover:brightness-110 transition-all flex items-center justify-center gap-1">
+                                View Details
+                                <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                            </a>
+                        </div>
                     </div>
-                    <button type="submit" class="bg-primary text-white px-4 py-3 rounded-lg hover:brightness-110 transition-all">
-                        <span class="material-symbols-outlined">search</span>
-                    </button>
-                </form>
+                </div>
             </div>
         </div>
     </section>
@@ -273,4 +315,32 @@
 
 </div>
 </main>
+<script>
+    function rollDecide() {
+        const restaurants = {{ all_restaurants_json|default:"[]"|safe }};
+        
+        if (!restaurants || restaurants.length === 0) return;
+
+        const decideCube = document.getElementById('decide-cube');
+        const defaultState = document.getElementById('decide-default');
+        const resultState = document.getElementById('decide-result');
+
+        // Simple transition effect
+        decideCube.classList.add('scale-95', 'opacity-50');
+
+        setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * restaurants.length);
+            const pick = restaurants[randomIndex];
+
+            document.getElementById('cube-result-name').textContent = pick.restaurant_name;
+            document.getElementById('cube-result-cuisine').textContent = pick.cuisine || 'Cuisine details unavailable';
+            document.getElementById('cube-result-link').href = `/restaurant/${pick.restaurant_id}/`;
+
+            defaultState.classList.add('hidden');
+            resultState.classList.remove('hidden');
+
+            decideCube.classList.remove('scale-95', 'opacity-50');
+        }, 250);
+    }
+</script>
 </body></html>

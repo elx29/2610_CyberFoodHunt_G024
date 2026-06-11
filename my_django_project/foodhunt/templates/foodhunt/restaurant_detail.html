@@ -229,12 +229,6 @@
                                 Describe the environment of the restaurant:</p>
                             {{ restaurant.description|default:"No description available" }}
                         </div>
-                        <div class="space-y-6">
-                            <p class="text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-md font-medium">
-                            Cuisine Type: {{ restaurant.cuisine }}
-                            </p>
-                        </div>
-                        
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
                             <div
                                 class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
@@ -271,20 +265,58 @@
                                     {% endif %}                                    
                                 </div>
                             </div>
+                            <div
+                                class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+                                <div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+                                    <span class="material-symbols-outlined">restaurant_menu</span>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Cuisine Type</p>
+                                    <p class="font-bold text-on-surface">{{ restaurant.cuisine|default:"Not specified" }}</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+                                <div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+                                    <span class="material-symbols-outlined">calendar_today</span>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Operating Days</p>
+                                    <p class="font-bold text-on-surface">{{ restaurant.operating_days|default:"Not specified" }}</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10">
+                                <div class="bg-secondary-container p-3 rounded-lg text-on-secondary-container">
+                                    <span class="material-symbols-outlined">event_busy</span>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase font-label">Closed On</p>
+                                    <p class="font-bold text-on-surface">{{ restaurant.closed_days|default:"Not specified" }}</p>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="flex flex-wrap items-center gap-4 pt-8 mt-6 border-t border-primary/10">
-                            <div
-                                class="flex items-center gap-2 bg-white rounded-full p-1 border border-primary/20 shadow-sm">
-                                <button id="thumbUpBtn"
-                                    class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-secondary-container transition-colors">
-                                    <span class="material-symbols-outlined text-secondary" id="thumbUpIcon"
-                                        style="font-variation-settings: 'FILL' 0;">thumb_up</span></button>
+                            <div class="flex items-center gap-2 bg-white rounded-full p-1 border border-primary/20 shadow-sm">
+                                
+                                <!--like & dislike buttons -->
+                                <form method="POST" action="{% url 'restaurant_vote_toggle' restaurant.restaurant_id 'like' %}" class="inline">
+                                    {% csrf_token %}
+                                    <button type="submit" id="thumbUpBtn" class="flex items-center justify-center gap-1 min-w-10 h-10 px-3 rounded-full hover:bg-secondary-container transition-colors {% if current_vote == 'like' %}bg-secondary-container{% endif %}">
+                                        <span class="material-symbols-outlined text-secondary" id="thumbUpIcon" style="font-variation-settings: 'FILL' {% if current_vote == 'like' %}1{% else %}0{% endif %};">thumb_up</span>
+                                        <span id="like-count" class="text-xs font-bold text-secondary">{{ like_count }}</span>
+                                    </button>
+                                </form>
                                 <div class="w-[1px] h-6 bg-primary/10"></div>
-                                <button id="thumbDownBtn"
-                                    class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-error-container/20 transition-colors">
-                                    <span class="material-symbols-outlined text-error" id="thumbDownIcon"
-                                        style="font-variation-settings: 'FILL' 0;">thumb_down</span></button>
+
+                                <form method="POST" action="{% url 'restaurant_vote_toggle' restaurant.restaurant_id 'dislike' %}" class="inline">
+                                    {% csrf_token %}
+                                    <button type="submit" id="thumbDownBtn" class="flex items-center justify-center gap-1 min-w-10 h-10 px-3 rounded-full hover:bg-error-container/20 transition-colors {% if current_vote == 'dislike' %}bg-error-container bg-red-100{% endif %}">
+                                        <span class="material-symbols-outlined text-error" id="thumbDownIcon" style="font-variation-settings: 'FILL' {% if current_vote == 'dislike' %}1{% else %}0{% endif %};">thumb_down</span>
+                                        <span id="dislike-count" class="text-xs font-bold text-error">{{ dislike_count }}</span>
+                                    </button>
+                                </form>
                             </div>
 
                             {% if login_user_id %}
@@ -343,12 +375,37 @@
                         class="bg-primary text-on-primary px-6 py-3 rounded-full font-headline font-bold text-sm tracking-wide hover:scale-105 transition-transform inline-flex items-center gap-2 shadow-lg shadow-primary/20">
                         <span class="material-symbols-outlined">edit_note</span>WRITE A REVIEW!</a>
                 </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {% for review in reviews %}
-                    <div class="bg-white p-6 rounded-sm shadow-md transition-transform hover:scale-[1.02]">
+                    <div class="relative bg-white p-6 rounded-sm shadow-md transition-transform hover:scale-[1.02]">
+
+                        {% if login_user_id == review.user.user_id %}
+                        <div class="absolute top-4 right-4 z-30 flex flex-row items-center gap-2">
+
+                            <a href="{% url 'review_create' restaurant.restaurant_id %}?edit_id={{ review.review_id }}"
+                               class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-primary border border-primary/20 hover:bg-primary hover:text-on-primary transition-all shadow-sm">
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">edit</span>
+                            </a>
+
+                            <form method="POST" action="{% url 'review_delete' review.review_id %}" id="delete-form-{{ review.review_id }}" class="inline">
+                                {% csrf_token %}
+                                <button type="button" 
+                                        onclick="if(confirm('Delete this review? This cannot be undone.')) document.getElementById('delete-form-{{ review.review_id }}').submit();"
+                                        class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-error border border-error/20 hover:bg-error hover:text-on-error transition-all shadow-sm">
+                                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">delete</span>
+                                </button>
+                            </form>
+                        </div>
+                        {% endif %}
+
                         <div class="flex items-center gap-3 mb-4">
                             <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+                                {% if review.user.avatar %}
+                                    <img src="{{ review.user.avatar.url }}" class="w-full h-full object-cover" alt="{{ review.user.username }}'s avatar" />
+                                {% else %}
                                 <span class="material-symbols-outlined">account_circle</span>
+                                {% endif %}
                             </div>
                             <div>
                                 <p class="font-bold text-sm">{{ review.user.username }}</p>
@@ -360,6 +417,8 @@
                                 </div>
                             </div>
                         </div>
+
+          
                         <p class="text-sm text-on-surface-variant mb-4 leading-relaxed">{{ review.comment }}</p>
                         {% if review.image %}
                         <div class="aspect-video bg-surface-container overflow-hidden rounded-sm border border-dashed border-primary/20">
@@ -367,6 +426,8 @@
                         </div>
                         {% endif %}
                         <p class="text-[10px] text-outline mt-2 text-right">{{ review.created_at|date:"M d, Y" }}</p>
+
+ 
                     </div>
                     {% empty %}
                     <div class="col-span-full text-center py-12">
@@ -394,6 +455,16 @@
             const thumbDownBtn = document.getElementById('thumbDownBtn');
             const thumbDownIcon = document.getElementById('thumbDownIcon');
 
+            let currentVote = null;
+
+            function updateCount(id, delta) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            let n = Math.max(0, parseInt(el.textContent) || 0);
+            n += delta;
+            el.textContent = n >= 1000 ? (n / 1000).toFixed(1) + 'k' : n;
+        }
+
             if (bookmarkBtn && bookmarkIcon) {
                 bookmarkBtn.addEventListener('click', () => {
                     bookmarkBtn.classList.toggle('bg-white');
@@ -406,39 +477,7 @@
                 });
             }
 
-            if (thumbUpBtn && thumbUpIcon) {
-                thumbUpBtn.addEventListener('click', () => {
-                    const isFilled = thumbUpIcon.style.fontVariationSettings.includes("'FILL' 1");
-                    if (isFilled) {
-                        thumbUpIcon.style.fontVariationSettings = "'FILL' 0";
-                        thumbUpBtn.classList.remove('bg-secondary-container');
-                    } else {
-                        thumbUpIcon.style.fontVariationSettings = "'FILL' 1";
-                        thumbUpBtn.classList.add('bg-secondary-container');
 
-                        // Disable thumb down if active
-                        if (thumbDownIcon) thumbDownIcon.style.fontVariationSettings = "'FILL' 0";
-                        if (thumbDownBtn) thumbDownBtn.classList.remove('bg-error-container', 'bg-red-100');
-                    }
-                });
-            }
-
-            if (thumbDownBtn && thumbDownIcon) {
-                thumbDownBtn.addEventListener('click', () => {
-                    const isFilled = thumbDownIcon.style.fontVariationSettings.includes("'FILL' 1");
-                    if (isFilled) {
-                        thumbDownIcon.style.fontVariationSettings = "'FILL' 0";
-                        thumbDownBtn.classList.remove('bg-error-container', 'bg-red-100');
-                    } else {
-                        thumbDownIcon.style.fontVariationSettings = "'FILL' 1";
-                        thumbDownBtn.classList.add('bg-error-container', 'bg-red-100');
-
-                        // Disable thumb up if active
-                        if (thumbUpIcon) thumbUpIcon.style.fontVariationSettings = "'FILL' 0";
-                        if (thumbUpBtn) thumbUpBtn.classList.remove('bg-secondary-container');
-                    }
-                });
-            }
         });
     </script>
 </body>
