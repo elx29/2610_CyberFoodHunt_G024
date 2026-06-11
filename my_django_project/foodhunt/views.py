@@ -518,30 +518,7 @@ def review_submit(request):
         return redirect("restaurant_detail", restaurant_id=restaurant.restaurant_id)
     return redirect("review_create")
 
-<<<<<<< HEAD
 #------Password Recovery (AYRA)
-=======
-#------Review Delete (ELX): Only the user who posted the review can delete it
-def review_delete(request, review_id):
-   
-    user_id = request.session.get("user_id") #Ensure the user is logged in
-    if not user_id:
-        return redirect("login")
-        
-    if request.method == "POST":
-        review = get_object_or_404(Review, pk=review_id)
-        restaurant_id = review.restaurant.restaurant_id # Save this to redirect back smoothly
-        
-        if review.user.user_id == user_id:#Make sure the session user actually owns this review
-            review.delete()
-            
-        return redirect('restaurant_detail', restaurant_id=restaurant_id)
-        
-    return redirect('search')
-
-
-#------Password Recovery (AKISHA)
->>>>>>> c27226f80e46e6d5f9937a166367419f26ad175f
 def password_recovery(request):
     if request.method == 'POST':
         email = request.POST.get('email', '').strip()
@@ -602,6 +579,24 @@ def change_password(request):
     return render(request, 'foodhunt/changepassword.html', {
         'current_user': current_user,
     })
+
+#------Review Delete (ELX): Only the user who posted the review can delete it
+def review_delete(request, review_id):
+   
+    user_id = request.session.get("user_id") #Ensure the user is logged in
+    if not user_id:
+        return redirect("login")
+        
+    if request.method == "POST":
+        review = get_object_or_404(Review, pk=review_id)
+        restaurant_id = review.restaurant.restaurant_id # Save this to redirect back smoothly
+        
+        if review.user.user_id == user_id:#Make sure the session user actually owns this review
+            review.delete()
+            
+        return redirect('restaurant_detail', restaurant_id=restaurant_id)
+        
+    return redirect('search')
 
 #------(AYRA) Foodspots — share a new restaurant / food spot
 CUISINE_CHOICES = ["Fast Food", "Western", "Chinese", "Malay", "Indian", "Cafe", "Bubble Tea", "Other"]
