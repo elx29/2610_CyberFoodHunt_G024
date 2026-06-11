@@ -118,15 +118,27 @@
 <h2 class="font-headline text-3xl font-bold text-on-surface mb-6 border-b-4 border-surface-container-high pb-2 inline-block">Hunters Login</h2>
 <form method="POST" action="{% url 'login' %}" class="space-y-5">
     {% csrf_token %}
+    {% if error %}
+<div class="bg-error-container text-on-error-container rounded-lg px-4 py-3 text-sm font-medium flex items-center gap-2">
+    <span class="material-symbols-outlined text-base">error</span>
+    {{ error }}
+</div>
+{% endif %}
 <div class="space-y-1">
 <label class="font-label text-[10px] font-bold uppercase tracking-widest text-secondary ml-1">Email</label>
-<input name="email" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary-container text-sm font-medium placeholder:text-outline-variant" placeholder="student@mmu.edu.my" type="email"/>
+<input name="email" value="{{ email_value }}" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary-container text-sm font-medium placeholder:text-outline-variant" placeholder="student@mmu.edu.my" type="email"/>
+{% if email_error %}
+<p class="text-error text-xs mt-1 font-medium">{{ email_error }}</p>
+{% endif %}
 </div>
 <div class="space-y-1">
 <label class="font-label text-[10px] font-bold uppercase tracking-widest text-secondary ml-1">Access Key</label>
-<input name="password" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary-container text-sm font-medium placeholder:text-outline-variant" placeholder="••••••••" type="password"/>
+<input name="password" value="{{ password_value }}" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary-container text-sm font-medium placeholder:text-outline-variant" placeholder="••••••••" type="password"/>
+{% if password_error %}
+<p class="text-error text-xs mt-1 font-medium">{{ password_error }}</p>
+{% endif %}
 <div class="text-right">
-<a class="font-label text-[10px] font-bold uppercase tracking-widest text-primary hover:text-primary-container transition-colors" href="passwordrecovery.html">Forgot Password?</a>
+<a class="font-label text-[10px] font-bold uppercase tracking-widest text-primary hover:text-primary-container transition-colors" href="{% url 'passwordrecovery' %}">Forgot Password?</a>
 </div>
 </div>
 <button class="w-full bg-gradient-to-br from-primary-container to-primary text-on-primary font-headline font-bold py-3 rounded-lg sticker-shadow transform transition-transform active:scale-95 hover:scale-[1.02] mt-4 flex items-center justify-center gap-2" type="submit">

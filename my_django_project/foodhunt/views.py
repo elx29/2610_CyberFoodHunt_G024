@@ -460,10 +460,67 @@ def review_submit(request):
         return redirect("restaurant_detail", restaurant_id=restaurant.restaurant_id)
     return redirect("review_create")
 
-#------Password Recovery (AKISHA)
+#------Password Recovery (AYRA)
 def password_recovery(request):
+    if request.method == 'POST':
+        email = request.POST.get('email', '').strip()
+        user = User.objects.filter(email=email).first()
+        if user:
+            # Store the email in session so change_password can verify identity
+            request.session['recovery_email'] = email
+            return redirect('change_password')
+        # Don't reveal whether the email exists — just show an error
+        return render(request, 'foodhunt/passwordrecovery.html', {
+            'error': 'No account found with that email address.'
+        })
     return render(request, 'foodhunt/passwordrecovery.html')
 
+
+#------Change Password (AYRA)
+def change_password(request):
+    recovery_email = request.session.get('recovery_email')
+    user_id = request.session.get('user_id')
+
+    if not recovery_email and not user_id:
+        return redirect('login')
+
+    if recovery_email:
+        current_user = User.objects.filter(email=recovery_email).first()
+    else:
+        current_user = User.objects.filter(user_id=user_id).first()
+
+    if not current_user:
+        return redirect('login')
+
+    if request.method == 'POST':
+        new_password = request.POST.get('new_password', '')
+        confirm      = request.POST.get('confirm_password', '')
+
+        if len(new_password) < 6:
+            return render(request, 'foodhunt/changepassword.html', {
+                'error': 'New password must be at least 6 characters.',
+                'current_user': current_user,
+            })
+        if new_password != confirm:
+            return render(request, 'foodhunt/changepassword.html', {
+                'error': 'Passwords do not match.',
+                'current_user': current_user,
+            })
+
+        current_user.password = make_password(new_password)
+        current_user.save()
+
+        if recovery_email:
+            del request.session['recovery_email']
+
+        return render(request, 'foodhunt/changepassword.html', {
+            'success': 'Your password has been updated successfully!',
+            'current_user': current_user,
+        })
+
+    return render(request, 'foodhunt/changepassword.html', {
+        'current_user': current_user,
+    })
 
 #------(AYRA) Foodspots — share a new restaurant / food spot
 CUISINE_CHOICES = ["Fast Food", "Western", "Chinese", "Malay", "Indian", "Cafe", "Bubble Tea", "Other"]
