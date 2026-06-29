@@ -461,11 +461,15 @@ def review_create(request, restaurant_id=None, event_id=None):
             selected_restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id_param)
         if event_id_param:
             selected_event = get_object_or_404(Event, event_id=event_id_param)
+        
+    user_id = request.session.get("user_id")
+    current_user = User.objects.filter(user_id=user_id).first() if user_id else None
     
     return render(request, 'foodhunt/review.html', {
         'restaurants': restaurants,
         'selected_restaurant': selected_restaurant,
-        'selected_event': selected_event
+        'selected_event': selected_event,
+        'current_user': current_user,
     })
 
 #------Review Submit (AYRA+ELX): Handle review form submission, limit to 1 review per user per restaurant/event, compulsary photo, rating
