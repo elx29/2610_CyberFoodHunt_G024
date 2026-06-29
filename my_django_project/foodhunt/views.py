@@ -303,18 +303,18 @@ def register(request):
         username = request.POST.get("username")
         email    = request.POST.get("email")
         password = request.POST.get("password")
-        confirm  = request.POST.get("confirm_password")
+        confirm  = request.POST.get("confirm_password") #grabs the input from user
 
-        if not username or not email or not password or not confirm:
+        if not username or not email or not password or not confirm: #error messages for registration
             return render(request, "foodhunt/register.html", {"error": "All fields are required!"})
         if password != confirm:
             return render(request, "foodhunt/register.html", {"error": "Passwords do not match!"})
-        if User.objects.filter(username=username).exists():
+        if User.objects.filter(username=username).exists(): #check if username already exists in database
             return render(request, "foodhunt/register.html", {"error": "Username already taken!"})
-        if User.objects.filter(email=email).exists():
+        if User.objects.filter(email=email).exists(): #check if email already exists in database
             return render(request, "foodhunt/register.html", {"error": "Email already registered!"})
 
-        User.objects.create(
+        User.objects.create( #save to database
             username = username,
             email    = email,
             password = make_password(password),
@@ -324,26 +324,26 @@ def register(request):
 
 #------User Login (AYRA)
 def login_view(request):
-    if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
+    if request.method == "POST": #send email & password to database to check if it exists
+        email = request.POST.get("email") #get email from form
+        password = request.POST.get("password") #get password from form
 
-        user = User.objects.filter(email=email).first()
+        user = User.objects.filter(email=email).first() #check if email exists in database, if yes, grab the first one (should only be 1)
 
-        if user and check_password(password, user.password):
+        if user and check_password(password, user.password): #check if password matches the hashed password in database
             request.session["user_id"] = user.user_id
             request.session["email"] = user.email
             return redirect("home")
 
         return render(request, "foodhunt/login.html", {
-            "error": "Invalid email or password!"
+            "error": "Invalid email or password!" #login error message
         })
 
     return render(request, "foodhunt/login.html")
 
 #------User Logout (AYRA)
 def logout_view(request):
-    request.session.flush()  # Clear all session data
+    request.session.flush()  #Clear all session data
     return redirect('login')
   
 #------Restaurant Detail (AYRA)
@@ -363,11 +363,11 @@ def restaurant_detail(request, restaurant_id):
     current_user = User.objects.get(user_id=user_id) if user_id else None
 
     # Check if logged-in user has bookmarked this restaurant
-    login_user_id = request.session.get("user_id")
-    is_bookmarked = False
-    current_vote = None
+    login_user_id = request.session.get("user_id") 
+    is_bookmarked = False 
+    current_vote = None 
 
-    if login_user_id:
+    if login_user_id: #if user logged in, check if they have bookmarked this restaurant and their vote type
         is_bookmarked = Bookmark.objects.filter(user_id=login_user_id, restaurant=restaurant).exists()
         vote = RestaurantVote.objects.filter(user_id=login_user_id, restaurant=restaurant).first()
         current_vote = vote.vote_type if vote else None
@@ -525,27 +525,27 @@ def review_submit(request):
 #------Password Recovery (AYRA)
 def password_recovery(request):
     if request.method == 'POST':
-        email = request.POST.get('email', '').strip()
-        user = User.objects.filter(email=email).first()
+        email = request.POST.get('email', '').strip() #get email from form
+        user = User.objects.filter(email=email).first() #check if email exists in database, if yes, grab the first one (should only be 1)
         if user:
-            # Store the email in session so change_password can verify identity
-            request.session['recovery_email'] = email
+            request.session['recovery_email'] = email #save email to session for later use in change_password view
             return redirect('change_password')
-        # Don't reveal whether the email exists — just show an error
         return render(request, 'foodhunt/passwordrecovery.html', {
-            'error': 'No account found with that email address.'
+            'error': 'No account found with that email address.' #password recovery error message
         })
     return render(request, 'foodhunt/passwordrecovery.html')
 
 
 #------Change Password (AYRA)
 def change_password(request):
+    #get user info
     recovery_email = request.session.get('recovery_email')
     user_id = request.session.get('user_id')
 
     if not recovery_email and not user_id:
         return redirect('login')
-
+    
+    #find user from database
     if recovery_email:
         current_user = User.objects.filter(email=recovery_email).first()
     else:
@@ -553,30 +553,36 @@ def change_password(request):
 
     if not current_user:
         return redirect('login')
-
+    
+    #get new password
     if request.method == 'POST':
         new_password = request.POST.get('new_password', '')
         confirm      = request.POST.get('confirm_password', '')
 
+        #validation
         if len(new_password) < 6:
             return render(request, 'foodhunt/changepassword.html', {
                 'error': 'New password must be at least 6 characters.',
                 'current_user': current_user,
             })
+        
+        #confirm password
         if new_password != confirm:
             return render(request, 'foodhunt/changepassword.html', {
                 'error': 'Passwords do not match.',
                 'current_user': current_user,
             })
-
+        
+        #save new password to database
         current_user.password = make_password(new_password)
         current_user.save()
 
+        #changepassword reset permission
         if recovery_email:
             del request.session['recovery_email']
 
         return render(request, 'foodhunt/changepassword.html', {
-            'success': 'Your password has been updated successfully!',
+            'success': 'Your password has been updated successfully!', #success message
             'current_user': current_user,
         })
 
@@ -603,22 +609,23 @@ def review_delete(request, review_id):
     return redirect('search')
 
 #------(AYRA) Foodspots — share a new restaurant / food spot
+#dropdown choices
 CUISINE_CHOICES = ["Fast Food", "Western", "Chinese", "Malay", "Indian", "Cafe", "Bubble Tea", "Other"]
 TRANSPORT_CHOICES = ["Walking Distance", "Public Transport", "Grab/Taxi", "Personal Vehicle"]
 
 def foodspot_create(request):
-    user_id = request.session.get("user_id")
+    user_id = request.session.get("user_id") #check if user logged in
     if not user_id:
         return redirect("login")
     """Display the food-spot submission form (GET) and process it (POST)."""
 
-    context = {
+    context = { #display dropdown choices
         "cuisine_choices": CUISINE_CHOICES,
         "transport_choices": TRANSPORT_CHOICES,
     }
 
     if request.method == "POST":
-        # --- collect raw values ---
+        #collect form data
         restaurant_name = request.POST.get("restaurant_name", "").strip()
         cuisine         = request.POST.get("cuisine", "").strip()
         location        = request.POST.get("location", "").strip()
@@ -630,15 +637,16 @@ def foodspot_create(request):
         halal_raw       = request.POST.get("halal", "0")
         min_price_raw   = request.POST.get("min_price", "").strip()
         max_price_raw   = request.POST.get("max_price", "").strip()
-        photo           = request.FILES.get("photo")
+        photo           = request.FILES.get("photo") 
         is_student_promo_raw = request.POST.get("is_student_promo")
         is_student_promo = True if is_student_promo_raw else False
         student_promo_desc = request.POST.get("student_promo_desc", "").strip()
 
         # --- validation ---
-        errors = []
+        errors = [] # error list 
+        #foodspot error message
         if not restaurant_name:
-            errors.append("Restaurant name is required.")
+            errors.append("Restaurant name is required.") 
         if not cuisine or cuisine == "Select cuisine":
             errors.append("Please select a cuisine type.")
         if not location:
@@ -662,7 +670,6 @@ def foodspot_create(request):
         if min_price is not None and max_price is not None and min_price > max_price:
             errors.append("Min price cannot be greater than max price.")
 
-        # --- re-render form with errors & sticky values ---
         if errors:
             context.update({
                 "errors": errors,
@@ -670,9 +677,9 @@ def foodspot_create(request):
             })
             return render(request, "foodhunt/foodspots.html", context)
 
-        # --- save Restaurant ---
+        #save Restaurant
         halal_value = int(halal_raw) if halal_raw in ("0", "1", "2") else 0
-        restaurant = Restaurant.objects.create(
+        restaurant = Restaurant.objects.create( #store restaurant
             restaurant_name = restaurant_name,
             location        = location,
             opening_hours   = opening_hours or None,
@@ -689,10 +696,10 @@ def foodspot_create(request):
             image           = photo,  # Save photo directly to Restaurant
         )
 
-        # --- save Post (links photo + description to the restaurant) ---
-        # Use logged-in user from session, fall back to first user for now
-        current_user = get_object_or_404(User, user_id=user_id)
+        
+        current_user = get_object_or_404(User, user_id=user_id) #who submitted form
 
+        #create a post (overview)
         Post.objects.create(
             user       = current_user,
             restaurant = restaurant,
@@ -716,7 +723,7 @@ def restaurant_delete(request, restaurant_id):
     
     restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
     if request.method == 'POST':
-        restaurant.delete()
+        restaurant.delete() #delete restaurant from database
         return redirect('home')
     return redirect('restaurant_detail', restaurant_id=restaurant_id)
 
@@ -724,11 +731,11 @@ def restaurant_delete(request, restaurant_id):
 def restaurant_edit(request, restaurant_id):
     user_id = request.session.get("user_id")
     if not user_id:
-        return redirect("login")
+        return redirect("login") #if not logged in, redirect to login page
 
-    restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
+    restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id) #find restaurant
 
-    if request.method == 'POST':
+    if request.method == 'POST': #save changes and update fields
         restaurant.restaurant_name = request.POST.get('restaurant_name', restaurant.restaurant_name)
         restaurant.location        = request.POST.get('location', restaurant.location)
         restaurant.cuisine         = request.POST.get('cuisine', restaurant.cuisine)
@@ -747,7 +754,7 @@ def restaurant_edit(request, restaurant_id):
         max_price = request.POST.get('max_price')
         if min_price: restaurant.min_price = int(min_price)
         if max_price: restaurant.max_price = int(max_price)
-        restaurant.save()
+        restaurant.save() #update database with new values
         return redirect('restaurant_detail', restaurant_id=restaurant.restaurant_id)
 
     return render(request, 'foodhunt/foodspots.html', {
@@ -760,10 +767,11 @@ def restaurant_edit(request, restaurant_id):
 # Bookmark List
 def bookmark_list(request):
     user_id = request.session.get("user_id")
-    if not user_id:
+    if not user_id: #makes sure user logged in
         return redirect("login")
-    current_user = get_object_or_404(User, user_id=user_id)
-    bookmarks = Bookmark.objects.filter(user=current_user).select_related("restaurant").order_by("-saved_at")
+    current_user = get_object_or_404(User, user_id=user_id) #find user
+    #get all bookmarked restaurants
+    bookmarks = Bookmark.objects.filter(user=current_user).select_related("restaurant").order_by("-saved_at") #newest first
     return render(request, "foodhunt/bookmark.html", {
         "bookmarks": bookmarks,
         "current_user": current_user,
@@ -774,9 +782,9 @@ def bookmark_toggle(request, restaurant_id):
     user_id = request.session.get("user_id")
     if not user_id:
         return redirect("login")
-    current_user = get_object_or_404(User, user_id=user_id)
-    restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id)
-    existing = Bookmark.objects.filter(user=current_user, restaurant=restaurant).first()
+    current_user = get_object_or_404(User, user_id=user_id) #find user
+    restaurant = get_object_or_404(Restaurant, restaurant_id=restaurant_id) #find restaurant
+    existing = Bookmark.objects.filter(user=current_user, restaurant=restaurant).first() #check if bookmark exists
     if existing:
         existing.delete()
     else:
