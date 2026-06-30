@@ -14,6 +14,7 @@ urlpatterns = [
     path('change-password/', views.change_password, name='change_password'),
     path("userprofile/", views.userprofile, name="userprofile"),
     path('register/', views.register, name='register'),
+    path("profile/<int:user_id>/", views.public_profile, name="public_profile"),
 #event and foodspot
     path("", views.event_list, name="event_list"),
     path("event/<int:event_id>/", views.event_detail, name="event_detail"),

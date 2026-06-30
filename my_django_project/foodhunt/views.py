@@ -175,11 +175,6 @@ def search(request):
     elif price == "$$$":
         restaurants = restaurants.filter(max_price__gte=30, max_price__lte=100)
 
-    #filter by Open Now (AKISHA)
-    open_now = request.GET.get("open_now")
-    if open_now:
-        restaurants = [r for r in restaurants if is_restaurant_open(r.opening_hours)]
-
     #filter for rating (ELX)
     sort_by = request.GET.get("sort", "top_rated")#default sorting is by top rated
 
@@ -202,6 +197,11 @@ def search(request):
 
     elif sort_by == "newest":
         restaurants = restaurants.order_by("-restaurant_id") #newest first based on restaurant_id
+
+    #filter by Open Now (AKISHA)
+    open_now = request.GET.get("open_now")
+    if open_now:
+        restaurants = [r for r in restaurants if is_restaurant_open(r.opening_hours)]
 
     current_user = None
     user_id = request.session.get("user_id")
@@ -295,6 +295,45 @@ def userprofile(request):
         "event_count": event_count,
         "recent_events": recent_events,
         "recent_posts": recent_posts,
+        "is_own_profile": True,  #key flag to indicate this is the user's own profile to differentiate from public profile view
+    })
+
+#public profile for when other user look at other user profile
+def public_profile(request, user_id):
+    profile_user = get_object_or_404(User, user_id=user_id)
+
+    # check if viewing own profile
+    logged_in_id = request.session.get("user_id")
+    is_own_profile = (logged_in_id == profile_user.user_id)
+
+    post_count    = Post.objects.filter(user=profile_user).count()
+    event_count   = Event.objects.filter(user=profile_user).count()
+    today         = timezone.now().date()
+    recent_events = Event.objects.filter(user=profile_user, end_date__gte=today).order_by("-event_id")[:5]
+    recent_posts  = Post.objects.filter(user=profile_user).order_by("-created_at")[:5]
+
+    badges = []
+    if post_count >= 1:
+        badges.append({"name": "Rookie Hunter", "icon": "restaurant",  "desc": "Posted first food spot"})
+    if post_count >= 5:
+        badges.append({"name": "Food Scout",    "icon": "explore",     "desc": "Posted 5 food spots"})
+    if post_count >= 15:
+        badges.append({"name": "Cyber Hunter",  "icon": "swords",      "desc": "Posted 15 food spots"})
+    if post_count >= 30:
+        badges.append({"name": "Legend",        "icon": "crown",       "desc": "Posted 30 food spots"})
+    if event_count >= 1:
+        badges.append({"name": "Event Starter", "icon": "celebration", "desc": "Posted first event"})
+    if event_count >= 5:
+        badges.append({"name": "Detective",     "icon": "search",      "desc": "Posted 5 events"})
+
+    return render(request, "foodhunt/userprofile.html", {
+        "current_user":   profile_user,
+        "badges":         badges,
+        "post_count":     post_count,
+        "event_count":    event_count,
+        "recent_events":  recent_events,
+        "recent_posts":   recent_posts,
+        "is_own_profile": is_own_profile,
     })
 
 #------User Registration (AYRA)
@@ -321,6 +360,7 @@ def register(request):
         )
         return redirect("login")
     return render(request, "foodhunt/register.html")
+
 
 #------User Login (AYRA)
 def login_view(request):
