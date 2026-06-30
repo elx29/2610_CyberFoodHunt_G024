@@ -124,11 +124,12 @@
 </div>
 <div class="flex items-center gap-3">
 </div>
-<a href="{% url 'change_password' %}"
-   class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors font-bold text-sm tracking-wide mr-2">
+{% if is_own_profile %}
+<a href="{% url 'change_password' %}" class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors font-bold text-sm tracking-wide mr-2">
     <span class="material-symbols-outlined text-xl">lock_reset</span>
     Change Password
 </a>
+{% endif %}
 <form method="post" action="{% url 'logout' %}" class="inline">
     {% csrf_token %}
     <button type="submit"
@@ -179,17 +180,20 @@
     <div class="relative">
         <div class="w-32 h-32 md:w-44 md:h-44 bg-surface-container-highest rounded-xl rotate-scrapbook-neg p-1 shadow-lg">
             <div class="w-full h-full bg-white overflow-hidden rounded-lg flex items-center justify-center">
-
+        
             {% if current_user.avatar %}
             <img src="{{ current_user.avatar.url }}" class="w-full h-full object-cover" alt="Profile Picture" />
             {% else %}
-            <span class="material-symbols-outlined text-6xl text-slate-300" style"">person</span>
+            <span class="material-symbols-outlined text-6xl text-slate-300" >person</span>
             {% endif %}
+        
             </div>
         </div>
+        {% if is_own_profile %}
         <label for="profile_pic_input" class="absolute -bottom-2 -right-2 w-10 h-10 bg-[#4F57E1] rounded-full flex items-center justify-center text-white rotate-scrapbook-pos shadow-md cursor-pointer hover:scale-105 transition-transform">
             <span class="material-symbols-outlined text-sm">add_a_photo</span>
         </label>
+        {% endif %}
     </div>
 
     <div class="flex-1 text-center md:text-left mt-4 md:mt-0">
@@ -261,6 +265,7 @@
 </div>
 </div>
 
+{% if is_own_profile %}
 <!-- My Bookmarks preview -->
       <div class="flex flex-col gap-3">
         <div class="flex items-center justify-between px-1">
@@ -296,8 +301,9 @@
         </div>
         {% endif %}
       </div>
-
+{% endif %}
     </div>
+
 
 <!-- Recent Restaurants Feed History -->
 <div class="md:col-span-8 flex flex-col gap-4 relative"> 

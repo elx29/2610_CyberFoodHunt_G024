@@ -123,7 +123,7 @@
 
 <!-- Filter Section wrapped in Django form -->
 <section class="lg:w-80 shrink-0">
-<form method="GET" action="{% url 'search' %}" id="filerForm">
+<form method="GET" action="{% url 'search' %}" id="filterForm">
 
 <div class="mb-6 px-1">
 <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary mb-3 block">Search Restaurant</label>
@@ -154,23 +154,23 @@
 
 <!-- Transport -->
 <div class="mb-8">
-  <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Public Transport</label>
+  <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Ways To Get There</label>
   <div class="space-y-3">
     <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="transport" value="shuttle" {% if request.GET.transport == 'shuttle' %}checked{% endif %}/>
-      <span class="text-sm font-bold font-headline uppercase tracking-wider">MMU Shuttle</span>
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="radio" name="transport" value="Walking distance" {% if request.GET.transport == 'Walking distance' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Walking Distance</span>
     </label>
     <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="transport" value="bus_T505" {% if request.GET.transport == 'bus_T505' %}checked{% endif %}/>
-      <span class="text-sm font-bold font-headline uppercase tracking-wider">Bus T505</span>
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="radio" name="transport" value="Public Transport" {% if request.GET.transport == 'Public Transport' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Public Transport</span>
     </label>
     <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="transport" value="ehailing" {% if request.GET.transport == 'ehailing' %}checked{% endif %}/>
-      <span class="text-sm font-bold font-headline uppercase tracking-wider">E-Hailing</span>
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="radio" name="transport" value="Grab/Taxi" {% if request.GET.transport == 'Grab/Taxi' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Grab/Taxi</span>
     </label>
     <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="transport" value="walking" {% if request.GET.transport == 'walking' %}checked{% endif %}/>
-      <span class="text-sm font-bold font-headline uppercase tracking-wider">Walking</span>
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="radio" name="transport" value="Personal Vehicle" {% if request.GET.transport == 'Personal Vehicle' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Personal Vehicle</span>
     </label>
   </div>
 </div>
@@ -180,31 +180,31 @@
   <label class="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 mb-4 block">Cuisine Type</label>
   <div class="space-y-3">
     <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Fast Food" {% if request.GET.cuisine == 'Fast Food' %}checked{% endif %}/>
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="radio" name="cuisine" value="Fast Food" {% if request.GET.cuisine == 'Fast Food' %}checked{% endif %}/>
       <span class="text-sm font-bold font-headline uppercase tracking-wider">Fast Food</span>
     </label>
     <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Chinese" {% if request.GET.cuisine == 'Chinese' %}checked{% endif %}/>
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="radio" name="cuisine" value="Chinese" {% if request.GET.cuisine == 'Chinese' %}checked{% endif %}/>
       <span class="text-sm font-bold font-headline uppercase tracking-wider">Chinese</span>
     </label>
     <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Malay" {% if request.GET.cuisine == 'Malay' %}checked{% endif %}/>
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="radio" name="cuisine" value="Malay" {% if request.GET.cuisine == 'Malay' %}checked{% endif %}/>
       <span class="text-sm font-bold font-headline uppercase tracking-wider">Malay</span>
     </label>
     <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Indian" {% if request.GET.cuisine == 'Indian' %}checked{% endif %}/>
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="radio" name="cuisine" value="Indian" {% if request.GET.cuisine == 'Indian' %}checked{% endif %}/>
       <span class="text-sm font-bold font-headline uppercase tracking-wider">Indian</span>
     </label>
     <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Arab" {% if request.GET.cuisine == 'Arab' %}checked{% endif %}/>
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="radio" name="cuisine" value="Arab" {% if request.GET.cuisine == 'Arab' %}checked{% endif %}/>
       <span class="text-sm font-bold font-headline uppercase tracking-wider">Arab</span>
     </label>
     <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Western" {% if request.GET.cuisine == 'Western' %}checked{% endif %}/>
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="radio" name="cuisine" value="Western" {% if request.GET.cuisine == 'Western' %}checked{% endif %}/>
       <span class="text-sm font-bold font-headline uppercase tracking-wider">Western</span>
     </label>
     <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
-      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="checkbox" name="cuisine" value="Cafe" {% if request.GET.cuisine == 'Cafe' %}checked{% endif %}/>
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="radio" name="cuisine" value="Cafe" {% if request.GET.cuisine == 'Cafe' %}checked{% endif %}/>
       <span class="text-sm font-bold font-headline uppercase tracking-wider">Cafe</span>
     </label>
   </div>
@@ -240,6 +240,16 @@
 <button type="submit" class="w-full mt-6 py-3 bg-primary text-white font-bold font-headline rounded-xl uppercase tracking-widest text-sm hover:brightness-110 transition-all shadow-lg">
     Apply Filters
 </button>
+
+<!-- Clear Filters -->
+<a href="{% url 'search' %}"
+   class="w-full mt-3 py-3 flex items-center justify-center gap-2
+          bg-red-500 text-white font-bold font-headline
+          rounded-xl uppercase tracking-widest text-sm
+          hover:bg-red-600 transition-all shadow-lg">
+
+    Clear Filters
+</a>
 
 </div>
 </form>
@@ -354,7 +364,7 @@
         }
     });
 
-    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(cb => {
         cb.addEventListener('change', () => cb.closest('form').submit());
     });
 </script>

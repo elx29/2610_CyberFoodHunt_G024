@@ -408,7 +408,7 @@
                                 {% endif %}
                             </div>
                             <div>
-                                <p class="font-bold text-sm">{{ review.user.username }}</p>
+                                <p><a href="{% url 'public_profile' review.user.user_id %}" class="hover:underline"class="font-bold text-sm">{{ review.user.username }}</a></p>
                                 <div class="flex text-primary text-xs">
                                     {% for i in "12345"|make_list %}
                                         <span class="material-symbols-outlined text-[14px]"
