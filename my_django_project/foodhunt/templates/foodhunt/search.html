@@ -207,6 +207,10 @@
       <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="radio" name="cuisine" value="Cafe" {% if request.GET.cuisine == 'Cafe' %}checked{% endif %}/>
       <span class="text-sm font-bold font-headline uppercase tracking-wider">Cafe</span>
     </label>
+      <label class="flex items-center gap-4 bg-white/60 backdrop-blur-sm px-4 py-3 rounded-xl cursor-pointer hover:bg-white transition-all shadow-sm border border-white/50">
+      <input class="rounded text-primary focus:ring-primary w-5 h-5 border-slate-200" type="radio" name="cuisine" value="Other" {% if request.GET.cuisine == 'Other' %}checked{% endif %}/>
+      <span class="text-sm font-bold font-headline uppercase tracking-wider">Other</span>
+    </label>
   </div>
 </div>
 
