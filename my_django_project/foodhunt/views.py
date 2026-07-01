@@ -357,6 +357,7 @@ def register(request):
             username = username,
             email    = email,
             password = make_password(password),
+            is_verified = True
         )
         return redirect("login")
     return render(request, "foodhunt/register.html")

@@ -27,7 +27,7 @@ class EventAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     list_display  = ["review_id", "user", "restaurant", "rating", "created_at"]
     list_filter   = ["rating"]
-    search_fields = ["comment", "user__username"]
+    search_fields = ["user__username"]
 
 @admin.register(Bookmark)
 class BookmarkAdmin(admin.ModelAdmin):

@@ -125,6 +125,7 @@ class User(models.Model):
     email = models.TextField(unique=True)
     password = models.TextField()
     avatar = models.ImageField(upload_to="profile_pics/", blank=True, null=True)
+    is_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username  
