@@ -171,9 +171,9 @@ def search(request):
     if price == "$":
         restaurants = restaurants.filter(max_price__lte=15) #lte= less than or equal to
     elif price == "$$":
-        restaurants = restaurants.filter(max_price__gte=15, max_price__lte=30)
+        restaurants = restaurants.filter(max_price__gte=15, max_price__lte=40)
     elif price == "$$$":
-        restaurants = restaurants.filter(max_price__gte=30, max_price__lte=100)
+        restaurants = restaurants.filter(max_price__gte=40, max_price__lte=100)
 
     #filter for rating (ELX)
     sort_by = request.GET.get("sort", "top_rated")#default sorting is by top rated
@@ -651,8 +651,8 @@ def review_delete(request, review_id):
 
 #------(AYRA) Foodspots — share a new restaurant / food spot
 #dropdown choices
-CUISINE_CHOICES = ["Fast Food", "Western", "Chinese", "Malay", "Indian", "Cafe", "Bubble Tea", "Other"]
-TRANSPORT_CHOICES = ["Walking Distance", "Public Transport", "Grab/Taxi", "Personal Vehicle"]
+CUISINE_CHOICES = ["Fast Food", "Western", "Chinese", "Malay", "Indian", "Arab", "Cafe", "Other"]
+TRANSPORT_CHOICES = ["Walk", "Public Transport", "Drive/E-hailing"]
 
 def foodspot_create(request):
     user_id = request.session.get("user_id") #check if user logged in
